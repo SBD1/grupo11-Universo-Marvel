@@ -1,7 +1,7 @@
 - **Modelos inciais**
 
-- [Modelo Carlos](Módulo 1 - MER/Modelos%20iniciais/ModeloCarlos.md)
-- [Modelo Helena](Módulo 1 - MER/Modelos%20iniciais/ModeloHelena.md)
-- [Modelo Herick](Módulo 1 - MER/Modelos%20iniciais/ModeloHerick.md)
-- [Modelo Julio](Módulo 1 - MER/Modelos%20iniciais/ModeloJulio.md)
-- [Modelo Pedro](Módulo 1 - MER/Modelos%20iniciais/ModeloPedro.md)
+  - [Modelo Carlos](docs/modelos-iniciais/ModeloCarlos.md)
+  - [Modelo Helena](docs/modelos-iniciais/ModeloHelena.md)
+  - [Modelo Herick](docs/modelos-iniciais/ModeloHerick.md)
+  - [Modelo Julio](docs/modelos-iniciais/ModeloJulio.md)
+  - [Modelo Pedro](docs/modelos-iniciais/ModeloPedro.md)
