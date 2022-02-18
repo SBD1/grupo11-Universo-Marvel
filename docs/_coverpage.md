@@ -1,1 +1,0 @@
-<img class='logo' src='./assets/img/logo-marvel.png'>
