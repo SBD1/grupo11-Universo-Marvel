@@ -1,5 +1,7 @@
 # Universo Marvel
 
+![Marvel Image](docs/assets/img/marvel-logo.png)
+
 ## Descrição
 
 Repositório destinado a disciplina de Sistemas de bancos de dados (SBD1)
