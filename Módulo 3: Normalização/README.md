@@ -14,4 +14,4 @@
 
 ### Modelo Relacional não Normalizado
 
-![Modelo relacional após a normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%203:%20Normaliza%C3%A7%C3%A3o/ModeloRelacionalNormal_v1)
+![Modelo relacional após a normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%203:%20Normaliza%C3%A7%C3%A3o/ModeloRelacionalNormal_v1.png)
