@@ -20,7 +20,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Espaço
@@ -32,7 +32,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Obstáculo
@@ -44,7 +44,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Personagem
@@ -56,7 +56,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Héroi
@@ -68,7 +68,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Vilão
@@ -80,7 +80,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Luta
@@ -92,7 +92,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Posse
@@ -104,7 +104,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Recompensa
@@ -116,7 +116,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Imunidade
@@ -128,7 +128,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### ImunidadesVilão
@@ -140,7 +140,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### ImunidadesEquipamento
@@ -152,7 +152,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Troca
@@ -164,7 +164,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Consumo
@@ -176,7 +176,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Rastro
@@ -188,7 +188,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Item
@@ -200,7 +200,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Trocável
@@ -212,7 +212,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Equipamento
@@ -224,7 +224,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Traje
@@ -236,7 +236,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Arma
@@ -248,7 +248,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Consumível
@@ -260,7 +260,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Coletável
@@ -272,7 +272,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Jóia
@@ -284,7 +284,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Moeda
@@ -296,7 +296,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Viagem
@@ -308,7 +308,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Base
@@ -320,7 +320,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Estoque
@@ -332,7 +332,7 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
 
 ### Nível
@@ -344,5 +344,5 @@
 | 1a. FN     | Ok |
 | 2a. FN     | Ok |
 | 3a. FN     | Ok |
-| Boyce Codd | -/- |
+| Boyce Codd | Ok |
 | 4a. FN     | -/- |
