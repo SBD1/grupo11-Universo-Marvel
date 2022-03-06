@@ -18,7 +18,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -30,7 +30,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -42,7 +42,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -54,7 +54,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -66,7 +66,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -78,7 +78,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -90,7 +90,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -102,7 +102,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -114,7 +114,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -126,7 +126,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -138,7 +138,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -150,7 +150,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -162,7 +162,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -174,7 +174,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -186,7 +186,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -198,7 +198,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -210,7 +210,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -222,7 +222,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -234,7 +234,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -246,7 +246,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -258,7 +258,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -270,7 +270,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -282,7 +282,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -294,7 +294,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -306,7 +306,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -318,7 +318,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -330,7 +330,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
@@ -342,7 +342,7 @@
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
 | 1a. FN     | Ok |
-| 2a. FN     | -/- |
+| 2a. FN     | Ok |
 | 3a. FN     | -/- |
 | Boyce Codd | -/- |
 | 4a. FN     | -/- |
