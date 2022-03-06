@@ -6,10 +6,12 @@
 
  - Atributo "Nível" foi removido da Entidade "Herói" pois dependia transitivamente do Atributo "Experiência". (3ª Forma Normal)
 
-### Modelo Relacional não Normalizado
-
-![Modelo relacional antes da normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%202:%20MRel/ModeloRelacional.pdf)
+**As outras formas normais já haviam sido atendidas no modelo relacional do módulo anterior**
 
 ### Modelo Relacional não Normalizado
 
-![Modelo relacional após a normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%203:%20Normaliza%C3%A7%C3%A3o/ModeloRelacionalNormalizado.pdf)
+![Modelo relacional antes da normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%202:%20MRel/ModeloRelacional_v6.png?raw=true)
+
+### Modelo Relacional não Normalizado
+
+![Modelo relacional após a normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%203:%20Normaliza%C3%A7%C3%A3o/ModeloRelacionalNormal_v1)
