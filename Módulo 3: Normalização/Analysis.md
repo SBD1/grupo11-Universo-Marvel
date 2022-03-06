@@ -3,11 +3,11 @@
 ## Legendas
 |   Forma Normal   |  Característica  |    
 |     :---:      |         :---: |
-| 1a. FN   | Atomicidade, monovaloração  { não há relações aninhadas }   | 
-| 2a. FN     | 1a. FN e ausência de dependências parciais   | 
-| 3a. FN   | 2a.FN e ausência de dependências transitivas |
-| Boyce Codd  | A esquerda de toda df é chave candidata |
-| 4a. FN    | A esquerda de toda dm é chave candidata |
+| 1a. FN   | Todos os atributos são *Monovalorados* e *Atômicos (não há relações aninhadas)*   | 
+| 2a. FN     | Está na 1a. FN e atributos comuns não dependem parcialmente de qualquer chave | 
+| 3a. FN   | Está na 2a. Forma Normal e atributos comuns não dependem transitivamente de qualquer superchave |
+| Boyce Codd  | Toda dependência funcional XA, X é uma chave candidata |
+| 4a. FN    | Relação R está na quarta forma normal se para todas as dependências multivaloradas não triviais AB, A é uma chave candidata (além de já satisfazer a FNBC) |
 
 ## Modelos
 
