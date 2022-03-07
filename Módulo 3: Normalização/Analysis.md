@@ -1,6 +1,8 @@
 # Análise das Relações
 
 ## Legendas
+
+### Formas
 |   Forma Normal   |  Característica  |    
 |     :---:      |         :---: |
 | 1a. FN     | Todos os atributos são *Monovalorados* e *Atômicos (não há relações aninhadas)*   | 
@@ -9,7 +11,15 @@
 | Boyce Codd | Toda dependência funcional XA, X é uma chave candidata |
 | 4a. FN     | Relação R está na quarta forma normal se para todas as dependências multivaloradas não triviais AB, A é uma chave candidata (além de já satisfazer a FNBC) |
 
-## Modelos
+### Relacional
+|   Tipo  |  Característica  |    
+|     :---:      |         :---: |
+| Chave primária | <ins>Chave primária</ins> |
+| Chave secundária | <ins>~~Chave secundária~~</ins> |
+| Chave estrangeira | **Chave estrangeira** |
+| Atributo especializante | *Chave estrangeira* |
+
+## Relações
 
 ### Mapa
 
