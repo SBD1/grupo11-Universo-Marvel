@@ -15,15 +15,15 @@
 |   Tipo  |  Característica  |    
 |     :---:      |         :---: |
 | Chave primária | <ins>Chave primária</ins> |
-| Chave secundária | <ins>~~Chave secundária~~</ins> |
+| Chave secundária | ~~Chave secundária~~ |
 | Chave estrangeira | **Chave estrangeira** |
 | Atributo especializante | *Chave estrangeira* |
 
 ## Relações
-
+<ins></ins>
 ### Mapa
 
-- Mapa { Id, Nome, Ano, Planeta, ItemRequisito }
+- Mapa { <ins>Id</ins>, Nome, Ano, Planeta, ItemRequisito }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -35,7 +35,7 @@
 
 ### Espaço
 
-- Espaço { Latitude, Longitude, Obstáculo, Mapa }
+- Espaço { <ins>Latitude</ins>, <ins>Longitude</ins>, Obstáculo, Mapa }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -47,7 +47,7 @@
 
 ### Obstáculo
 
-- Obstáculo { Descrição }
+- Obstáculo { <ins>Descrição</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -59,7 +59,7 @@
 
 ### Personagem
 
-- Personagem { Id, Tipo }
+- Personagem { <ins>Id</ins>, Tipo }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -71,7 +71,7 @@
 
 ### Héroi
 
-- Héroi { Id, Nome, AgilidadeBase, VidaBase, Vida, Experiência, Espaço, Nível }
+- Héroi { <ins>Id</ins>, Nome, AgilidadeBase, VidaBase, Vida, Experiência, Espaço, Nível }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -83,7 +83,7 @@
 
 ### Vilão
 
-- Vilão { Id, Nome, Agilidade, Vida, VidaMáxima, Experiência, DanoMáximo, DanoCrítico, Rolagens, Defesa, Espaço }
+- Vilão { <ins>Id</ins>, Nome, Agilidade, Vida, VidaMáxima, Experiência, DanoMáximo, DanoCrítico, Rolagens, Defesa, Espaço }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -95,7 +95,7 @@
 
 ### Luta
 
-- Luta { Id, Herói, Vilão }
+- Luta { <ins>Id</ins>, Herói, Vilão }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -107,7 +107,7 @@
 
 ### Posse
 
-- Posse { Item, Herói, Quantidade }
+- Posse { <ins>Item</ins>, <ins>Herói</ins>, Quantidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -119,7 +119,7 @@
 
 ### Recompensa
 
-- Recompensa { Item, Vilão, Quantidade }
+- Recompensa { <ins>Item</ins>, <ins>Vilão</ins>, Quantidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -131,7 +131,7 @@
 
 ### Imunidade
 
-- Imunidade { Nome, Descrição }
+- Imunidade { <ins>Nome</ins>, Descrição }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -143,7 +143,7 @@
 
 ### ImunidadesVilão
 
-- ImunidadesVilão { Vilão, Imunidade }
+- ImunidadesVilão { <ins>Vilão</ins>, <ins>Imunidade</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -155,7 +155,7 @@
 
 ### ImunidadesEquipamento
 
-- ImunidadesEquipamento { Equipamento, Imunidade }
+- ImunidadesEquipamento { <ins>Equipamento</ins>, Imunidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -167,7 +167,7 @@
 
 ### Troca
 
-- Troca { Id, Item, QuantidadeItem, QuantidadeMoeda, Base, Herói }
+- Troca { <ins>Id</ins>, Item, QuantidadeItem, QuantidadeMoeda, Base, Herói }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -179,7 +179,7 @@
 
 ### Consumo
 
-- Consumo { Id, Herói, Consumível }
+- Consumo { <ins>Id</ins>, Herói, Consumível }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -191,7 +191,7 @@
 
 ### Rastro
 
-- Rastro { Id, Espaço, Herói }
+- Rastro { <ins>Id</ins>, Espaço, Herói }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -203,7 +203,7 @@
 
 ### Item
 
-- Item { Id, Tipo }
+- Item { <ins>Id</ins>, Tipo }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -215,7 +215,7 @@
 
 ### Trocável
 
-- Trocável { Id, Tipo }
+- Trocável { <ins>Id</ins>, Tipo }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -227,7 +227,7 @@
 
 ### Equipamento
 
-- Equipamento { Id, Tipo }
+- Equipamento { <ins>Id</ins>, Tipo }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -239,7 +239,7 @@
 
 ### Traje
 
-- Traje { Id, Nome, Descrição, QuantidadeMáxima, Valor, Integridade, NívelMínimo, Defesa, Agilidade }
+- Traje { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Valor, Integridade, NívelMínimo, Defesa, Agilidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -251,7 +251,7 @@
 
 ### Arma
 
-- Arma { Id, Nome, Descrição, QuantidadeMáxima, Valor, Integridade, NívelMínimo, DanoMáximo, DanoCrítico, Rolagens }
+- Arma { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Valor, Integridade, NívelMínimo, DanoMáximo, DanoCrítico, Rolagens }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -263,7 +263,7 @@
 
 ### Consumível
 
-- Consumível { Id, Nome, Descrição, QuantidadeMáxima, Valor, Efeito, Grau, Duração, Cooldown }
+- Consumível { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Valor, Efeito, Grau, Duração, Cooldown }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -275,7 +275,7 @@
 
 ### Coletável
 
-- Coletável { Id, Tipo }
+- Coletável { <ins>Id</ins>, Tipo }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -287,7 +287,7 @@
 
 ### Jóia
 
-- Jóia { Id, Nome, Descrição, QuantidadeMáxima, Efeito, Grau, Espaço }
+- Jóia { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Efeito, Grau, Espaço }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -299,7 +299,7 @@
 
 ### Moeda
 
-- Moeda { Id, Nome, Descrição, QuantidadeMáxima }
+- Moeda { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -311,7 +311,7 @@
 
 ### Viagem
 
-- Viagem { Id, BaseOrigem, MapaDestino, Herói }
+- Viagem { <ins>Id</ins>, BaseOrigem, MapaDestino, Herói }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -323,7 +323,7 @@
 
 ### Base
 
-- Base { Mapa, Espaço }
+- Base { <ins>Mapa</ins>, <ins>Espaço</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -335,7 +335,7 @@
 
 ### Estoque
 
-- Estoque { Base, Trocável, Quantidade }
+- Estoque { <ins>Base</ins>, Trocável, Quantidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -347,7 +347,7 @@
 
 ### Nível
 
-- Nível { Número, ExperiênciaNecessária, EscalaVida, EscalaAgilidade, EscalaDano }
+- Nível { <ins>Número</ins>, ExperiênciaNecessária, EscalaVida, EscalaAgilidade, EscalaDano }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
