@@ -165,6 +165,18 @@
 | Boyce Codd | Ok |
 | 4a. FN     | Ok |
 
+### EfeitosArma
+
+- EfeitosVilão { <ins>**Arma**</ins>, <ins>**Efeito**</ins> }
+
+| Forma      | Ok/Não Ok |
+| ---------- | -----:|
+| 1a. FN     | Ok |
+| 2a. FN     | Ok |
+| 3a. FN     | Ok |
+| Boyce Codd | Ok |
+| 4a. FN     | Ok |
+
 ### Imunidade
 
 - Imunidade { <ins>Nome</ins>, Descrição }
@@ -189,9 +201,9 @@
 | Boyce Codd | Ok |
 | 4a. FN     | Ok |
 
-### ImunidadesEquipamento
+### ImunidadesTraje
 
-- ImunidadesEquipamento { <ins>Equipamento</ins>, Imunidade }
+- ImunidadesTraje { <ins>Traje</ins>, Imunidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -203,7 +215,7 @@
 
 ### Troca
 
-- Troca { <ins>Id</ins>, Item, QuantidadeItem, QuantidadeMoeda, Base, Herói }
+- Troca { <ins>Id</ins>, **Item**, QuantidadeItem, VendaOuCompra, **Base**, **Herói** }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -215,7 +227,7 @@
 
 ### Consumo
 
-- Consumo { <ins>Id</ins>, Herói, Consumível }
+- Consumo { <ins>**Herói**</ins>, <ins>**Consumível**</ins>, Vezes }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -227,7 +239,7 @@
 
 ### Rastro
 
-- Rastro { <ins>Id</ins>, Espaço, Herói }
+- Rastro { <ins>Id</ins>, **Espaço**, **Herói** }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -299,7 +311,7 @@
 
 ### Consumível
 
-- Consumível { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Valor, Efeito, Grau, Duração, Cooldown }
+- Consumível { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Valor, **Efeito**, Grau, Duração, Cooldown }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -323,7 +335,7 @@
 
 ### Jóia
 
-- Jóia { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, Efeito, Grau, Espaço }
+- Jóia { <ins>Id</ins>, Nome, Descrição, QuantidadeMáxima, **Efeito**, Grau, Espaço }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -345,9 +357,21 @@
 | Boyce Codd | Ok |
 | 4a. FN     | Ok |
 
+### Efeito
+
+- Viagem { <ins>Nome</ins>, Descrição }
+
+| Forma      | Ok/Não Ok |
+| ---------- | -----:|
+| 1a. FN     | Ok |
+| 2a. FN     | Ok |
+| 3a. FN     | Ok |
+| Boyce Codd | Ok |
+| 4a. FN     | Ok |
+
 ### Viagem
 
-- Viagem { <ins>Id</ins>, BaseOrigem, MapaDestino, Herói }
+- Viagem { <ins>Id</ins>, **Origem**, **Destino**, **Herói** }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -359,7 +383,7 @@
 
 ### Base
 
-- Base { <ins>Mapa</ins>, <ins>Espaço</ins> }
+- Base { <ins>**Espaço**</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -371,7 +395,7 @@
 
 ### Estoque
 
-- Estoque { <ins>Base</ins>, Trocável, Quantidade }
+- Estoque { <ins>**Base**</ins>, <ins>**Item**</ins>, Quantidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -384,6 +408,18 @@
 ### Nível
 
 - Nível { <ins>Número</ins>, ExperiênciaNecessária, EscalaVida, EscalaAgilidade, EscalaDano }
+
+| Forma      | Ok/Não Ok |
+| ---------- | -----:|
+| 1a. FN     | Ok |
+| 2a. FN     | Ok |
+| 3a. FN     | Ok |
+| Boyce Codd | Ok |
+| 4a. FN     | Ok |
+
+### AcessoEquipamento
+
+- Nível { <ins>**Equipamento**</ins>, <ins>**Herói**</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
