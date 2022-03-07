@@ -20,10 +20,22 @@
 | Atributo especializante | *Chave estrangeira* |
 
 ## Relações
-<ins></ins>
+
 ### Mapa
 
-- Mapa { <ins>Id</ins>, Nome, Ano, Planeta, ItemRequisito }
+- Mapa { <ins>Id</ins>, Nome, Ano, **Requisito** }
+
+| Forma      | Ok/Não Ok |
+| ---------- | -----:|
+| 1a. FN     | Ok |
+| 2a. FN     | Ok |
+| 3a. FN     | Ok |
+| Boyce Codd | Ok |
+| 4a. FN     | Ok |
+
+### Planeta
+
+- Planeta { <ins>**Mapa**</ins>, Planeta }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -35,7 +47,7 @@
 
 ### Espaço
 
-- Espaço { <ins>Latitude</ins>, <ins>Longitude</ins>, Obstáculo, Mapa }
+- Espaço { <ins>Latitude</ins>, <ins>Longitude</ins>, **Mapa**, **Obstáculo**  }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -71,7 +83,7 @@
 
 ### Héroi
 
-- Héroi { <ins>Id</ins>, Nome, AgilidadeBase, VidaBase, Vida, Experiência, Espaço, Nível }
+- Héroi { <ins>Id</ins>, Nome, AgilidadeBase, VidaBase, Vida, Experiência, **Espaço**, **Traje**, **Arma** }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -83,7 +95,7 @@
 
 ### Vilão
 
-- Vilão { <ins>Id</ins>, Nome, Agilidade, Vida, VidaMáxima, Experiência, DanoMáximo, DanoCrítico, Rolagens, Defesa, Espaço }
+- Vilão { <ins>Id</ins>, Nome, Agilidade, Vida, Experiência, DanoMáximo, DanoCrítico, Rolagens, Defesa, **Espaço** }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -95,7 +107,19 @@
 
 ### Luta
 
-- Luta { <ins>Id</ins>, Herói, Vilão }
+- Luta { <ins>**Herói**</ins>, <ins>**Vilão**</ins> }
+
+| Forma      | Ok/Não Ok |
+| ---------- | -----:|
+| 1a. FN     | Ok |
+| 2a. FN     | Ok |
+| 3a. FN     | Ok |
+| Boyce Codd | Ok |
+| 4a. FN     | Ok |
+
+### EfeitosLuta
+
+- EfeitosLuta { <ins>**Luta**</ins>, <ins>**Efeito**</ins>, <ins>**Personagem**</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -107,7 +131,7 @@
 
 ### Posse
 
-- Posse { <ins>Item</ins>, <ins>Herói</ins>, Quantidade }
+- Posse { <ins>**Item**</ins>, <ins>**Herói**</ins>, Quantidade }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -119,7 +143,19 @@
 
 ### Recompensa
 
-- Recompensa { <ins>Item</ins>, <ins>Vilão</ins>, Quantidade }
+- Recompensa { <ins>**Item**</ins>, <ins>**Vilão**</ins>, Quantidade }
+
+| Forma      | Ok/Não Ok |
+| ---------- | -----:|
+| 1a. FN     | Ok |
+| 2a. FN     | Ok |
+| 3a. FN     | Ok |
+| Boyce Codd | Ok |
+| 4a. FN     | Ok |
+
+### EfeitosVilão
+
+- EfeitosVilão { <ins>**Vilão**</ins>, <ins>**Efeito**</ins> }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
