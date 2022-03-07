@@ -71,7 +71,7 @@
 
 ### Personagem
 
-- Personagem { <ins>Id</ins>, Tipo }
+- Personagem { <ins>Id</ins>, *Tipo* }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -251,7 +251,7 @@
 
 ### Item
 
-- Item { <ins>Id</ins>, Tipo }
+- Item { <ins>Id</ins>, *Tipo* }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -263,7 +263,7 @@
 
 ### Trocável
 
-- Trocável { <ins>Id</ins>, Tipo }
+- Trocável { <ins>Id</ins>, *Tipo* }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -275,7 +275,7 @@
 
 ### Equipamento
 
-- Equipamento { <ins>Id</ins>, Tipo }
+- Equipamento { <ins>Id</ins>, *Tipo* }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
@@ -323,7 +323,7 @@
 
 ### Coletável
 
-- Coletável { <ins>Id</ins>, Tipo }
+- Coletável { <ins>Id</ins>, *Tipo* }
 
 | Forma      | Ok/Não Ok |
 | ---------- | -----:|
