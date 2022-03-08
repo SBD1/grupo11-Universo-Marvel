@@ -28,5 +28,5 @@
 
   - [Analysis](Modulo3-Normalizacao/Analysis.md)
   - [Dependências Funcionais](Modulo3-Normalizacao/DF.md)
-  - [Modelo Relacional Normal](Modulo3-Normalizacao/ModeloRelacionalNormal_v1.png)
+  - [Modelo Relacional Normal](docs/NORM/modelo_relacional_normal.md)
   - [Visão Geral](Modulo3-Normalizacao/README.md)
