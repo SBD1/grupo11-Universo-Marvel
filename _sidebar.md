@@ -24,4 +24,9 @@
   - [Versão 4](docs/MREL/v4.md)
   - [Versão 5](docs/MREL/v5.md)
 
+- **Normalização**
 
+  - [Analysis](Modulo3-Normalizacao/Analysis.md)
+  - [Dependências Funcionais](Modulo3-Normalizacao/DF.md)
+  - [Modelo Relacional Normal](Modulo3-Normalizacao/ModeloRelacionalNormal_v1.png)
+  - [Visão Geral](Modulo3-Normalizacao/README.md)
