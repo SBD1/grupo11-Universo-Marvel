@@ -10,8 +10,8 @@
 
 ### Modelo Relacional não Normalizado
 
-![Modelo relacional antes da normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%202:%20MRel/ModeloRelacional_v6.png?raw=true)
+![Modelo relacional antes da normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/Modulo2-MRel/ModeloRelacional_v6.png?raw=true)
 
 ### Modelo Relacional Normalizado
 
-![Modelo relacional após a normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/M%C3%B3dulo%203:%20Normaliza%C3%A7%C3%A3o/ModeloRelacionalNormal_v1.png)
+![Modelo relacional após a normalização](https://github.com/SBD1/grupo11-Universo-Marvel/blob/norm/Modulo3-Normalizacao/ModeloRelacionalNormal_v1.png?raw=true)
