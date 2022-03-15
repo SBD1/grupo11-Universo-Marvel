@@ -1,37 +1,25 @@
-INSERT INTO Efeito (Nome, Descricao) VALUES ('Fogo', 'Queima');
+INSERT INTO Item (Tipo) VALUES
+('J');
+INSERT INTO Coletavel (Id, Tipo) VALUES
+(currval('item_id_seq'), 'J');
+INSERT INTO Joia (Id, Nome, Descricao) VALUES
+(currval('item_id_seq'), 'Jóia do Tempo', 'Permite viagem a outras épocas.');
 
+INSERT INTO Mapa (Nome, Ano, Altura, Largura, Requisito) VALUES
+('Nova Iorque', 2022, 10, 5, NULL),
+('Nova Iorque', 1984, 10, 5, currval('item_id_seq'));
 
+INSERT INTO Personagem (Tipo) VALUES
+('H');
+INSERT INTO Heroi (Id, Nome, AgilidadeBase, VidaBase, Latitude, Longitude, Mapa) VALUES
+(currval('personagem_id_seq'), 'Homem-Aranha', 50, 100, 6, 2, 1);
 
-INSERT INTO Item (Tipo) 
-VALUES ('M');
+INSERT INTO Personagem (Tipo) VALUES
+('H');
+INSERT INTO Heroi (Id, Nome, AgilidadeBase, VidaBase, Latitude, Longitude, Mapa) VALUES
+(currval('personagem_id_seq'), 'Capitão América', 25, 150, 7, 3, 2);
 
-INSERT INTO Coletavel (Id, Tipo) 
-VALUES (currval('item_id_seq'), 'M');
-
-INSERT INTO Moeda (Id, Nome, Descricao)
-VALUES (currval('item_id_seq'), 'Moeda', 'Pode ser trocada por items');
-
-
-
-INSERT INTO Item (Tipo) 
-VALUES ('C');
-
-INSERT INTO Trocavel (Id, Tipo) 4
-VALUES (currval('item_id_seq'), 'C');
-
-INSERT INTO Consumivel (Id, Nome, Descricao, Quantidade_Maxima, Valor, Efeito, Grau, Duracao, Cooldown) 
-VALUES (currval('item_id_seq'), 'Molotov', 'Coquetel incendiário', 10, 100, 'Fogo', 15, 5, 2);
-
-
-
-INSERT INTO Item (Tipo) 
-VALUES ('A');
-
-INSERT INTO Trocavel (Id, Tipo) 
-VALUES (currval('item_id_seq'), 'A');
-
-INSERT INTO Equipamento (Id, Tipo) 
-VALUES (currval('item_id_seq'), 'A');
-
-INSERT INTO Arma (Id, Nome, Descricao, Quantidade_Maxima, Valor, Nivel_Minimo, Dano_Maximo, Dano_Critico, Rolagens)
-VALUES (currval('item_id_seq'), 'Mjölnir', 'Martelo do Thor', 1, 1500, 1, 50, 150, 5);
+INSERT INTO Personagem (Tipo) VALUES
+('V');
+INSERT INTO Vilao (Id, Nome, Agilidade, Vida, Experiencia, Dano_Maximo, Dano_Critico, Rolagens, Defesa, Latitude, Longitude, Mapa) VALUES
+(currval('personagem_id_seq'), 'Duende Verde', 35, 120, 200, 15, 200, 5, 15, 8, 3, 1);
