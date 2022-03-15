@@ -1,0 +1,19 @@
+DROP TABLE Efeito;
+DROP TABLE Item;
+DROP TABLE Trocavel;
+DROP TABLE Equipamento;
+DROP TABLE Coletavel;
+DROP TABLE Traje;
+DROP TABLE Arma;
+DROP TABLE Consumivel;
+DROP TABLE Joia;
+DROP TABLE Moeda;
+DROP TABLE Mapa;
+DROP TABLE Obstaculo;
+DROP TABLE Espaco;
+DROP TABLE Personagem;
+DROP TABLE Heroi;
+DROP TABLE Vilao;
+
+DROP DOMAIN positive_integer;
+DROP DOMAIN non_negative_integer;
