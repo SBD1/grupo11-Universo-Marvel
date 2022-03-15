@@ -6,8 +6,9 @@ CREATE DATABASE sbd_marvel;
 
 CREATE DOMAIN positive_integer integer CHECK (VALUE > 0);
 
+
 CREATE TABLE Efeito (
-    Nome varchar,
+    Nome varchar UNIQUE NOT NULL,
     Descricao varchar,
 
     PRIMARY KEY (Nome)
@@ -22,32 +23,35 @@ CREATE TABLE Item (
 );
 
 CREATE TABLE Trocavel (
-    Id serial,
+    Id integer,
     Tipo char NOT NULL,
 
     PRIMARY KEY (Id),
+    FOREIGN KEY (Id) REFERENCES Item (Id),
     CHECK (Tipo IN ('T', 'A', 'C'))
 );
 
 CREATE TABLE Equipamento (
-    Id serial,
+    Id integer,
     Tipo char NOT NULL,
 
     PRIMARY KEY (Id),
+    FOREIGN KEY (Id) REFERENCES Trocavel (Id),
     CHECK (Tipo IN ('T', 'A'))
 );
 
 CREATE TABLE Coletavel (
-    Id serial,
+    Id integer,
     Tipo char NOT NULL,
 
     PRIMARY KEY (Id),
+    FOREIGN KEY (Id) REFERENCES Item (Id),
     CHECK (Tipo IN ('J', 'M'))
 );
 
 CREATE TABLE Traje (
-    Id serial,
-    Nome varchar NOT NULL,
+    Id integer,
+    Nome varchar UNIQUE NOT NULL,
     Descricao varchar NOT NULL,
     Quantidade_Maxima positive_integer,
     Valor positive_integer NOT NULL,
@@ -56,12 +60,12 @@ CREATE TABLE Traje (
     Agilidade positive_integer NOT NULL,
     
     PRIMARY KEY (Id),
-    UNIQUE (Nome)
+    FOREIGN KEY (Id) REFERENCES Equipamento (Id)
 );
 
 CREATE TABLE Arma (
-    Id serial,
-    Nome varchar NOT NULL,
+    Id integer,
+    Nome varchar UNIQUE NOT NULL,
     Descricao varchar NOT NULL,
     Quantidade_Maxima positive_integer,
     Valor positive_integer NOT NULL,
@@ -71,12 +75,12 @@ CREATE TABLE Arma (
     Rolagens positive_integer NOT NULL,
     
     PRIMARY KEY (Id),
-    UNIQUE (Nome)
+    FOREIGN KEY (Id) REFERENCES Arma (Id)
 );
 
 CREATE TABLE Consumivel (
-    Id serial,
-    Nome varchar NOT NULL,
+    Id integer,
+    Nome varchar UNIQUE NOT NULL,
     Descricao varchar NOT NULL,
     Quantidade_Maxima positive_integer,
     Valor positive_integer NOT NULL,
@@ -86,26 +90,26 @@ CREATE TABLE Consumivel (
     Cooldown positive_integer NOT NULL,
     
     PRIMARY KEY (Id),
-    FOREIGN KEY (Efeito) REFERENCES Efeito (Nome),
-    UNIQUE (Nome)
+    FOREIGN KEY (Id) REFERENCES Trocavel (Id),
+    FOREIGN KEY (Efeito) REFERENCES Efeito (Nome)
 );
 
 CREATE TABLE Joia (
-    Id serial,
-    Nome varchar NOT NULL,
+    Id integer,
+    Nome varchar UNIQUE NOT NULL,
     Descricao varchar NOT NULL,
     Quantidade_Maxima positive_integer,
 
     PRIMARY KEY (Id),
-    UNIQUE (Nome)
+    FOREIGN KEY (Id) REFERENCES Coletavel (Id)
 );
 
 CREATE TABLE Moeda (
-    Id serial,
-    Nome char(5) NOT NULL,
+    Id integer,
+    Nome char(5) UNIQUE NOT NULL,
     Descricao char(38) NOT NULL,
 
     PRIMARY KEY (Id),
-    UNIQUE (Nome),
-    CHECK (Id = 1)
+    FOREIGN KEY (Id) REFERENCES Coletavel (Id),
+    CHECK (Nome = 'Moeda')
 );
