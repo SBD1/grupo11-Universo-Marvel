@@ -129,7 +129,7 @@ CREATE TABLE instancia_heroi (
   id SERIAL PRIMARY KEY,
   heroi TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
-  experiencia NON_NEGATIVE_INT NOT NULL,
+  experiencia NON_NEGATIVE_INT NOT NULL DEFAULT 0,
   traje TEXT, 
   arma TEXT, 
   latitude NON_NEGATIVE_INT NOT NULL,
@@ -149,7 +149,14 @@ CREATE TABLE item (
 
 -- CREATE TABLE luta ();
 
--- CREATE TABLE mapa ();
+CREATE TABLE mapa (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  ano NON_NEGATIVE_INT NOT NULL,
+  requisito TEXT,
+
+  UNIQUE (nome, ano)
+);
 
 -- CREATE TABLE moeda ();
 
@@ -196,6 +203,8 @@ ALTER TABLE base ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (
 -- ALTER TABLE efeito_vilao ADD FOREIGN KEY () REFERENCES  ();
 
 -- ALTER TABLE equipamento ADD FOREIGN KEY () REFERENCES  ();
+
+ALTER TABLE espaco ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 -- ALTER TABLE estoque ADD FOREIGN KEY () REFERENCES  ();
 
