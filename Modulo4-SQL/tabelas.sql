@@ -21,7 +21,7 @@ CREATE TABLE acesso_equipamento (
 );
 
 CREATE TABLE arma (
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   descricao TEXT NOT NULL,
   quantidade_maxima POSITIVE_INT,
   valor POSITIVE_INT NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE arma (
 );
 
 CREATE TABLE base (
-  id SERIAL UNIQUE NOT NULL,
+  id SERIAL NOT NULL,
   latitude NON_NEGATIVE_INT NOT NULL,
   longitude NON_NEGATIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE base (
 );
 
 CREATE TABLE coletavel (
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   tipo CHAR NOT NULL,
 
   PRIMARY KEY (nome),
@@ -51,7 +51,7 @@ CREATE TABLE coletavel (
 );
 
 CREATE TABLE consumivel (
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   descricao TEXT NOT NULL,
   quantidade_maxima POSITIVE_INT,
   valor POSITIVE_INT NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE consumo (
 );
 
 CREATE TABLE efeito (
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
 
   PRIMARY KEY (nome)
 );
@@ -92,7 +92,7 @@ CREATE TABLE efeito_vilao (
 );
 
 CREATE TABLE equipamento (
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   tipo CHAR NOT NULL,
 
   PRIMARY KEY (nome),
@@ -116,7 +116,7 @@ CREATE TABLE estoque (
 );
 
 CREATE TABLE heroi (
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   agilidade POSITIVE_INT NOT NULL,
   vida POSITIVE_INT NOT NULL,
 
@@ -138,7 +138,7 @@ CREATE TABLE imunidade_vilao (
 );
 
 CREATE TABLE instancia_heroi (
-  id SERIAL UNIQUE NOT NULL,
+  id SERIAL NOT NULL,
   heroi TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
   experiencia NON_NEGATIVE_INT NOT NULL,
@@ -152,11 +152,12 @@ CREATE TABLE instancia_heroi (
 );
 
 CREATE TABLE item (
-  id SERIAL UNIQUE NOT NULL,
-  nome TEXT UNIQUE NOT NULL,
+  id SERIAL NOT NULL,
+  nome TEXT NOT NULL,
   tipo CHAR NOT NULL,
 
   PRIMARY KEY (nome),
+  UNIQUE (id),
   CHECK (tipo IN ('T', 'A', 'C', 'J', 'M'))
 );
 
