@@ -1,5 +1,17 @@
+-- Criando e Conectando ao Banco de Dados
+
+DROP DATABASE IF EXISTS sbd_marvel;
+
+CREATE DATABASE sbd_marvel;
+
+\connect sbd_marvel;
+
+-- Criando Domínios
+
 CREATE DOMAIN POSITIVE_INT INTEGER CHECK (VALUE > 0);
 CREATE DOMAIN NON_NEGATIVE_INT INTEGER CHECK (VALUE >= 0);
+
+-- Criando Tabelas
 
 CREATE TABLE acesso_equipamento (
   equipamento TEXT NOT NULL,
@@ -25,10 +37,9 @@ CREATE TABLE base (
   id SERIAL UNIQUE NOT NULL,
   latitude NON_NEGATIVE_INT NOT NULL,
   longitude NON_NEGATIVE_INT NOT NULL,
-  nome_mapa TEXT NOT NULL,
-  ano_mapa TEXT NOT NULL,
+  mapa INTEGER NOT NULL,
 
-  PRIMARY KEY (latitude, longitude, nome_mapa, ano_mapa)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE coletavel (
@@ -37,7 +48,7 @@ CREATE TABLE coletavel (
 
   PRIMARY KEY (nome),
   CHECK (tipo IN ('J', 'M'))
-)
+);
 
 CREATE TABLE consumivel (
   nome TEXT UNIQUE NOT NULL,
@@ -62,7 +73,6 @@ CREATE TABLE consumo (
 
 CREATE TABLE efeito (
   nome TEXT UNIQUE NOT NULL,
-  descricao TEXT UNIQUE NOT NULL,
 
   PRIMARY KEY (nome)
 );
@@ -87,6 +97,14 @@ CREATE TABLE equipamento (
 
   PRIMARY KEY (nome),
   CHECK (tipo IN ('T', 'A'))
+);
+
+CREATE TABLE espaco (
+  latitude POSITIVE_INT NOT NULL,
+  longitude POSITIVE_INT NOT NULL,
+  mapa INTEGER NOT NULL,
+
+  PRIMARY KEY (latitude, longitude, mapa)
 );
 
 CREATE TABLE estoque (
@@ -119,6 +137,20 @@ CREATE TABLE imunidade_vilao (
   PRIMARY KEY (vilao, efeito)
 );
 
+CREATE TABLE instancia_heroi (
+  id SERIAL UNIQUE NOT NULL,
+  heroi TEXT NOT NULL,
+  vida NON_NEGATIVE_INT NOT NULL,
+  experiencia NON_NEGATIVE_INT NOT NULL,
+  traje TEXT, 
+  arma TEXT, 
+  latitude NON_NEGATIVE_INT NOT NULL,
+  longitude NON_NEGATIVE_INT NOT NULL,
+  mapa INTEGER NOT NULL,
+
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE item (
   id SERIAL UNIQUE NOT NULL,
   nome TEXT UNIQUE NOT NULL,
@@ -128,45 +160,91 @@ CREATE TABLE item (
   CHECK (tipo IN ('T', 'A', 'C', 'J', 'M'))
 );
 
-CREATE TABLE joia ();
-CREATE TABLE luta ();
-CREATE TABLE mapa ();
-CREATE TABLE moeda ();
-CREATE TABLE nivel ();
-CREATE TABLE obstaculo ();
-CREATE TABLE personagem ();
-CREATE TABLE planeta ();
-CREATE TABLE posse ();
-CREATE TABLE rastro ();
-CREATE TABLE recompensa ();
-CREATE TABLE traje ();
-CREATE TABLE troca ();
-CREATE TABLE trocavel ();
-CREATE TABLE viagem ();
-CREATE TABLE vilao ();
+-- CREATE TABLE joia ();
 
-ALTER TABLE acesso_equipamento ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE arma ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE base ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE coletavel ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE consumivel ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE consumo ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE efeito_arma ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE efeito_vilao ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE equipamento ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE estoque ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE heroi ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE imunidade_traje ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE imunidade_vilao ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE joia ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE moeda ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE rastro ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE recompensa ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE traje ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE troca ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE trocavel ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE viagem ADD FOREIGN KEY () REFERENCES  ();
-ALTER TABLE vilao ADD FOREIGN KEY () REFERENCES  ();
+-- CREATE TABLE luta ();
+
+-- CREATE TABLE mapa ();
+
+-- CREATE TABLE moeda ();
+
+-- CREATE TABLE nivel ();
+
+-- CREATE TABLE obstaculo ();
+
+-- CREATE TABLE personagem ();
+
+-- CREATE TABLE planeta ();
+
+-- CREATE TABLE posse ();
+
+-- CREATE TABLE rastro ();
+
+-- CREATE TABLE recompensa ();
+
+-- CREATE TABLE traje ();
+
+-- CREATE TABLE troca ();
+
+-- CREATE TABLE trocavel ();
+
+-- CREATE TABLE viagem ();
+
+-- CREATE TABLE vilao ();
+
+-- Adicionando Chaves Estrangeiras
+
+-- ALTER TABLE acesso_equipamento ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE arma ADD FOREIGN KEY () REFERENCES  ();
+
+ALTER TABLE base ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
+
+-- ALTER TABLE coletavel ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE consumivel ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE consumo ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE efeito_arma ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE efeito_vilao ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE equipamento ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE estoque ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE heroi ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE imunidade_traje ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE imunidade_vilao ADD FOREIGN KEY () REFERENCES  ();
+
+ALTER TABLE instancia_heroi ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+-- ALTER TABLE instancia_heroi ADD FOREIGN KEY (traje) REFERENCES traje (nome);
+ALTER TABLE instancia_heroi ADD FOREIGN KEY (arma) REFERENCES arma (nome);
+ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
+
+-- ALTER TABLE joia ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE moeda ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE rastro ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE recompensa ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE traje ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE troca ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE trocavel ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE viagem ADD FOREIGN KEY () REFERENCES  ();
+
+-- ALTER TABLE vilao ADD FOREIGN KEY () REFERENCES  ();
