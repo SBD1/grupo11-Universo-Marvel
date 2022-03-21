@@ -8,7 +8,10 @@ INSERT INTO heroi (nome, agilidade, vida) VALUES
 ('Holt Fawks', 67, 34),
 ('Tamra Clarricoates', 91, 56),
 ('Merridie Girling', 21, 73),
-('Brnaba Longhorne', 96, 51);
+('Brnaba Longhorne', 96, 51),
+('Sultana Baldomar', 22, 71),
+('Stephan Tögöldör', 45, 61),
+('Sebastianus Garth', 23, 21);
 
 INSERT INTO mapa (id, nome, ano) VALUES
 (1, 'Indonesia', 1998),
@@ -20,7 +23,10 @@ INSERT INTO mapa (id, nome, ano) VALUES
 (7, 'Indonesia', 2007),
 (8, 'New Zealand', 2002),
 (9, 'Canada', 2006),
-(10, 'Philippines', 1993);
+(10, 'Philippines', 1993),
+(11, 'Thailand', 1991),
+(12, 'Japan', 2050),
+(13, 'South Africa', 1402);
 
 INSERT INTO espaco (latitude, longitude, mapa) VALUES
 (13, 70, 8),
@@ -32,7 +38,10 @@ INSERT INTO espaco (latitude, longitude, mapa) VALUES
 (7, 41, 8),
 (81, 13, 6),
 (27, 91, 6),
-(53, 97, 7);
+(53, 97, 7),
+(35, 53, 11),
+(67, 6, 12),
+(55, 54, 13);
 
 INSERT INTO instancia_heroi (heroi, vida, latitude, longitude, mapa) VALUES
 ('Tannie Stamper', 54, 13, 70, 8),
@@ -44,4 +53,7 @@ INSERT INTO instancia_heroi (heroi, vida, latitude, longitude, mapa) VALUES
 ('Tannie Stamper', 42, 7, 41, 8),
 ('Denys Lind', 70, 81, 13, 6),
 ('Holt Fawks', 39, 27, 91, 6),
-('Brnaba Longhorne', 29, 53, 97, 7);
+('Brnaba Longhorne', 29, 76, 85, 7),
+('Sultana Baldomar', 34, 45, 7, 11),
+('Stephan Tögöldör', 53, 58, 97, 12),
+('Sebastianus Garth', 12, 8, 75, 13);
