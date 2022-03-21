@@ -154,7 +154,13 @@ CREATE TABLE joia (
     UNIQUE (nome, ano)
 );
 
--- CREATE TABLE luta ();
+CREATE TABLE luta (
+  heroi TEXT NOT NULL,
+  vilao TEXT NOT NULL,
+  vidaVilao NON_NEGATIVE_INT NOT NULL,
+  
+  PRIMARY KEY (traje, efeito)
+);
 
 CREATE TABLE mapa (
   id SERIAL PRIMARY KEY,
@@ -175,7 +181,16 @@ CREATE TABLE moeda (
     CHECK (Nome = 'Moeda')
 );
 
--- CREATE TABLE nivel ();
+CREATE TABLE nivel (
+  numero SERIAL UNIQUE NOT NULL,
+  experienciaNecessaria NON_NEGATIVE_INT NOT NULL,
+  escalaVida NON_NEGATIVE_INT NOT NULL,
+  escalaAgilidade NON_NEGATIVE_INT NOT NULL,
+  escalaDano NON_NEGATIVE_INT NOT NULL,
+  
+  PRIMARY KEY (numero),
+  FOREIGN KEY (experienciaNecessaria)
+);
 
 -- CREATE TABLE obstaculo ();
 
