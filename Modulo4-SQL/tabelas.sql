@@ -145,7 +145,14 @@ CREATE TABLE item (
   CHECK (tipo IN ('T', 'A', 'C', 'J', 'M'))
 );
 
--- CREATE TABLE joia ();
+CREATE TABLE joia (
+    id SERIAL PRIMARY KEY,
+    nome TEXT KEY,
+    descricao TEXT NOT NULL,
+    quantidade_maxima POSITIVE_INT,
+
+    UNIQUE (nome, ano)
+);
 
 -- CREATE TABLE luta ();
 
@@ -158,7 +165,15 @@ CREATE TABLE mapa (
   UNIQUE (nome, ano)
 );
 
--- CREATE TABLE moeda ();
+CREATE TABLE moeda (
+    id SERIAL PRIMARY KEY,
+    nome TEXT KEY,
+    descricao TEXT NOT NULL,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES Coletavel (id),
+    CHECK (Nome = 'Moeda')
+);
 
 -- CREATE TABLE nivel ();
 
@@ -219,28 +234,13 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (arma) REFERENCES arma (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
 
-CREATE TABLE joia (
-    id SERIAL PRIMARY KEY,
-    nome TEXT KEY,
-    descricao TEXT NOT NULL,
-    quantidade_maxima POSITIVE_INT,
-
-    UNIQUE (nome, ano)
-);
+-- ALTER TABLE joia ADD FOREIGN KEY () REFERENCES  ();
 
 -- ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
 
 -- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
 
-CREATE TABLE moeda (
-    id SERIAL PRIMARY KEY,
-    nome TEXT KEY,
-    descricao TEXT NOT NULL,
-
-    PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES Coletavel (id),
-    CHECK (Nome = 'Moeda')
-);
+-- ALTER TABLE moeda ADD FOREIGN KEY () REFERENCES  ();
 
 -- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
 
