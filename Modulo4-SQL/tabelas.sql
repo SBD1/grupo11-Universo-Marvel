@@ -90,11 +90,12 @@ CREATE TABLE equipamento (
 );
 
 CREATE TABLE espaco (
+  id SERIAL PRIMARY KEY,
   latitude POSITIVE_INT NOT NULL,
   longitude POSITIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
 
-  PRIMARY KEY (latitude, longitude, mapa)
+  PRIMARY KEY (id, latitude, longitude, mapa)
 );
 
 CREATE TABLE estoque (
@@ -201,6 +202,13 @@ CREATE TABLE nivel (
 -- CREATE TABLE posse ();
 
 -- CREATE TABLE rastro ();
+CREATE TABLE rastro (
+  id SERIAL PRIMARY KEY,
+  espaco SERIAL NOT NULL,
+  heroi TEXT NOT NULL,
+
+  PRIMARY KEY (id)
+);
 
 -- CREATE TABLE recompensa ();
 
