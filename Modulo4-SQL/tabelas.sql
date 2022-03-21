@@ -219,13 +219,28 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (arma) REFERENCES arma (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
 
--- ALTER TABLE joia ADD FOREIGN KEY () REFERENCES  ();
+CREATE TABLE joia (
+    id SERIAL PRIMARY KEY,
+    nome TEXT KEY,
+    descricao TEXT NOT NULL,
+    quantidade_maxima POSITIVE_INT,
+
+    UNIQUE (nome, ano)
+);
 
 -- ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
 
 -- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE moeda ADD FOREIGN KEY () REFERENCES  ();
+CREATE TABLE moeda (
+    id SERIAL PRIMARY KEY,
+    nome TEXT KEY,
+    descricao TEXT NOT NULL,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES Coletavel (id),
+    CHECK (Nome = 'Moeda')
+);
 
 -- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
 
