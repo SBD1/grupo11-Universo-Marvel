@@ -193,9 +193,13 @@ CREATE TABLE nivel (
   FOREIGN KEY (experienciaNecessaria)
 );
 
--- CREATE TABLE obstaculo ();
+CREATE TABLE obstaculo (
+  descricao TEXT NOT NULL;
+);
 
--- CREATE TABLE personagem ();
+CREATE TABLE personagem (
+  
+);
 
 -- CREATE TABLE planeta ();
 
