@@ -196,7 +196,7 @@ Mapa:
     Número: inteiro;
     ExperiênciaNecessária: float;
     EscalaVida: float;
-    EscalaAgilidade: float;mano o julio e o pedro estao fazendo o b
+    EscalaAgilidade: float;
     EscalaDano: float;
 
   Acesso equipamento:
