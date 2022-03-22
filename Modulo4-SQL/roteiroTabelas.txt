@@ -1,0 +1,204 @@
+Mapa:
+    Id: inteiro;
+    Nome: texto;
+    Ano: inteiro;
+    Requisito: Item;
+
+  Planetas:
+    Mapa: Mapa(nome do mapa);
+    Planeta: texto;
+
+  Espaço:
+    Latitude: inteiro;
+    Longitude: inteiro;
+    Mapa: Mapa;
+    Obstáculo: Obstáculo;
+  
+  Obstáculo:
+    Descrição: texto;
+
+  Personagem:
+    Id: inteiro;
+    Tipo: (Herói ou Vilão);
+
+  Herói:
+    Id: inteiro;
+    Nome: texto;
+    AgilidadeBase: float;
+    VidaBase: float;
+    Vida: float;
+    Experiência: float;
+    Espaço: Espaço;
+    Traje: Traje;
+    Arma: Arma;
+
+  Vilão:
+    Id: inteiro;
+    Nome: texto;
+    Agilidade: float;
+    Vida: float;
+    Experiência: float;
+    DanoMáximo: float;
+    DanoCrítico: float;
+    Rolagens: inteiro;
+    Defesa: inteiro;
+    Espaço: Espaço;
+
+  Luta:
+    Herói: Herói;
+    Vilão; Vilão;
+
+  EfeitosLuta:
+    Luta: Luta;
+    Efeito: Efeito;
+    Personagem: Personagem;
+
+  Posse:
+    Item: Item;
+    Herói: Herói;
+    Quantidade: inteiro;
+
+  Recompensa:
+    Item: Item;
+    Vilão: Vilão;
+    Quantidade: inteiro;
+
+  EfeitosVilão:
+    Vilão: Vilão;
+    Efeito: Efeito;
+
+  EfeitosArma:
+    Arma: Arma;
+  Rastro:
+    Id: inteiro;
+    Espaço: Espaço;
+    Herói: Herói;
+
+  Item:
+    Id: inteiro;  
+    Tipo: Tipo(Trocável, Coletável);
+
+  Trocável:
+    Id: inteiro;
+    Tipo: Tipo(Equipamento, Consumível);
+
+
+  Imunidade:
+    Nome: texto;
+    Descrição: texto;
+
+  ImunidadesVilão:
+    Vilão: Vilão;
+    Imunidade: Imunidade;
+
+  ImunidadesTraje:
+    Traje: Traje;
+    Imunidade: Imunidade;
+  
+  Troca:
+    Id: inteiro;
+    Item: Item(Trocável);
+    QuantidadeItem: inteiro;
+    VendaOuCompra: tipo(venda ou compra);
+    Base: Base;
+    Herói: Herói;
+
+  Consumo:
+    Herói: Herói;
+    Consumível: Consumível;
+    Vezes: inteiro;
+
+  Rastro:
+    Id: inteiro;
+    Espaço: Espaço;
+    Herói: Herói;
+
+  Item:
+    Id: inteiro;  
+    Tipo: Tipo(Trocável, Coletável);
+
+  Trocável:
+    Id: inteiro;
+    Tipo: Tipo(Equipamento, Consumível);
+
+  Equipamento:
+    Id: inteiro;
+    Tipo: Tipo(Traje, Arma);
+  
+  Traje:
+    Id: inteiro;
+    Nome: texto;
+    Descrição: texto;
+    QuantidadeMáxima: inteiro;
+    valor: float;
+    NívelMínimo: inteiro;
+    Defesa: inteiro;
+    Agilidade: inteiro;
+
+  Arma:
+    Id: inteiro;
+    Nome: texto;
+    Descrição: texto;
+    QuantidadeMáxima: inteiro;
+    valor: float; 
+    NívelMínimo: inteiro;
+    DanoCrítico: float;
+    Rolagens: inteiro;
+
+  Consumível:
+    Id: inteiro;
+    Nome: texto;
+    Descrição: texto;
+    QuantidadeMáxima: inteiro;
+    valor: float;
+    Efeito: Efeito;
+    Grau: inteiro;
+    Duração: float;
+    Cooldown: float;
+
+  Coletável:
+    Id: inteiro;
+    Tipo: Tipo(Jóia, Moeda);
+  
+  Jóia:
+    Id: inteiro;
+    Nome: texto;
+    Descrição: texto;
+    QuantidadeMáxima: inteiro;
+    Efeito: Efeito;
+    Grau: inteiro;
+
+  Moeda:
+    Id: inteiro;
+    Nome: texto;
+    Descrição: texto;
+    QuantidadeMáxima: inteiro;
+
+  Efeito:
+    Nome: texto;
+    Descrição: texto;
+
+  Viagem:
+    Id: inteiro;
+    Origem: Origem(Base);
+    Destino: Destino(Base);
+    Herói: Herói;
+
+  Base:
+    Espaço: Espaço;
+
+  Estoque:
+    Base: Base;
+    Item: Item(Trocável);
+    Quantidade: inteiro;
+
+  Nível:
+    Número: inteiro;
+    ExperiênciaNecessária: float;
+    EscalaVida: float;
+    EscalaAgilidade: float;mano o julio e o pedro estao fazendo o b
+    EscalaDano: float;
+
+  Acesso equipamento:
+    Equipamento: Equipamento;
+    Herói: Herói;
