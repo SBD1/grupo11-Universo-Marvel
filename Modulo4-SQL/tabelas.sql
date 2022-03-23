@@ -90,12 +90,11 @@ CREATE TABLE equipamento (
 );
 
 CREATE TABLE espaco (
-  id SERIAL PRIMARY KEY,
   latitude POSITIVE_INT NOT NULL,
   longitude POSITIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
 
-  PRIMARY KEY (id, latitude, longitude, mapa)
+  PRIMARY KEY (latitude, longitude, mapa)
 );
 
 CREATE TABLE estoque (
@@ -147,20 +146,15 @@ CREATE TABLE item (
 );
 
 CREATE TABLE joia (
-    id SERIAL PRIMARY KEY,
-    nome TEXT KEY,
-    descricao TEXT NOT NULL,
-    quantidade_maxima POSITIVE_INT,
-
-    UNIQUE (nome, ano)
+  nome TEXT PRIMARY KEY,
+  descricao TEXT NOT NULL
 );
 
 CREATE TABLE luta (
+  id SERIAL PRIMARY KEY,
   heroi TEXT NOT NULL,
   vilao TEXT NOT NULL,
-  vidaVilao NON_NEGATIVE_INT NOT NULL,
-  
-  PRIMARY KEY (traje, efeito)
+  resultado TEXT
 );
 
 CREATE TABLE mapa (
@@ -173,24 +167,18 @@ CREATE TABLE mapa (
 );
 
 CREATE TABLE moeda (
-    id SERIAL PRIMARY KEY,
-    nome TEXT KEY,
-    descricao TEXT NOT NULL,
+  nome TEXT PRIMARY KEY,
+  descricao TEXT NOT NULL,
 
-    PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES Coletavel (id),
-    CHECK (nome = 'Moeda')
+  CHECK (nome = 'Moeda')
 );
 
 CREATE TABLE nivel (
-  numero SERIAL UNIQUE NOT NULL,
-  experienciaNecessaria NON_NEGATIVE_INT NOT NULL,
-  escalaVida NON_NEGATIVE_INT NOT NULL,
-  escalaAgilidade NON_NEGATIVE_INT NOT NULL,
-  escalaDano NON_NEGATIVE_INT NOT NULL,
-  
-  PRIMARY KEY (numero),
-  FOREIGN KEY (experienciaNecessaria)
+  numero SERIAL PRIMARY KEY,
+  experiencia_necessaria POSITIVE_INT NOT NULL,
+  escala_vida POSITIVE_INT NOT NULL,
+  escala_agilidade POSITIVE_INT NOT NULL,
+  escala_dano POSITIVE_INT NOT NULL
 );
 
 CREATE TABLE obstaculo (
@@ -198,31 +186,32 @@ CREATE TABLE obstaculo (
 );
 
 CREATE TABLE personagem (
-  id SERIAL PRIMARY KEY,
+  id SERIAL UNIQUE NOT NULL,
+  nome TEXT PRIMARY KEY,
   tipo CHAR,
 
-  CHECK (tipo IN ('H', 'V')),
-  PRIMARY KEY(id)
+  CHECK (tipo IN ('H', 'V'))
 );
 
 CREATE TABLE planeta (
   mapa TEXT PRIMARY KEY,
-  planeta TEXT NOT NULL,
-  PRIMARY KEY(mapa)
+  planeta TEXT NOT NULL
 );
 
 CREATE TABLE posse (
-  item TEXT PRIMARY KEY,
-  heroi TEXT PRIMARY KEY,
-  quantidade INTEGER NOT NULL
+  item TEXT,
+  heroi TEXT,
+  quantidade INTEGER NOT NULL,
+
+  PRIMARY KEY (item, heroi)
 );
 
 CREATE TABLE rastro (
   id SERIAL PRIMARY KEY,
-  espaco SERIAL NOT NULL,
-  heroi TEXT NOT NULL,
-
-  PRIMARY KEY (id)
+  latitude POSITIVE_INT NOT NULL,
+  longitude POSITIVE_INT NOT NULL,
+  mapa INTEGER NOT NULL,
+  heroi TEXT NOT NULL
 );
 
 -- CREATE TABLE recompensa ();
@@ -278,7 +267,7 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENC
 
 -- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE moeda ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
 -- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
 
