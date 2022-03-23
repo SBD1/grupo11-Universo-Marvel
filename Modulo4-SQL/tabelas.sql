@@ -179,7 +179,7 @@ CREATE TABLE moeda (
 
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES Coletavel (id),
-    CHECK (Nome = 'Moeda')
+    CHECK (nome = 'Moeda')
 );
 
 CREATE TABLE nivel (
@@ -194,16 +194,26 @@ CREATE TABLE nivel (
 );
 
 CREATE TABLE obstaculo (
-  descricao TEXT NOT NULL;
+  descricao TEXT NOT NULL
 );
 
 CREATE TABLE personagem (
-  
+  id SERIAL PRIMARY KEY,
+  tipo CHAR,
+
+  CHECK (tipo IN ('H', 'V')),
+  PRIMARY KEY(id)
 );
 
--- CREATE TABLE planeta ();
+CREATE TABLE planeta (
+  mapa TEXT PRIMARY KEY,
+  planeta TEXT NOT NULL,
+  PRIMARY KEY(mapa)
+);
 
--- CREATE TABLE posse ();
+CREATE TABLE posse (
+  
+);
 
 -- CREATE TABLE rastro ();
 CREATE TABLE rastro (
