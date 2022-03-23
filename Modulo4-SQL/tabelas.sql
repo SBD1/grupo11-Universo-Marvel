@@ -212,10 +212,11 @@ CREATE TABLE planeta (
 );
 
 CREATE TABLE posse (
-  
+  item TEXT PRIMARY KEY,
+  heroi TEXT PRIMARY KEY,
+  quantidade INTEGER NOT NULL
 );
 
--- CREATE TABLE rastro ();
 CREATE TABLE rastro (
   id SERIAL PRIMARY KEY,
   espaco SERIAL NOT NULL,
