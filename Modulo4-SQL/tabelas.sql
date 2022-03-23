@@ -127,6 +127,7 @@ CREATE TABLE imunidade_vilao (
 
 CREATE TABLE instancia_heroi (
   id SERIAL PRIMARY KEY,
+  nome TEXT UNIQUE NOT NULL,
   heroi TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
   experiencia NON_NEGATIVE_INT NOT NULL DEFAULT 0,
@@ -186,7 +187,6 @@ CREATE TABLE obstaculo (
 );
 
 CREATE TABLE personagem (
-  id SERIAL UNIQUE NOT NULL,
   nome TEXT PRIMARY KEY,
   tipo CHAR,
 
