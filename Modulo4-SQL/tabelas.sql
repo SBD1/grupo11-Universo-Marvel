@@ -220,11 +220,32 @@ CREATE TABLE rastro (
   heroi TEXT NOT NULL
 );
 
--- CREATE TABLE recompensa ();
+CREATE TABLE recompensa (
+  item TEXT NOT NULL
+  vilao TEXT NOT NULL
+  quantidade POSITIVE_INT NOT NULL
+);
 
--- CREATE TABLE traje ();
+CREATE TABLE traje (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  descricao TEXT NOT NULL,
+  quantidade_maxima  POSITIVE_INT NOT NULL,
+  valor REAL NOT NULL,
+  nivel_minimo POSITIVE_INT NOT NULL,
+  defesa POSITIVE_INT NOT NULL,
+  agilidade POSITIVE_INT NOT NULL
+);
 
--- CREATE TABLE troca ();
+CREATE TYPE tipo AS ENUM ('venda', 'compra');
+CREATE TABLE troca (
+  id SERIAL PRIMARY KEY,
+  item TEXT NOT NULL,
+  quantidade_item POSITIVE_INT NOT NULL,
+  vendaOuCompra tipo NOT NULL,
+  base INTEGER NOT NULL,
+  heroi TEXT NOT NULL
+);
 
 -- CREATE TABLE trocavel ();
 
