@@ -89,6 +89,13 @@ CREATE TABLE equipamento (
   CHECK (tipo IN ('T', 'A'))
 );
 
+CREATE TABLE trocavel (
+  id TEXT PRIMARY KEY,
+  tipo CHAR NOT NULL,
+
+  CHECK (tipo IN ('E', 'C'))
+);
+
 CREATE TABLE espaco (
   latitude POSITIVE_INT NOT NULL,
   longitude POSITIVE_INT NOT NULL,
@@ -110,7 +117,6 @@ CREATE TABLE heroi (
   agilidade POSITIVE_INT NOT NULL,
   vida POSITIVE_INT NOT NULL
 );
-
 CREATE TABLE imunidade_traje (
   traje TEXT NOT NULL,
   efeito TEXT NOT NULL,
@@ -222,9 +228,27 @@ CREATE TABLE rastro (
 
 -- CREATE TABLE trocavel ();
 
--- CREATE TABLE viagem ();
+CREATE TABLE viagem (
+  id SERIAL PRIMARY KEY,
+  heroi TEXT NOT NULL,
+  origem INTEGER NOT NULL,
+  destino INTEGER NOT NULL,
+);
 
--- CREATE TABLE vilao ();
+CREATE TABLE vilao (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  agilidade INT NOT NULL,
+  vida INT NOT NULL,
+  experiencia INT NOT NULL,
+  dano_maximo INT NOT NULL,
+  dano_critico INT NOT NULL,
+  rolagens INT NOT NULL,
+  defesa INT NOT NULL,
+  latitude POSITIVE_INT NOT NULL,
+  longitude POSITIVE_INT NOT NULL,
+  mapa INTEGER NOT NULL,
+)
 
 -- Adicionando Chaves Estrangeiras
 
@@ -285,6 +309,6 @@ ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
 -- ALTER TABLE trocavel ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE viagem ADD FOREIGN KEY () REFERENCES  ();
-
--- ALTER TABLE vilao ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE viagem ADD FOREIGN KEY (origem) REFERENCES  mapa(id);
+ALTER TABLE viagem ADD FOREIGN KEY (destino) REFERENCES  mapa(id);
+ALTER TABLE vilao ADD FOREIGN KEY (mapa, latitude, longitude) REFERENCES espaco(mapa, latitude, longitude);
