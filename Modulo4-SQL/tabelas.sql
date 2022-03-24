@@ -273,19 +273,25 @@ CREATE TABLE vilao (
 
 -- Adicionando Chaves Estrangeiras
 
--- ALTER TABLE acesso_equipamento ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE acesso_equipamento ADD FOREIGN KEY (equipamento) REFERENCES equipamento (id);
+ALTER TABLE acesso_equipamento ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 
 -- ALTER TABLE arma ADD FOREIGN KEY () REFERENCES  ();
 
 ALTER TABLE base ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
 
--- ALTER TABLE coletavel ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE consumivel ADD FOREIGN KEY () REFERENCES  ();
+-- Revisar esta parte
+ALTER TABLE coletavel ADD FOREIGN KEY (nome) REFERENCES joia (nome);
+ALTER TABLE coletavel ADD FOREIGN KEY (nome) REFERENCES moeda (nome);
 
--- ALTER TABLE consumo ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE consumivel ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
--- ALTER TABLE efeito_arma ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE consumo ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE consumo ADD FOREIGN KEY (consumivel) REFERENCES consumivel (nome);
+
+ALTER TABLE efeito_arma ADD FOREIGN KEY (arma) REFERENCES arma (nome);
+ALTER TABLE efeito_arma ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
 -- ALTER TABLE efeito_vilao ADD FOREIGN KEY () REFERENCES  ();
 
@@ -312,11 +318,7 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENC
 
 -- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
 
-<<<<<<< HEAD
--- ALTER TABLE moeda ADD FOREIGN KEY () REFERENCES  ();
-=======
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
->>>>>>> 35943f3049a37ae1b108b1b482a54ca241e6c553
 
 -- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
 

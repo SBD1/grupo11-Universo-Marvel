@@ -196,7 +196,7 @@ Mapa:
     Número: inteiro;
     ExperiênciaNecessária: float;
     EscalaVida: float;
-    EscalaAgilidade: float;
+    +
     EscalaDano: float;
 
   Acesso equipamento:
