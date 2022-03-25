@@ -314,9 +314,14 @@ ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES mapa (nome);
 
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
--- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES heroi  (nome);
 
--- ALTER TABLE rastro ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE posse ADD FOREIGN KEY (item) REFERENCES item (nome);
+
+ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+
+ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa  (id);
+
 
 -- ALTER TABLE recompensa ADD FOREIGN KEY () REFERENCES  ();
 
