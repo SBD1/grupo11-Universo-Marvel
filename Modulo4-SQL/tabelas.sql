@@ -310,7 +310,7 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENC
 
 -- ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES mapa (nome);
 
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
