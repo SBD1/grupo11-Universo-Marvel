@@ -334,7 +334,7 @@ ALTER TABLE troca ADD FOREIGN KEY (item) REFERENCES item (nome);
 
 ALTER TABLE troca ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
--- ALTER TABLE trocavel ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE trocavel ADD FOREIGN KEY (id) REFERENCES item (id);
 
 ALTER TABLE viagem ADD FOREIGN KEY (origem) REFERENCES  mapa(id);
 ALTER TABLE viagem ADD FOREIGN KEY (destino) REFERENCES  mapa(id);
