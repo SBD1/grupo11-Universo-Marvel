@@ -223,7 +223,7 @@ CREATE TABLE rastro (
 
 CREATE TABLE recompensa (
   item TEXT NOT NULL
-  vilao TEXT NOT NULL
+  vilao SERIAL NOT NULL
   quantidade POSITIVE_INT NOT NULL
 );
 
@@ -328,21 +328,31 @@ ALTER TABLE joia ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
 -- ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE mapa ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES mapa (nome);
 
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
--- ALTER TABLE posse ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES heroi  (nome);
 
--- ALTER TABLE rastro ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE posse ADD FOREIGN KEY (item) REFERENCES item (nome);
 
--- ALTER TABLE recompensa ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 
--- ALTER TABLE traje ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa  (id);
 
--- ALTER TABLE troca ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE recompensa ADD FOREIGN KEY (item) REFERENCES item (nome);
 
--- ALTER TABLE trocavel ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE recompensa ADD FOREIGN KEY (vilao) REFERENCES vilao (id);
+
+ALTER TABLE traje ADD FOREIGN KEY (nome) REFERENCES equipamento (nome);
+
+ALTER TABLE troca ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+
+ALTER TABLE troca ADD FOREIGN KEY (item) REFERENCES item (nome);
+
+ALTER TABLE troca ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
+
+ALTER TABLE trocavel ADD FOREIGN KEY (id) REFERENCES item (id);
 
 ALTER TABLE viagem ADD FOREIGN KEY (origem) REFERENCES  mapa(id);
 ALTER TABLE viagem ADD FOREIGN KEY (destino) REFERENCES  mapa(id);
