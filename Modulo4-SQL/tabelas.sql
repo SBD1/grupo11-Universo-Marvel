@@ -92,7 +92,7 @@ CREATE TABLE equipamento (
   CHECK (tipo IN ('T', 'A'))
 );
 
-CREATE TABLE espaco (
+CREATE TABLE espaco_vazio (
   latitude POSITIVE_INT NOT NULL,
   longitude POSITIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
@@ -138,6 +138,14 @@ CREATE TABLE instancia_heroi (
   arma TEXT, 
   latitude NON_NEGATIVE_INT NOT NULL,
   longitude NON_NEGATIVE_INT NOT NULL,
+  mapa INTEGER NOT NULL
+);
+
+CREATE TABLE instancia_item (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  latitude POSITIVE_INT NOT NULL,
+  longitude POSITIVE_INT NOT NULL,
   mapa INTEGER NOT NULL
 );
 
@@ -192,10 +200,6 @@ CREATE TABLE nivel (
   escala_vida POSITIVE_REAL NOT NULL,
   escala_agilidade POSITIVE_REAL NOT NULL,
   escala_dano POSITIVE_REAL NOT NULL
-);
-
-CREATE TABLE obstaculo (
-  descricao TEXT NOT NULL
 );
 
 CREATE TABLE personagem (
@@ -280,7 +284,7 @@ ALTER TABLE acesso_equipamento ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 
 ALTER TABLE arma ADD FOREIGN KEY (nome) REFERENCES equipamento (nome);
 
-ALTER TABLE base ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
+ALTER TABLE base ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE coletavel ADD FOREIGN KEY (nome) REFERENCES item (nome);
 
@@ -298,7 +302,7 @@ ALTER TABLE efeito_vilao ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
 ALTER TABLE equipamento ADD FOREIGN KEY (nome) REFERENCES trocavel (nome);
 
-ALTER TABLE espaco ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
+ALTER TABLE espaco_vazio ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE estoque ADD FOREIGN KEY (base) REFERENCES base (id);
 ALTER TABLE estoque ADD FOREIGN KEY (item) REFERENCES item (nome);
@@ -314,10 +318,10 @@ ALTER TABLE imunidade_vilao ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (traje) REFERENCES traje (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (arma) REFERENCES arma (nome);
-ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
+ALTER TABLE instancia_heroi ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
-ALTER TABLE instancia_vilao ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
+ALTER TABLE instancia_vilao ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
@@ -330,7 +334,7 @@ ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 ALTER TABLE posse ADD FOREIGN KEY (item) REFERENCES item (nome);
 
 ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
-ALTER TABLE rastro ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
+ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE recompensa ADD FOREIGN KEY (item) REFERENCES item (nome);
 ALTER TABLE recompensa ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
