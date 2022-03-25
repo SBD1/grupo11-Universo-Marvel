@@ -117,6 +117,7 @@ CREATE TABLE heroi (
   agilidade POSITIVE_INT NOT NULL,
   vida POSITIVE_INT NOT NULL
 );
+
 CREATE TABLE imunidade_traje (
   traje TEXT NOT NULL,
   efeito TEXT NOT NULL,
@@ -276,6 +277,7 @@ CREATE TABLE vilao (
 ALTER TABLE acesso_equipamento ADD FOREIGN KEY (equipamento) REFERENCES equipamento (id);
 ALTER TABLE acesso_equipamento ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 
+-- qual é a chave estrangeira?
 -- ALTER TABLE arma ADD FOREIGN KEY () REFERENCES  ();
 
 ALTER TABLE base ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
@@ -293,26 +295,36 @@ ALTER TABLE consumo ADD FOREIGN KEY (consumivel) REFERENCES consumivel (nome);
 ALTER TABLE efeito_arma ADD FOREIGN KEY (arma) REFERENCES arma (nome);
 ALTER TABLE efeito_arma ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
--- ALTER TABLE efeito_vilao ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE efeito_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (id);
+ALTER TABLE efeito_vilao ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
+-- qual é a chave estrangeira?
 -- ALTER TABLE equipamento ADD FOREIGN KEY () REFERENCES  ();
 
 ALTER TABLE espaco ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
--- ALTER TABLE estoque ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE estoque ADD FOREIGN KEY (base) REFERENCES base (id);
+ALTER TABLE estoque ADD FOREIGN KEY (item) REFERENCES item (nome);
 
+
+-- qual é a chave estrangeira?
 -- ALTER TABLE heroi ADD FOREIGN KEY () REFERENCES  ();
 
--- ALTER TABLE imunidade_traje ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE imunidade_traje ADD FOREIGN KEY (traje) REFERENCES traje (nome);
+ALTER TABLE imunidade_traje ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
--- ALTER TABLE imunidade_vilao ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE imunidade_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
+ALTER TABLE imunidade_vilao ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 -- ALTER TABLE instancia_heroi ADD FOREIGN KEY (traje) REFERENCES traje (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (arma) REFERENCES arma (nome);
 ALTER TABLE instancia_heroi ADD FOREIGN KEY (latitude, longitude, mapa) REFERENCES espaco (latitude, longitude, mapa);
 
--- ALTER TABLE joia ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE joia ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
+
+
+
 
 -- ALTER TABLE luta ADD FOREIGN KEY () REFERENCES  ();
 
