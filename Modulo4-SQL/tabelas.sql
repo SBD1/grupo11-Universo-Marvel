@@ -222,7 +222,7 @@ CREATE TABLE rastro (
 
 CREATE TABLE recompensa (
   item TEXT NOT NULL
-  vilao TEXT NOT NULL
+  vilao SERIAL NOT NULL
   quantidade POSITIVE_INT NOT NULL
 );
 
@@ -323,7 +323,10 @@ ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa  (id);
 
 
--- ALTER TABLE recompensa ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE recompensa ADD FOREIGN KEY (item) REFERENCES item (nome);
+
+ALTER TABLE recompensa ADD FOREIGN KEY (vilao) REFERENCES vilao (id);
+
 
 -- ALTER TABLE traje ADD FOREIGN KEY () REFERENCES  ();
 
