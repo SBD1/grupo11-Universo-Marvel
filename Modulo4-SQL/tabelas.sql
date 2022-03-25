@@ -322,15 +322,17 @@ ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 
 ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa  (id);
 
-
 ALTER TABLE recompensa ADD FOREIGN KEY (item) REFERENCES item (nome);
 
 ALTER TABLE recompensa ADD FOREIGN KEY (vilao) REFERENCES vilao (id);
 
+ALTER TABLE traje ADD FOREIGN KEY (nome) REFERENCES equipamento (nome);
 
--- ALTER TABLE traje ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE troca ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
 
--- ALTER TABLE troca ADD FOREIGN KEY () REFERENCES  ();
+ALTER TABLE troca ADD FOREIGN KEY (item) REFERENCES item (nome);
+
+ALTER TABLE troca ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 -- ALTER TABLE trocavel ADD FOREIGN KEY () REFERENCES  ();
 
