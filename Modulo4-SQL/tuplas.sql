@@ -100,3 +100,12 @@ INSERT INTO instancia_heroi (heroi, vida, latitude, longitude, mapa) VALUES
 ('Sultana Baldomar', 34, 45, 7, 11),
 ('Stephan Tögöldör', 53, 58, 97, 12),
 ('Sebastianus Garth', 12, 8, 75, 13);
+
+
+INSERT INTO imunidade_traje (traje, efeito) VALUES (),
+INSERT INTO coletavel (nome, tipo) VALUES ()
+INSERT INTO consumivel ( nome, descricao, quantidade_maxima,valor, efeito, grau, duracao, cooldown) VALUES ()
+INSERT INTO consumo ( heroi, consumivel, vezes) VALUES ()
+INSERT INTO efeito ( nome ) VALUES ()
+INSERT INTO efeito_arma ( arma, efeito) VALUES ()
+INSERT INTO trocavel ( nome, tipo ) VALUES ()
