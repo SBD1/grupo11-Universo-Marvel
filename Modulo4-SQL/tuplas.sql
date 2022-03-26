@@ -102,10 +102,63 @@ INSERT INTO instancia_heroi (heroi, vida, latitude, longitude, mapa) VALUES
 ('Sebastianus Garth', 12, 8, 75, 13);
 
 
-INSERT INTO imunidade_traje (traje, efeito) VALUES (),
-INSERT INTO coletavel (nome, tipo) VALUES ()
-INSERT INTO consumivel ( nome, descricao, quantidade_maxima,valor, efeito, grau, duracao, cooldown) VALUES ()
-INSERT INTO consumo ( heroi, consumivel, vezes) VALUES ()
-INSERT INTO efeito ( nome ) VALUES ()
-INSERT INTO efeito_arma ( arma, efeito) VALUES ()
-INSERT INTO trocavel ( nome, tipo ) VALUES ()
+INSERT INTO efeito (nome) VALUES 
+('Força'), 
+('Agilidade'), 
+('Vida'), 
+('Inteligência'), 
+('Defesa'),
+('Ataque'),
+('Velocidade'),
+('Resistência'),
+('Magia'),
+('Sorte'),
+('Vulnerabilidade'),
+('Invulnerabilidade'),
+('Invisibilidade');
+INSERT INTO imunidade_traje (traje, efeito) VALUES (); -- Missing traje 
+INSERT INTO coletavel (nome, tipo) VALUES 
+('Vinyl', 'J'),
+('Wood', 'J'),
+('Stone', 'M'),
+('Espaço-azul', 'J'),
+('Granite', 'J'),
+('Brass', 'J'),
+('Mente-Amarela', 'J'),
+('Aluminum', 'M'),
+('Plastic', 'M'),
+('Steel', 'M'),
+('Glass', 'M'),
+('Platinum', 'M'),
+('Alma-Laranja', 'J'),
+('Poder-Roxa', 'J'),
+('Rubber', 'J'),
+('black-invisibility', 'J'),
+('Realidade-Vermelha', 'J'),
+('Tempo-Verde', 'J'),
+('Granite', 'M'),
+('Gold', 'M');
+INSERT INTO trocavel (nome, tipo) VALUES 
+('Home Ing', 'C'),
+('Tin', 'C'),
+('Keylex', 'C'),
+('Otcom', 'T'),
+('Asoka', 'T'),
+('Vagram', 'T'),
+('Redhold', 'C'),
+('Tin', 'C'),
+('Toughjoyfax', 'C'),
+('Sonair', 'A'),
+('Daltfresh', 'C'),
+('Zathin', 'T'),
+('Holdlamis', 'C'),
+('Flowdesk', 'A'),
+('It', 'C'),
+('Y-find', 'A'),
+('Flowdesk', 'C'),
+('Trippledex', 'A'),
+('Bigtax', 'C'),
+('Gembucket', 'C');
+INSERT INTO consumivel (nome, descricao, quantidade_maxima,valor, efeito, grau, duracao, cooldown) VALUES ()
+INSERT INTO consumo (heroi, consumivel, vezes) VALUES ()
+INSERT INTO efeito_arma (arma, efeito) VALUES ();
