@@ -116,13 +116,15 @@ INSERT INTO efeito (nome) VALUES
 ('Vulnerabilidade'),
 ('Invulnerabilidade'),
 ('Invisibilidade');
+
 INSERT INTO imunidade_traje (traje, efeito) VALUES (); -- Missing traje 
+
 INSERT INTO coletavel (nome, tipo) VALUES 
 ('Vinyl', 'J'),
 ('Wood', 'J'),
 ('Stone', 'M'),
 ('Espaço-azul', 'J'),
-('Granite', 'J'),
+('Granite-345', 'J'),
 ('Brass', 'J'),
 ('Mente-Amarela', 'J'),
 ('Aluminum', 'M'),
@@ -138,6 +140,7 @@ INSERT INTO coletavel (nome, tipo) VALUES
 ('Tempo-Verde', 'J'),
 ('Granite', 'M'),
 ('Gold', 'M');
+
 INSERT INTO trocavel (nome, tipo) VALUES 
 ('Home Ing', 'C'),
 ('Tin', 'C'),
@@ -146,7 +149,6 @@ INSERT INTO trocavel (nome, tipo) VALUES
 ('Asoka', 'T'),
 ('Vagram', 'T'),
 ('Redhold', 'C'),
-('Tin', 'C'),
 ('Toughjoyfax', 'C'),
 ('Sonair', 'A'),
 ('Daltfresh', 'C'),
@@ -159,6 +161,50 @@ INSERT INTO trocavel (nome, tipo) VALUES
 ('Trippledex', 'A'),
 ('Bigtax', 'C'),
 ('Gembucket', 'C');
-INSERT INTO consumivel (nome, descricao, quantidade_maxima,valor, efeito, grau, duracao, cooldown) VALUES ()
-INSERT INTO consumo (heroi, consumivel, vezes) VALUES ()
-INSERT INTO efeito_arma (arma, efeito) VALUES ();
+
+INSERT INTO consumivel (nome, descricao, quantidade_maxima,quantidade_maxima, efeito, grau, duracao, cooldown) VALUES 
+('Trippledex', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', '50', 'Tempo-Verde', '541', '0', '09246'),
+('Y-find', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', '366', 'Tempo-Verde', '8716', '44842', '19047'),
+('Sonair', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', '5', 'Realidade-Vermelha', '7', '6028', '50'),
+('Gembucket', 'In congue. Etiam justo. Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', '56459', 'Realidade-Vermelha', '61', '535', '44'),
+('Flowdesk', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', '45986', 'Gold', '007', '43881', '1910'),
+('Flowdesk', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', '52', 'Granite', '575', '113', '1188'),
+('Bigtax', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl. Nunc nisl.', '3', 'Gold', '84562', '3', '216'),
+('Tin', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', '1369', 'Granite', '50', '014', '6'),
+('Home Ing', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', '13343', 'black-invisibility', '1', '96', '50'),
+('Bigtax', 'Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', '6925', 'Gold', '58', '9608', '8175'),
+('Otcom', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', '0426', 'Tempo-Verde', '9428', '7', '211'),
+('Keylex', 'Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', '59227', 'Gold', '969', '52', '80938'),
+('Bigtax', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', '32570', 'Granite', '0', '96191', '41797'),
+('Asoka', 'Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', '7', 'Gold', '733', '6', '4'),
+('Vagram', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', '0414', 'Realidade-Vermelha', '877', '899', '70261'),
+('Redhold', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', '3179', 'Gold', '977', '898', '9'),
+('Toughjoyfax', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', '594', 'Realidade-Vermelha', '49', '5873', '797'),
+('Bigtax', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', '69', 'Realidade-Vermelha', '45011', '02780', '0590'),
+('Daltfresh', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', '08500', 'Gold', '1592', '34', '57312'),
+('Y-find', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', '11747', 'Gold', '9', '81292', '3527');
+
+INSERT INTO consumo (heroi, consumivel, vezes) VALUES () -- Qual FK de consumivel neste caso?
+
+INSERT INTO efeito_arma (arma, efeito) VALUES 
+('Ali Wroughton', 'Força'),
+('Sherline Preddy', 'Velocidade'),
+('Paulie Langrish', 'Sorte'),
+('Ali Wroughton', 'Magia'),
+('Hurleigh Presser', 'Inteligência'),
+('Lillis Drogan', 'Defesa'),
+('Kristin D''Elias', 'Força'),
+('Paulie Langrish', 'Força'),
+('Gordy Parram', 'Ataque'),
+('Kristin D''Elias', 'Vida'),
+('Myrlene O''Cannovane', 'Invulnerabilidade'),
+('Fleur Soanes', 'Magia'),
+('Benedict Worley', 'Agilidade'),
+('Merilee Blanking', 'Defesa'),
+('Merilee Blanking', 'Sorte'),
+('Sherline Preddy', 'Invulnerabilidade'),
+('Fleur Soanes', 'Ataque'),
+('Merilee Blanking', 'Velocidade'),
+('Kristin D''Elias', 'Defesa'),
+('Fleur Soanes', 'Agilidade');
+
