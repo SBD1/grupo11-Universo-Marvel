@@ -128,9 +128,9 @@ CREATE TABLE imunidade_vilao ( -- pedro
   PRIMARY KEY (vilao, efeito)
 );
 
-CREATE TABLE instancia_heroi ( -- pedro
+CREATE TABLE instancia_heroi (
   id SERIAL PRIMARY KEY,
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   heroi TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
   experiencia NON_NEGATIVE_INT NOT NULL DEFAULT 0,
