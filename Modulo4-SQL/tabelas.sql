@@ -175,7 +175,7 @@ CREATE TABLE luta ( -- luta
   id SERIAL PRIMARY KEY,
   heroi TEXT NOT NULL,
   vilao TEXT NOT NULL,
-  resultado TEXT
+  resultado CHAR
 );
 
 CREATE TABLE mapa ( -- pedro
