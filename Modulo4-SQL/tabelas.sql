@@ -138,7 +138,9 @@ CREATE TABLE instancia_heroi ( -- pedro
   arma TEXT, 
   latitude NON_NEGATIVE_INT NOT NULL,
   longitude NON_NEGATIVE_INT NOT NULL,
-  mapa INTEGER NOT NULL
+  mapa INTEGER NOT NULL,
+
+  UNIQUE(nome, heroi)
 );
 
 CREATE TABLE instancia_item ( -- pedro
