@@ -184,7 +184,27 @@ INSERT INTO consumivel (nome, descricao, quantidade_maxima,quantidade_maxima, ef
 ('Daltfresh', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', '08500', 'Gold', '1592', '34', '57312'),
 ('Y-find', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', '11747', 'Gold', '9', '81292', '3527');
 
-INSERT INTO consumo (heroi, consumivel, vezes) VALUES () -- Qual FK de consumivel neste caso?
+INSERT INTO consumo (heroi, consumivel, vezes) VALUES 
+('Verene Acklands', 'Redhold', 1),
+('Tannie Stamper', 'Otcom', 1),
+('Merridie Girling', 'Daltfresh', 1),
+('Sholom Vynarde', 'Gembucket', 1),
+('Tamra Clarricoates', 'Daltfresh', 1),
+('Verene Acklands', 'Daltfresh', 1),
+('Stephan Tögöldör', 'Y-find', 1),
+('Brnaba Longhorne', 'Gembucket', 1),
+('Aubine Mcimmie', 'Flowdesk', 1),
+('Sholom Vynarde', 'Trippledex', 1),
+('Denys Lind', 'Y-find', 1),
+('Holt Fawks', 'Redhold', 1),
+('Verene Acklands', 'Sonair', 1),
+('Tamra Clarricoates', 'Bigtax', 1),
+('Denys Lind', 'Otcom', 1),
+('Sultana Baldomar', 'Vagram', 1),
+('Merridie Girling', 'Gembucket', 1),
+('Verene Acklands', 'Tin', 1),
+('Jed Verman', 'Otcom', 1),
+('Tannie Stamper', 'Daltfresh', 1);
 
 INSERT INTO efeito_arma (arma, efeito) VALUES 
 ('Ali Wroughton', 'Força'),
