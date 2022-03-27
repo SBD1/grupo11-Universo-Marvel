@@ -291,7 +291,7 @@ ALTER TABLE coletavel ADD FOREIGN KEY (nome) REFERENCES item (nome);
 ALTER TABLE consumivel ADD FOREIGN KEY (nome) REFERENCES trocavel (nome);
 ALTER TABLE consumivel ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
-ALTER TABLE consumo ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE consumo ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
 ALTER TABLE consumo ADD FOREIGN KEY (consumivel) REFERENCES consumivel (nome);
 
 ALTER TABLE efeito_arma ADD FOREIGN KEY (arma) REFERENCES arma (nome);
@@ -323,17 +323,17 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
-ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
-ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
+ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
+ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES instancia_vilao (vilao);
 
 ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES item (nome);
 
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
-ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
 ALTER TABLE posse ADD FOREIGN KEY (item) REFERENCES item (nome);
 
-ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
 ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE recompensa ADD FOREIGN KEY (item) REFERENCES item (nome);
@@ -341,11 +341,12 @@ ALTER TABLE recompensa ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 
 ALTER TABLE traje ADD FOREIGN KEY (nome) REFERENCES equipamento (nome);
 
-ALTER TABLE troca ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE troca ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
 ALTER TABLE troca ADD FOREIGN KEY (item) REFERENCES item (nome);
 ALTER TABLE troca ADD FOREIGN KEY (base) REFERENCES base (id);
 
 ALTER TABLE trocavel ADD FOREIGN KEY (nome) REFERENCES item (nome);
 
+ALTER TABLE viagem ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
 ALTER TABLE viagem ADD FOREIGN KEY (origem) REFERENCES base (id);
 ALTER TABLE viagem ADD FOREIGN KEY (destino) REFERENCES base (id);
