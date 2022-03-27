@@ -56,6 +56,21 @@ INSERT INTO heroi (nome, agilidade, vida) VALUES
 ('Stephan Tögöldör', 45, 61),
 ('Sebastianus Garth', 23, 21);
 
+
+INSERT INTO joia (nome, descricao) VALUES ('mente', 'et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet'),
+('poder', 'est donec odio justo sollicitudin ut suscipit'),
+('espaço', 'cum sociis natoque penatibus et magnis'),
+('alma', 'ligula nec sem duis aliquam convallis nunc proin at turpis'),
+('tempo', 'justo sollicitudin ut suscipit a feugiat et eros vestibulum ac'),
+('realidade', 'quis orci nullam molestie nibh in lectus pellentesque');
+
+INSERT INTO luta (id, heroi, vilao, resultado) VALUES (1, 'Erminie Gamon', 'Shelbi Raleston', 'vilao ganhou'),
+(2, 'Jan Butterfield', 'Kelila Archbald', 'vilao ganhou'),
+(3, 'Shir Stobbart', 'Ernesto Worrill', 'heroi ganhou'),
+(4, 'Brittney Witherup', 'Merle Yankov', 'heroi ganhou'),
+(5, 'Suellen Badby', 'Willa Nutkins', 'heroi ganhou'),
+(6, 'Bertine Rizziello', 'Dion Clemencet', 'heroi ganhou');
+
 INSERT INTO mapa (id, nome, ano) VALUES
 (1, 'Indonesia', 1998),
 (2, 'China', 2004),
@@ -100,7 +115,6 @@ INSERT INTO instancia_heroi (heroi, vida, latitude, longitude, mapa) VALUES
 ('Sultana Baldomar', 34, 45, 7, 11),
 ('Stephan Tögöldör', 53, 58, 97, 12),
 ('Sebastianus Garth', 12, 8, 75, 13);
-
 
 INSERT INTO efeito (nome) VALUES 
 ('Força'), 
@@ -228,3 +242,23 @@ INSERT INTO efeito_arma (arma, efeito) VALUES
 ('Kristin D''Elias', 'Defesa'),
 ('Fleur Soanes', 'Agilidade');
 
+INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa) VALUES ('Erica Blancowe', 44, 91, 19, 44, 67, 14, 57),
+('Baryram Littell', 64, 56, 62, 75, 14, 1, 66),
+('Bennett Eakly', 11, 62, 58, 79, 43, 12, 84),
+('Ki Quick', 83, 72, 96, 57, 41, 9, 46),
+('Frasquito Queyeiro', 15, 98, 77, 69, 92, 2, 33),
+('Torrie Mohun', 100, 22, 75, 31, 23, 11, 76),
+('Gwenni Murray', 44, 56, 81, 29, 39, 14, 67),
+('Allyson Scardifeild', 80, 42, 7, 98, 49, 6, 24),
+('Leland Watmough', 47, 77, 51, 74, 24, 18, 40),
+('Deni McLemon', 81, 37, 89, 25, 82, 8, 40),
+('Joycelin Pleven', 18, 59, 82, 20, 92, 2, 42),
+('Darby Ruoff', 86, 88, 28, 43, 46, 7, 51),
+('Consuela Rosekilly', 94, 91, 94, 45, 30, 20, 49),
+('Kevyn Evens', 5, 24, 17, 15, 65, 1, 4),
+('Kliment Brockhouse', 58, 100, 74, 73, 31, 9, 62),
+('Ilaire Caltera', 90, 59, 43, 76, 56, 7, 74),
+('Roz Olexa', 94, 58, 57, 2, 7, 13, 56),
+('Angel Bonellie', 75, 95, 4, 35, 65, 17, 73),
+('Violet Schoales', 4, 83, 91, 3, 32, 7, 38),
+('Marysa Ratlee', 72, 17, 63, 66, 22, 7, 77);
