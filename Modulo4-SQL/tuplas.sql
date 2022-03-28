@@ -333,3 +333,17 @@ insert into traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defe
 ('Smoking', 'Traje usado', 72, 97, 25, 32, 38),
 ('Traje de Festival', 'Traje raro', 89, 19, 6, 39, 25),
 ('Regalia da Cervejaria', 'Traje comum', 74, 96, 17, 61, 11);
+
+insert into troca (id, item, heroi, base, quantidade_item, venda_ou_compra) values (1, 'Glass', 'Brnaba Longhorne', 2, 92, 'V'),
+(2, 'Glass', 'Denys Lind', 9, 93, 'V'),
+(3, 'Brass', 'Brnaba Longhorne', 1, 86, 'V'),
+(4, 'Rubber', 'Merridie Girling', 4, 96, 'V'),
+(5, 'Aluminum', 'Sholom Vynarde', 5, 31, 'C'),
+(6, 'Glass', 'Denys Lind', 2, 84, 'C'),
+(7, 'Vinyl', '', 5, 26, 'C'),
+(8, 'Platinum', 'Denys Lind', 3, 7, 'V'),
+(9, 'Plastic', 'Jed Verman', 5, 45, 'V'),
+(10, 'Glass', 'Sholom Vynarde', 5, 54, 'C'),
+(11, 'Vinyl', 'Denys Lind', 1, 57, 'V'),
+(12, 'Plastic', 'Denys Lind', 5, 82, 'C'),
+(13, 'Vinyl', 'Denys Lind', 4, 9, 'C');
