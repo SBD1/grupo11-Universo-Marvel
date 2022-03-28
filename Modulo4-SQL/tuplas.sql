@@ -277,3 +277,17 @@ insert into personagem (nome, tipo) values ('Aubine Mcimmie', 'V'),
 ('Tannie Stamper', 'V'),
 ('Stephan Tögöldör', 'V'),
 ('Denys Lind', 'V');
+
+insert into personagem (heroi, item, quantidade) values ('Aubine Mcimmie', 'Plastic', 36),
+('Tannie Stamper', 'Rubber', 27),
+('Holt Fawks', 'Brass', 59),
+('Denys Lind', 'Aluminum', 2),
+('Sultana Baldomar', 'Glass', 86),
+('Tannie Stamper', 'Vinyl', 42),
+('Denys Lind', 'Aluminum', 41),
+('Jed Verman', 'Rubber', 25),
+('Tannie Stamper', 'Plastic', 81),
+('Denys Lind', 'Rubber', 39),
+('Merridie Girling', 'Rubber', 56),
+('Sholom Vynarde', 'Aluminum', 83),
+('Brnaba Longhorne', 'Platinum', 58);
