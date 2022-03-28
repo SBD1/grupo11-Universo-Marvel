@@ -278,7 +278,7 @@ insert into personagem (nome, tipo) values ('Aubine Mcimmie', 'V'),
 ('Stephan Tögöldör', 'V'),
 ('Denys Lind', 'V');
 
-insert into personagem (heroi, item, quantidade) values ('Aubine Mcimmie', 'Plastic', 36),
+insert into posse (heroi, item, quantidade) values ('Aubine Mcimmie', 'Plastic', 36),
 ('Tannie Stamper', 'Rubber', 27),
 ('Holt Fawks', 'Brass', 59),
 ('Denys Lind', 'Aluminum', 2),
@@ -291,3 +291,17 @@ insert into personagem (heroi, item, quantidade) values ('Aubine Mcimmie', 'Plas
 ('Merridie Girling', 'Rubber', 56),
 ('Sholom Vynarde', 'Aluminum', 83),
 ('Brnaba Longhorne', 'Platinum', 58);
+
+insert into rastro (id, latitude, longitude, mapa, heroi) values (1, 5, 62, 5, 'Verene Acklands'),
+(2, 86, 9, 2, 'Jed Verman'),
+(3, 37, 47, 7, 'Sebastianus Garth'),
+(4, 84, 86, 4, 'Sebastianus Garth'),
+(5, 46, 80, 13, 'Jed Verman'),
+(6, 53, 28, 12, 'Stephan Tögöldör'),
+(7, 77, 4, 5, 'Verene Acklands'),
+(8, 37, 3, 1, 'Jed Verman'),
+(9, 28, 84, 7, 'Stephan Tögöldör'),
+(10, 75, 76, 5, 'Sholom Vynarde'),
+(11, 5, 97, 4, 'Verene Acklands'),
+(12, 7, 45, 7, 'Stephan Tögöldör'),
+(13, 86, 55, 12, 'Sholom Vynarde');
