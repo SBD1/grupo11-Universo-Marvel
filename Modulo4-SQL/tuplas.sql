@@ -305,3 +305,17 @@ insert into rastro (id, latitude, longitude, mapa, heroi) values (1, 5, 62, 5, '
 (11, 5, 97, 4, 'Verene Acklands'),
 (12, 7, 45, 7, 'Stephan Tögöldör'),
 (13, 86, 55, 12, 'Sholom Vynarde');
+
+insert into recompensa (item, vilao, quantidade) values ('Aluminum', 'Leland Watmough', 22),
+('Rubber', 'Marysa Ratlee', 3),
+('Glass', 'Ki Quick', 49),
+('Plastic', 'Joycelin Pleven', 24),
+('Plastic', 'Ilaire Caltera', 95),
+('Brass', 'Angel Bonellie', 53),
+('Aluminum', 'Roz Olexa', 51),
+('Vinyl', 'Ki Quick', 13),
+('Platinum', 'Joycelin Pleven', 66),
+('Brass', 'Gwenni Murray', 74),
+('Vinyl', 'Frasquito Queyeiro', 4),
+('Plastic', 'Torrie Mohun', 55),
+('Brass', 'Marysa Ratlee', 13);
