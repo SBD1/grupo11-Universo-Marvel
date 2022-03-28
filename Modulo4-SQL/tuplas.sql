@@ -1,24 +1,16 @@
-INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
-('arma', 'Rosana Eckh'),
-('arma', 'Gusti Eberz'),
-('traje', 'Marabel Linkin'),
-('arma', 'Buckie Tomanek'),
-('arma', 'Stevy Link'),
-('traje', 'Betteanne Butterick'),
-('traje', 'Christoforo Blackster'),
-('traje', 'Halley Knutsen'),
-('traje', 'Fredia Tapping'),
-('traje', 'Dallon Temblett'),
-('traje', 'Wang Kayes'),
-('traje', 'Sean Goutcher'),
-('traje', 'Meredith Wiffill'),
-('arma', 'Yancy Boc'),
-('traje', 'Pauli Asel'),
-('arma', 'Janifer Povey'),
-('traje', 'Padraic Whittington'),
-('arma', 'Wesley Dewsbury'),
-('arma', 'Martie Stretton'),
-('arma', 'Dick Ensley');
+insert into traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) values ('Terno Festivo de Calça Preta', 'Traje comum', 74, 42, 57, 46, 59),
+('roupa de pesca', 'Traje usado', 67, 83, 77, 76, 79),
+('Traje de Festival', 'Traje usado', 41, 46, 17, 25, 41),
+('roupa de pesca', 'Traje ruim', 98, 37, 84, 45, 9),
+('roupa de pirata', 'Traje usado', 43, 56, 52, 12, 9),
+('Roupa de fazendeiro', 'Traje supremo', 21, 90, 80, 49, 68),
+('Terno Festivo azul marinho', 'Traje supremo', 92, 90, 26, 52, 40),
+('Terno Festivo azul marinho', 'Traje comum', 38, 12, 64, 54, 10),
+('roupa de pesca', 'Traje raro', 70, 42, 24, 40, 9),
+('terno de Jantar Roxo', 'Traje usado', 29, 66, 11, 47, 11),
+('Smoking', 'Traje usado', 72, 97, 25, 32, 38),
+('Traje de Festival', 'Traje raro', 89, 19, 6, 39, 25),
+('Regalia da Cervejaria', 'Traje comum', 74, 96, 17, 61, 11);
 
 INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_maximo, dano_critico, rolagens) VALUES ('Tammy Reichardt', 'duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer', 11, 30, 86, 57, 81, 12),
 ('Tamara Mummery', 'mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis', 5, 48, 49, 11, 88, 12),
@@ -56,6 +48,26 @@ INSERT INTO heroi (nome, agilidade, vida) VALUES
 ('Stephan Tögöldör', 45, 61),
 ('Sebastianus Garth', 23, 21);
 
+INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa) VALUES ('Erica Blancowe', 44, 91, 19, 44, 67, 14, 57),
+('Baryram Littell', 64, 56, 62, 75, 14, 1, 66),
+('Bennett Eakly', 11, 62, 58, 79, 43, 12, 84),
+('Ki Quick', 83, 72, 96, 57, 41, 9, 46),
+('Frasquito Queyeiro', 15, 98, 77, 69, 92, 2, 33),
+('Torrie Mohun', 100, 22, 75, 31, 23, 11, 76),
+('Gwenni Murray', 44, 56, 81, 29, 39, 14, 67),
+('Allyson Scardifeild', 80, 42, 7, 98, 49, 6, 24),
+('Leland Watmough', 47, 77, 51, 74, 24, 18, 40),
+('Deni McLemon', 81, 37, 89, 25, 82, 8, 40),
+('Joycelin Pleven', 18, 59, 82, 20, 92, 2, 42),
+('Darby Ruoff', 86, 88, 28, 43, 46, 7, 51),
+('Consuela Rosekilly', 94, 91, 94, 45, 30, 20, 49),
+('Kevyn Evens', 5, 24, 17, 15, 65, 1, 4),
+('Kliment Brockhouse', 58, 100, 74, 73, 31, 9, 62),
+('Ilaire Caltera', 90, 59, 43, 76, 56, 7, 74),
+('Roz Olexa', 94, 58, 57, 2, 7, 13, 56),
+('Angel Bonellie', 75, 95, 4, 35, 65, 17, 73),
+('Violet Schoales', 4, 83, 91, 3, 32, 7, 38),
+('Marysa Ratlee', 72, 17, 63, 66, 22, 7, 77);
 
 INSERT INTO joia (nome, descricao) VALUES ('mente', 'et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet'),
 ('poder', 'est donec odio justo sollicitudin ut suscipit'),
@@ -63,6 +75,7 @@ INSERT INTO joia (nome, descricao) VALUES ('mente', 'et ultrices posuere cubilia
 ('alma', 'ligula nec sem duis aliquam convallis nunc proin at turpis'),
 ('tempo', 'justo sollicitudin ut suscipit a feugiat et eros vestibulum ac'),
 ('realidade', 'quis orci nullam molestie nibh in lectus pellentesque');
+
 
 INSERT INTO luta (id, heroi, vilao, resultado) VALUES (1, 'Erminie Gamon', 'Shelbi Raleston', 'vilao ganhou'),
 (2, 'Jan Butterfield', 'Kelila Archbald', 'vilao ganhou'),
@@ -262,26 +275,6 @@ INSERT INTO efeito_arma (arma, efeito) VALUES
 ('Kristin D''Elias', 'Defesa'),
 ('Fleur Soanes', 'Agilidade');
 
-INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa) VALUES ('Erica Blancowe', 44, 91, 19, 44, 67, 14, 57),
-('Baryram Littell', 64, 56, 62, 75, 14, 1, 66),
-('Bennett Eakly', 11, 62, 58, 79, 43, 12, 84),
-('Ki Quick', 83, 72, 96, 57, 41, 9, 46),
-('Frasquito Queyeiro', 15, 98, 77, 69, 92, 2, 33),
-('Torrie Mohun', 100, 22, 75, 31, 23, 11, 76),
-('Gwenni Murray', 44, 56, 81, 29, 39, 14, 67),
-('Allyson Scardifeild', 80, 42, 7, 98, 49, 6, 24),
-('Leland Watmough', 47, 77, 51, 74, 24, 18, 40),
-('Deni McLemon', 81, 37, 89, 25, 82, 8, 40),
-('Joycelin Pleven', 18, 59, 82, 20, 92, 2, 42),
-('Darby Ruoff', 86, 88, 28, 43, 46, 7, 51),
-('Consuela Rosekilly', 94, 91, 94, 45, 30, 20, 49),
-('Kevyn Evens', 5, 24, 17, 15, 65, 1, 4),
-('Kliment Brockhouse', 58, 100, 74, 73, 31, 9, 62),
-('Ilaire Caltera', 90, 59, 43, 76, 56, 7, 74),
-('Roz Olexa', 94, 58, 57, 2, 7, 13, 56),
-('Angel Bonellie', 75, 95, 4, 35, 65, 17, 73),
-('Violet Schoales', 4, 83, 91, 3, 32, 7, 38),
-('Marysa Ratlee', 72, 17, 63, 66, 22, 7, 77);
 
 
 insert into personagem (nome, tipo) values ('Aubine Mcimmie', 'V'),
@@ -340,19 +333,6 @@ insert into recompensa (item, vilao, quantidade) values ('Aluminum', 'Leland Wat
 ('Plastic', 'Torrie Mohun', 55),
 ('Brass', 'Marysa Ratlee', 13);
 
-insert into traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) values ('Terno Festivo de Calça Preta', 'Traje comum', 74, 42, 57, 46, 59),
-('roupa de pesca', 'Traje usado', 67, 83, 77, 76, 79),
-('Traje de Festival', 'Traje usado', 41, 46, 17, 25, 41),
-('roupa de pesca', 'Traje ruim', 98, 37, 84, 45, 9),
-('roupa de pirata', 'Traje usado', 43, 56, 52, 12, 9),
-('Roupa de fazendeiro', 'Traje supremo', 21, 90, 80, 49, 68),
-('Terno Festivo azul marinho', 'Traje supremo', 92, 90, 26, 52, 40),
-('Terno Festivo azul marinho', 'Traje comum', 38, 12, 64, 54, 10),
-('roupa de pesca', 'Traje raro', 70, 42, 24, 40, 9),
-('terno de Jantar Roxo', 'Traje usado', 29, 66, 11, 47, 11),
-('Smoking', 'Traje usado', 72, 97, 25, 32, 38),
-('Traje de Festival', 'Traje raro', 89, 19, 6, 39, 25),
-('Regalia da Cervejaria', 'Traje comum', 74, 96, 17, 61, 11);
 
 insert into troca (id, item, heroi, base, quantidade_item, venda_ou_compra) values (1, 'Glass', 'Brnaba Longhorne', 2, 92, 'V'),
 (2, 'Glass', 'Denys Lind', 9, 93, 'V'),
@@ -368,3 +348,25 @@ insert into troca (id, item, heroi, base, quantidade_item, venda_ou_compra) valu
 (12, 'Plastic', 'Denys Lind', 5, 82, 'C'),
 (13, 'Vinyl', 'Denys Lind', 4, 9, 'C');
 -- TODO: Inserir ordem de execução
+
+INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
+('arma', 'Rosana Eckh'),
+('arma', 'Gusti Eberz'),
+('traje', 'Marabel Linkin'),
+('arma', 'Buckie Tomanek'),
+('arma', 'Stevy Link'),
+('traje', 'Betteanne Butterick'),
+('traje', 'Christoforo Blackster'),
+('traje', 'Halley Knutsen'),
+('traje', 'Fredia Tapping'),
+('traje', 'Dallon Temblett'),
+('traje', 'Wang Kayes'),
+('traje', 'Sean Goutcher'),
+('traje', 'Meredith Wiffill'),
+('arma', 'Yancy Boc'),
+('traje', 'Pauli Asel'),
+('arma', 'Janifer Povey'),
+('traje', 'Padraic Whittington'),
+('arma', 'Wesley Dewsbury'),
+('arma', 'Martie Stretton'),
+('arma', 'Dick Ensley');
