@@ -262,3 +262,18 @@ INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico
 ('Angel Bonellie', 75, 95, 4, 35, 65, 17, 73),
 ('Violet Schoales', 4, 83, 91, 3, 32, 7, 38),
 ('Marysa Ratlee', 72, 17, 63, 66, 22, 7, 77);
+
+
+insert into personagem (nome, tipo) values ('Aubine Mcimmie', 'V'),
+('Brnaba Longhorne', 'V'),
+('Sebastianus Garth', 'H'),
+('Sultana Baldomar', 'V'),
+('Sebastianus Garth', 'V'),
+('Tamra Clarricoates', 'H'),
+('Verene Acklands', 'V'),
+('Sebastianus Garth', 'H'),
+('Denys Lind', 'H'),
+('Aubine Mcimmie', 'V'),
+('Tannie Stamper', 'V'),
+('Stephan Tögöldör', 'V'),
+('Denys Lind', 'V');
