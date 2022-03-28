@@ -121,16 +121,16 @@ CREATE TABLE imunidade_traje (  -- carlos
   PRIMARY KEY (traje, efeito)
 );
 
-CREATE TABLE imunidade_vilao ( -- pedro
+CREATE TABLE imunidade_vilao (
   vilao TEXT NOT NULL,
   efeito TEXT NOT NULL,
 
   PRIMARY KEY (vilao, efeito)
 );
 
-CREATE TABLE instancia_heroi ( -- pedro
+CREATE TABLE instancia_heroi (
   id SERIAL PRIMARY KEY,
-  nome TEXT UNIQUE NOT NULL,
+  nome TEXT NOT NULL,
   heroi TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
   experiencia NON_NEGATIVE_INT NOT NULL DEFAULT 0,
@@ -138,10 +138,12 @@ CREATE TABLE instancia_heroi ( -- pedro
   arma TEXT, 
   latitude NON_NEGATIVE_INT NOT NULL,
   longitude NON_NEGATIVE_INT NOT NULL,
-  mapa INTEGER NOT NULL
+  mapa INTEGER NOT NULL,
+
+  UNIQUE(nome, heroi)
 );
 
-CREATE TABLE instancia_item ( -- pedro
+CREATE TABLE instancia_item (
   id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
   latitude POSITIVE_INT NOT NULL,
@@ -149,7 +151,7 @@ CREATE TABLE instancia_item ( -- pedro
   mapa INTEGER NOT NULL
 );
 
-CREATE TABLE instancia_vilao ( -- pedro
+CREATE TABLE instancia_vilao (
   id SERIAL PRIMARY KEY,
   vilao TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
@@ -158,7 +160,7 @@ CREATE TABLE instancia_vilao ( -- pedro
   mapa INTEGER NOT NULL
 );
 
-CREATE TABLE item ( -- pedro
+CREATE TABLE item (
   id SERIAL UNIQUE NOT NULL,
   nome TEXT PRIMARY KEY,
   tipo CHAR NOT NULL,
@@ -171,17 +173,19 @@ CREATE TABLE joia ( -- herick
   descricao TEXT NOT NULL
 );
 
-CREATE TABLE luta ( -- luta
+CREATE TABLE luta (
   id SERIAL PRIMARY KEY,
   heroi TEXT NOT NULL,
   vilao TEXT NOT NULL,
-  resultado TEXT
+  resultado CHAR
 );
 
-CREATE TABLE mapa ( -- pedro
+CREATE TABLE mapa (
   id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
   ano NON_NEGATIVE_INT NOT NULL,
+  altura POSITIVE_INT NOT NULL,
+  largura POSITIVE_INT NOT NULL,
   requisito TEXT,
 
   UNIQUE (nome, ano)
@@ -259,7 +263,7 @@ CREATE TABLE trocavel ( -- carlos
   CHECK (tipo IN ('T', 'A', 'C'))
 );
 
-CREATE TABLE viagem ( -- pedro
+CREATE TABLE viagem (
   id SERIAL PRIMARY KEY,
   heroi TEXT NOT NULL,
   origem INTEGER NOT NULL,
@@ -291,7 +295,7 @@ ALTER TABLE coletavel ADD FOREIGN KEY (nome) REFERENCES item (nome);
 ALTER TABLE consumivel ADD FOREIGN KEY (nome) REFERENCES trocavel (nome);
 ALTER TABLE consumivel ADD FOREIGN KEY (efeito) REFERENCES efeito (nome);
 
-ALTER TABLE consumo ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE consumo ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
 ALTER TABLE consumo ADD FOREIGN KEY (consumivel) REFERENCES consumivel (nome);
 
 ALTER TABLE efeito_arma ADD FOREIGN KEY (arma) REFERENCES arma (nome);
@@ -323,17 +327,17 @@ ALTER TABLE instancia_heroi ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
-ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
-ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
+ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
+ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES instancia_vilao (vilao);
 
 ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES item (nome);
 
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
-ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE posse ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
 ALTER TABLE posse ADD FOREIGN KEY (item) REFERENCES item (nome);
 
-ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE rastro ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
 ALTER TABLE rastro ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE recompensa ADD FOREIGN KEY (item) REFERENCES item (nome);
@@ -341,11 +345,12 @@ ALTER TABLE recompensa ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 
 ALTER TABLE traje ADD FOREIGN KEY (nome) REFERENCES equipamento (nome);
 
-ALTER TABLE troca ADD FOREIGN KEY (heroi) REFERENCES heroi (nome);
+ALTER TABLE troca ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
 ALTER TABLE troca ADD FOREIGN KEY (item) REFERENCES item (nome);
 ALTER TABLE troca ADD FOREIGN KEY (base) REFERENCES base (id);
 
 ALTER TABLE trocavel ADD FOREIGN KEY (nome) REFERENCES item (nome);
 
+ALTER TABLE viagem ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
 ALTER TABLE viagem ADD FOREIGN KEY (origem) REFERENCES base (id);
 ALTER TABLE viagem ADD FOREIGN KEY (destino) REFERENCES base (id);

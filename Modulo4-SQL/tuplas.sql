@@ -347,3 +347,4 @@ insert into troca (id, item, heroi, base, quantidade_item, venda_ou_compra) valu
 (11, 'Vinyl', 'Denys Lind', 1, 57, 'V'),
 (12, 'Plastic', 'Denys Lind', 5, 82, 'C'),
 (13, 'Vinyl', 'Denys Lind', 4, 9, 'C');
+-- TODO: Inserir ordem de execução
