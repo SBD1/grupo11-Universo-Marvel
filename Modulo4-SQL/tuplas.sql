@@ -319,3 +319,17 @@ insert into recompensa (item, vilao, quantidade) values ('Aluminum', 'Leland Wat
 ('Vinyl', 'Frasquito Queyeiro', 4),
 ('Plastic', 'Torrie Mohun', 55),
 ('Brass', 'Marysa Ratlee', 13);
+
+insert into traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) values ('Terno Festivo de Calça Preta', 'Traje comum', 74, 42, 57, 46, 59),
+('roupa de pesca', 'Traje usado', 67, 83, 77, 76, 79),
+('Traje de Festival', 'Traje usado', 41, 46, 17, 25, 41),
+('roupa de pesca', 'Traje ruim', 98, 37, 84, 45, 9),
+('roupa de pirata', 'Traje usado', 43, 56, 52, 12, 9),
+('Roupa de fazendeiro', 'Traje supremo', 21, 90, 80, 49, 68),
+('Terno Festivo azul marinho', 'Traje supremo', 92, 90, 26, 52, 40),
+('Terno Festivo azul marinho', 'Traje comum', 38, 12, 64, 54, 10),
+('roupa de pesca', 'Traje raro', 70, 42, 24, 40, 9),
+('terno de Jantar Roxo', 'Traje usado', 29, 66, 11, 47, 11),
+('Smoking', 'Traje usado', 72, 97, 25, 32, 38),
+('Traje de Festival', 'Traje raro', 89, 19, 6, 39, 25),
+('Regalia da Cervejaria', 'Traje comum', 74, 96, 17, 61, 11);
