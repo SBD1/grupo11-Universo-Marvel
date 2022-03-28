@@ -60,7 +60,7 @@ CREATE TABLE consumivel ( -- carlos
 );
 
 CREATE TABLE consumo ( -- carlos
-  heroi TEXT NOT NULL,
+  heroi INTEGER NOT NULL,
   consumivel TEXT NOT NULL,
   vezes POSITIVE_INT NOT NULL DEFAULT 1,
 
@@ -175,7 +175,7 @@ CREATE TABLE joia ( -- herick
 
 CREATE TABLE luta (
   id SERIAL PRIMARY KEY,
-  heroi TEXT NOT NULL,
+  heroi INTEGER NOT NULL,
   vilao TEXT NOT NULL,
   resultado CHAR
 );
@@ -214,9 +214,9 @@ CREATE TABLE personagem ( -- helena
 );
 
 CREATE TABLE posse ( -- helena
-  item TEXT,
-  heroi TEXT,
-  quantidade POSITIVE_INT NOT NULL,
+  item TEXT NOT NULL,
+  heroi INTEGER NOT NULL,
+  quantidade POSITIVE_INT NOT NULL DEFAULT 1,
 
   PRIMARY KEY (item, heroi)
 );
@@ -226,7 +226,7 @@ CREATE TABLE rastro ( -- helena
   latitude POSITIVE_INT NOT NULL,
   longitude POSITIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
-  heroi TEXT NOT NULL
+  heroi INTEGER NOT NULL
 );
 
 CREATE TABLE recompensa ( -- helena
@@ -248,7 +248,7 @@ CREATE TABLE traje ( -- helena
 CREATE TABLE troca ( -- helena
   id SERIAL PRIMARY KEY,
   item TEXT NOT NULL,
-  heroi TEXT NOT NULL,
+  heroi INTEGER NOT NULL,
   base INTEGER NOT NULL,
   quantidade_item POSITIVE_INT NOT NULL,
   venda_ou_compra CHAR NOT NULL,
@@ -265,7 +265,7 @@ CREATE TABLE trocavel ( -- carlos
 
 CREATE TABLE viagem (
   id SERIAL PRIMARY KEY,
-  heroi TEXT NOT NULL,
+  heroi INTEGER NOT NULL,
   origem INTEGER NOT NULL,
   destino INTEGER NOT NULL
 );
@@ -328,7 +328,7 @@ ALTER TABLE instancia_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
 
 ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (id);
-ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES instancia_vilao (vilao);
+ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 
 ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES item (nome);
 
