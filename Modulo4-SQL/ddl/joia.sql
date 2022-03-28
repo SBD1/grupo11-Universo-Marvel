@@ -1,3 +1,19 @@
+INSERT INTO item(nome, tipo) VALUES
+('Jóia da Mente', 'J'),
+('Jóia do Poder', 'J'),
+('Jóia do Espaço', 'J'),
+('Jóia da Alma', 'J'),
+('Jóia do Tempo', 'J'),
+('Jóia da Realidade', 'J');
+
+INSERT INTO coletavel(nome, tipo) VALUES
+('Jóia da Mente', 'J'),
+('Jóia do Poder', 'J'),
+('Jóia do Espaço', 'J'),
+('Jóia da Alma', 'J'),
+('Jóia do Tempo', 'J'),
+('Jóia da Realidade', 'J');
+
 INSERT INTO joia (nome, descricao) VALUES
 ('Jóia da Mente', 'et ultrices posuere'),
 ('Jóia do Poder', 'est donec odio'),
