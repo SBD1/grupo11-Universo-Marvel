@@ -131,7 +131,27 @@ INSERT INTO efeito (nome) VALUES
 ('Invulnerabilidade'),
 ('Invisibilidade');
 
-INSERT INTO imunidade_traje (traje, efeito) VALUES (); -- Missing traje 
+INSERT INTO imunidade_traje (traje, efeito) VALUES 
+('Resistência', 'Terno Festivo azul marinho'),
+('Velocidade', 'Regalia da Cervejaria'),
+('Inteligência', 'Smoking'),
+('Velocidade', 'Regalia da Cervejaria'),
+('Resistência', 'Smoking'),
+('Vida', 'Traje de Festival'),
+('Inteligência', 'terno de Jantar Roxo'),
+('Inteligência', 'roupa de pesca'),
+('Magia', 'Traje de Festival'),
+('Sorte', 'Traje de Festival'),
+('Velocidade', 'roupa de pirata'),
+('Magia', 'Traje de Festival'),
+('Agilidade', 'Terno Festivo azul marinho'),
+('Velocidade', 'Terno Festivo azul marinho'),
+('Magia', 'terno de Jantar Roxo'),
+('Invulnerabilidade', 'roupa de pirata'),
+('Velocidade', 'roupa de pirata'),
+('Defesa', 'Roupa de fazendeiro'),
+('Invisibilidade', 'Smoking'),
+('Inteligência', 'Regalia da Cervejaria');
 
 INSERT INTO coletavel (nome, tipo) VALUES 
 ('Vinyl', 'J'),
