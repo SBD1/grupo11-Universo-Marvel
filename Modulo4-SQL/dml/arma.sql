@@ -7,6 +7,7 @@ INSERT INTO item (nome, tipo) VALUES
 ('Olho de Agamotto', 'A'),
 ('Lança Teias Comum', 'A');
 
+
 INSERT INTO trocavel (nome, tipo) VALUES
 ('Stormbreaker', 'A'),
 ('Mjölnir', 'A'),

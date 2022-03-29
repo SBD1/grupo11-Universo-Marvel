@@ -1,3 +1,33 @@
+INSERT INTO item (nome, tipo) VALUES
+('Poção pequena de cura', 'C'),
+('Poção média de cura', 'C'),
+('Poção grande de cura', 'C'),
+('Poção gigante de cura', 'C'),
+('Poção pequena de agilidade', 'C'),
+('Poção média de agilidade', 'C'),
+('Poção grande de agilidade', 'C'),
+('Poção gigante de agilidade', 'C'),
+('Poção pequena de magia', 'C'),
+('Poção média de magia', 'C'),
+('Poção grande de magia', 'C'),
+('Poção gigante de magia', 'C'),
+('Poção de invisibilidade', 'C');
+
+INSERT INTO trocavel (nome, tipo) VALUES
+('Poção pequena de cura', 'C'),
+('Poção média de cura', 'C'),
+('Poção grande de cura', 'C'),
+('Poção gigante de cura', 'C'),
+('Poção pequena de agilidade', 'C'),
+('Poção média de agilidade', 'C'),
+('Poção grande de agilidade', 'C'),
+('Poção gigante de agilidade', 'C'),
+('Poção pequena de magia', 'C'),
+('Poção média de magia', 'C'),
+('Poção grande de magia', 'C'),
+('Poção gigante de magia', 'C'),
+('Poção de invisibilidade', 'C');
+
 INSERT INTO consumivel (nome, descricao, quantidade_maxima, valor, efeito, grau, duracao, cooldown) VALUES
 ('Poção pequena de cura', 'Cura vida de quem a usa.', 13, 40, 'Vida', 20, 0, 3),
 ('Poção média de cura', 'Cura vida de quem a usa.', 13, 100, 'Vida', 40, 0, 3),
