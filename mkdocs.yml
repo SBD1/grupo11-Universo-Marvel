@@ -1,0 +1,49 @@
+site_name: Universo-Marvel
+
+repo_name: "grupo11-Universo-Marvel"
+repo_url: "https://github.com/SBD1/grupo11-Universo-Marvel"
+
+extra_css: 
+  - extra.css
+
+theme:
+  name: material
+  language: "pt"
+  logo: assets/img/marvel-logo.png
+  palette:
+    primary: "#fff"
+    accent: "light blue"
+  font:
+    text: "Montserrat"
+    code: "sans-serif"
+
+nav:
+  - Início: index.md
+  - Modelos inciais:
+      - Modelo Carlos: modelos-iniciais/ModeloCarlos.md
+      - Modelo Helena: modelos-iniciais/ModeloHelena.md
+      - Modelo Herick: modelos-iniciais/ModeloHerick.md
+      - Modelo Julio: modelos-iniciais/ModeloJulio.md
+      - Modelo Pedro: modelos-iniciais/ModeloPedro.md
+  - Modelo Entidade Relacionamento:
+      - Versão 1: MER/v1.md
+      - Versão 2: MER/v2.md
+      - Versão 3: MER/v3.md
+      - Versão 4: MER/v4.md
+      - Versão 5: MER/v5.md
+      - Versão 6: MER/v6.md
+      - Versão 6.1: MER/v6.1.md
+  - Modelo Relacionamento:
+      - Versão 1: MREL/v1.md
+      - Versão 2: MREL/v2.md
+      - Versão 3: MREL/v3.md
+      - Versão 4: MREL/v4.md
+      - Versão 5: MREL/v5.md
+  - Normalização:
+      - Analysis: mod-3/Analysis.md
+      - Dependências Funcionais: mod-3/DF.md
+      - Modelo Relacional Normal: NORM/modelo_relacional_normal.md
+      - Visão Geral: mod-3/README.md
+  - Scripts SQL:
+      - Tabelas: SQL/tabelas.md
+      - Instruções para Execução: SQL/README.md
