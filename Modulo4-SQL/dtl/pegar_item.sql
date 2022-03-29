@@ -5,7 +5,7 @@ INSERT INTO instancia_item (nome, latitude, longitude, mapa) VALUES
 ('Moeda', 5, 5, 1);
 
 INSERT INTO instancia_heroi (nome, heroi, vida, latitude, longitude, mapa) VALUES
-('Jogador', 'Thor', 1, 5, 5, 1) ON CONFLICT (nome, heroi) DO NOTHING;
+('Jogador', 'Thor', 1, 5, 5, 1);
 
 INSERT INTO posse (heroi, item, quantidade) VALUES
 ('Jogador', 'Moeda', 9);
@@ -15,7 +15,7 @@ BEGIN;
 
 -- Insere ou atualiza a posse na tabela
 INSERT INTO posse (heroi, item, quantidade)
-SELECT H.id, I.nome, 1 
+SELECT H.nome, I.nome, 1
 FROM instancia_item I, instancia_heroi H
 WHERE I.latitude = H.latitude
 AND I.longitude = H.longitude
