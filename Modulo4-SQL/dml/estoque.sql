@@ -15,7 +15,6 @@ INSERT INTO estoque (base, item, quantidade) VALUES
 (10, 'Poção gigante de magia', 14),
 (5, 'Poção gigante de magia', 16),
 (9, 'Poção de invisibilidade', 16),
-(5, 'Poção de invisibilidade', 18),
 (3, 'Poção de invisibilidade', 2),
 (13, 'Poção de invisibilidade', 13),
 (5, 'Poção de invisibilidade', 3);

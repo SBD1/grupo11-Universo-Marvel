@@ -93,8 +93,8 @@ CREATE TABLE equipamento (
 );
 
 CREATE TABLE espaco_vazio (
-  latitude POSITIVE_INT NOT NULL,
-  longitude POSITIVE_INT NOT NULL,
+  latitude NON_NEGATIVE_INT NOT NULL,
+  longitude NON_NEGATIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
 
   PRIMARY KEY (latitude, longitude, mapa)
@@ -144,8 +144,8 @@ CREATE TABLE instancia_heroi (
 CREATE TABLE instancia_item (
   id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
-  latitude POSITIVE_INT NOT NULL,
-  longitude POSITIVE_INT NOT NULL,
+  latitude NON_NEGATIVE_INT NOT NULL,
+  longitude NON_NEGATIVE_INT NOT NULL,
   mapa INTEGER NOT NULL
 );
 
@@ -153,8 +153,8 @@ CREATE TABLE instancia_vilao (
   id SERIAL PRIMARY KEY,
   vilao TEXT NOT NULL,
   vida NON_NEGATIVE_INT NOT NULL,
-  latitude POSITIVE_INT NOT NULL,
-  longitude POSITIVE_INT NOT NULL,
+  latitude NON_NEGATIVE_INT NOT NULL,
+  longitude NON_NEGATIVE_INT NOT NULL,
   mapa INTEGER NOT NULL
 );
 
@@ -222,8 +222,8 @@ CREATE TABLE posse (
 
 CREATE TABLE rastro (
   id SERIAL PRIMARY KEY,
-  latitude POSITIVE_INT NOT NULL,
-  longitude POSITIVE_INT NOT NULL,
+  latitude NON_NEGATIVE_INT NOT NULL,
+  longitude NON_NEGATIVE_INT NOT NULL,
   mapa INTEGER NOT NULL,
   heroi TEXT NOT NULL
 );
