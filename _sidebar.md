@@ -27,6 +27,6 @@
   - [Modelo Relacional Normal](docs/NORM/modelo_relacional_normal.md)
   - [Visão Geral](Modulo3-Normalizacao/README.md)
 
-- **Normalização**
+- **Scripts SQL**
   - [Tabelas](docs/SQL/tabelas.md)
   - [Instruções para Execução](Modulo4-SQL/README.md)
