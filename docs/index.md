@@ -1,6 +1,6 @@
 # [Universo Marvel](https://sbd1.github.io/grupo11-Universo-Marvel) 
 
-![Marvel Image](docs/assets/img/marvel-logo.png)
+![Marvel Image](./assets/img/marvel-logo.png)
 
 ## Descrição
 
