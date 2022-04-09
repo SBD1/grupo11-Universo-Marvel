@@ -1,1 +1,1 @@
-![Modelo Relacional Normalizado](../../Modulo3-Normalizacao/ModeloRelacionalNormal_v1.png)
+![Modelo Relacional Normalizado](../assets/img/ModeloRelacionalNormal_v1.png)
