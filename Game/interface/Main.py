@@ -4,7 +4,8 @@ import time
 mywindow = curses.initscr()
 curses.noecho()
 
-size = 30
+size = 15
+size += 2
 area = size ** 2
 global matrix
 matrix = [[' '  for i in range(size)] for j in range(size)]
@@ -24,7 +25,7 @@ hy = 3
 hx = 0
 
 def sobe(x, y):
-  if x > 0:
+  if x > 1:
     matrix[x][y] = ' '
     x -= 1
     colocaPersonagem(x, y, 'H')
@@ -33,7 +34,7 @@ def sobe(x, y):
     return 0
 
 def desce(x, y):
-  if x < size - 1:
+  if x < size - 2:
     matrix[x][y] = ' '
     x += 1
     colocaPersonagem(x, y, 'H')
@@ -42,7 +43,7 @@ def desce(x, y):
     return 0
 
 def direita(x, y):
-  if y <= size:
+  if y < size - 2:
     matrix[x][y] = ' '
     y += 1
     colocaPersonagem(x, y, 'H')
@@ -51,7 +52,7 @@ def direita(x, y):
     return 0
 
 def esquerda(x, y):
-  if y > 0:
+  if y > 1:
     matrix[x][y] = ' '
     y -= 1
     colocaPersonagem(x, y, 'H')
@@ -71,6 +72,15 @@ def entrada(c):
   if c == ord('d') or c == ord('D'):
     return 4
 
+def setBorder():
+  for i in range(size):
+    matrix[i][0] = '#'
+    matrix[0][i] = '#'
+    matrix[i][size - 1] = '#'
+    matrix[size - 1][i] = '#'
+
+setBorder()
+
 hX = 1
 hY = 1
 colocaPersonagem(hX, hY, 'H')
@@ -87,13 +97,13 @@ while True:
   attEntry = entrada(c)
   
   if attEntry == 1:
-    hX = sobe(hX, hY)
+    hX = sobe(hX, hY) if hX > 1 else hX
   if attEntry == 2:
-    hX = desce(hX, hY) if hX < size - 1 else hX
+    hX = desce(hX, hY) if hX < size - 2 else hX
   if attEntry == 3:
-    hY = esquerda(hX, hY)
+    hY = esquerda(hX, hY) if hY > 1 else hY
   if attEntry == 4:
-    hY = direita(hX, hY) if hY < size - 1 else hY
+    hY = direita(hX, hY) if hY < size - 2 else hY
   
   if attEntry == 0:
     break
