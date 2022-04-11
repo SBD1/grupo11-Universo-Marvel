@@ -6,11 +6,38 @@ curses.noecho()
 
 size = 15
 size += 2
-area = size ** 2
 hX = 1
 hY = 1
 nomeLocal = "Area da joia\n"
-matrix = [[' '  for i in range(size)] for j in range(size)]
+matrix = [[' ' for i in range(size)] for j in range(size)]
+inventarioAberto = False
+inventario = [
+  {
+    "id": 1,
+    "item": "Cristal de vida pequeno",
+    "quantidade": 2,
+    "descricao": "Este cristal cura sua vida em 10."
+  },
+  {
+    "id": 2,
+    "item": "Cristal de energia médio",
+    "quantidade": 3,
+    "descricao": "Este cristal aumenta sua energia em 20."
+  },
+  {
+    "id": 3,
+    "item": "Escudo de vibranium",
+    "quantidade": 1,
+    "descricao": "Este escudo absorve todo tipo de dano."
+  },
+  {
+    "id": 4,
+    "item": "Mjolnir",
+    "quantidade": 1,
+    "descricao": "Indignos não podem levantá-lo."
+  },
+]
+
 
 def colocaPersonagem(x, y, nome):
   matrix[x][y] = nome
@@ -61,6 +88,8 @@ def entrada(c):
     return 3
   if c == ord('d') or c == ord('D'):
     return 4
+  if c == ord('i') or c == ord('I'):
+    return 5
 
 def setBorder():
   for i in range(size):
@@ -69,14 +98,21 @@ def setBorder():
     matrix[i][size - 1] = '#'
     matrix[size - 1][i] = '#'
 
+def showInventario():
+  for index, item in enumerate(inventario):
+    left = item["item"]
+    right = item["quantidade"]
+    mywindow.addstr(size + index + 2, 0, f"{left : <30}{right : >20}")
+
+def hideInventario():
+  mywindow.clear()
+
+
+
 setBorder()
-
-
 colocaPersonagem(hX, hY, 'H')
 
-
 while True:
-
   # H = heroi, V = vilao
   curses.noecho()
 
@@ -95,9 +131,15 @@ while True:
     hY = esquerda(hX, hY) if hY > 1 else hY
   if attEntry == 4:
     hY = direita(hX, hY) if hY < size - 2 else hY
-  
+  if attEntry == 5:
+    inventarioAberto = not inventarioAberto  
   if attEntry == 0:
     break
+
+  if inventarioAberto:
+    showInventario()
+  else:
+    hideInventario()
 
   mywindow.refresh()
   # z -= 1
