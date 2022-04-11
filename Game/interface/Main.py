@@ -7,7 +7,9 @@ curses.noecho()
 size = 15
 size += 2
 area = size ** 2
-global matrix
+hX = 1
+hY = 1
+nomeLocal = "Area da joia\n"
 matrix = [[' '  for i in range(size)] for j in range(size)]
 
 def colocaPersonagem(x, y, nome):
@@ -25,40 +27,28 @@ hy = 3
 hx = 0
 
 def sobe(x, y):
-  if x > 1:
-    matrix[x][y] = ' '
-    x -= 1
-    colocaPersonagem(x, y, 'H')
-    return x
-  else:
-    return 0
+  matrix[x][y] = ' '
+  x -= 1
+  colocaPersonagem(x, y, 'H')
+  return x
 
 def desce(x, y):
-  if x < size - 2:
-    matrix[x][y] = ' '
-    x += 1
-    colocaPersonagem(x, y, 'H')
-    return x
-  else:
-    return 0
+  matrix[x][y] = ' '
+  x += 1
+  colocaPersonagem(x, y, 'H')
+  return x
 
 def direita(x, y):
-  if y < size - 2:
-    matrix[x][y] = ' '
-    y += 1
-    colocaPersonagem(x, y, 'H')
-    return y
-  else:
-    return 0
+  matrix[x][y] = ' '
+  y += 1
+  colocaPersonagem(x, y, 'H')
+  return y
 
 def esquerda(x, y):
-  if y > 1:
-    matrix[x][y] = ' '
-    y -= 1
-    colocaPersonagem(x, y, 'H')
-    return y
-  else:
-    return 0
+  matrix[x][y] = ' '
+  y -= 1
+  colocaPersonagem(x, y, 'H')
+  return y
 
 def entrada(c):
   if c == ord('q') or c == ord('Q'):
@@ -81,9 +71,9 @@ def setBorder():
 
 setBorder()
 
-hX = 1
-hY = 1
+
 colocaPersonagem(hX, hY, 'H')
+
 
 while True:
 
@@ -92,6 +82,7 @@ while True:
 
   colocaPersonagem(6 , 9, 'V')
   mywindow.addstr(0,0, getMatrixString(matrix))
+  mywindow.addstr(size, 0, nomeLocal)
   
   c = mywindow.getch()
   attEntry = entrada(c)
