@@ -2,7 +2,7 @@ import psycopg2
 
 #Configurações
 host = "localhost"
-dbname = "db_marvel"
+dbname = "sdb_marvel"
 user = "postgres"
 password = "postgres"
 sslmode = "require"
