@@ -73,6 +73,7 @@ def entrada(c):
 
 hX = 1
 hY = 1
+colocaPersonagem(hX, hY, 'H')
 
 while True:
 
