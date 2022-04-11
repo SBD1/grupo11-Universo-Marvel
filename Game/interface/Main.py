@@ -1,4 +1,5 @@
 import curses
+import threading
 import time
 
 mywindow = curses.initscr()
@@ -8,6 +9,9 @@ size = 15
 size += 2
 hX = 1
 hY = 1
+hVida = 100
+hEnergia = 0
+hExp = 0
 nomeLocal = "Area da joia\n"
 matrix = [[' ' for i in range(size)] for j in range(size)]
 inventarioAberto = False
@@ -107,16 +111,27 @@ def showInventario():
 def hideInventario():
   mywindow.clear()
 
+def recharge():
+  x = ['-' for i in range(10)]
+  for index, item in enumerate(x):
+    mywindow.addstr(size, 0, '[' + x[index] + ']')
+    # print(x[index])
+    x.pop()
+    x[index] = '#'
+    time.sleep(1)
 
+# t = threading.Thread(target=recharge)
 
+# recharge()
 setBorder()
 colocaPersonagem(hX, hY, 'H')
 
 while True:
-  # H = heroi, V = vilao
   curses.noecho()
+  # t.start()
 
   colocaPersonagem(6 , 9, 'V')
+  colocaPersonagem(1 , 4, 'V')
   mywindow.addstr(0,0, getMatrixString(matrix))
   mywindow.addstr(size, 0, nomeLocal)
   
@@ -142,8 +157,6 @@ while True:
     hideInventario()
 
   mywindow.refresh()
-  # z -= 1
-  # time.sleep(1)
 
 curses.endwin()
 quit()
