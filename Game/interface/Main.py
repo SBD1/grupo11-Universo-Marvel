@@ -114,15 +114,20 @@ def hideInventario():
 def recharge():
   x = ['-' for i in range(10)]
   for index, item in enumerate(x):
-    mywindow.addstr(size, 0, '[' + x[index] + ']')
-    # print(x[index])
+    a = ''
+    a += '['
+    for i in x:
+      a += i
+    x.insert(index, '#')
     x.pop()
-    x[index] = '#'
+    a += ']'
+    mywindow.addstr(size, 0, a)
+    print(a)
     time.sleep(1)
 
 # t = threading.Thread(target=recharge)
 
-# recharge()
+recharge()
 setBorder()
 colocaPersonagem(hX, hY, 'H')
 
@@ -134,6 +139,9 @@ while True:
   colocaPersonagem(1 , 4, 'V')
   mywindow.addstr(0,0, getMatrixString(matrix))
   mywindow.addstr(size, 0, nomeLocal)
+
+  # if hEnergia < 100:
+
   
   c = mywindow.getch()
   attEntry = entrada(c)
