@@ -1,16 +1,29 @@
-import psycopg2
+import psycopg2 
+from decouple import config
 
 #Configurações
-host = "localhost"
-dbname = "sdb_marvel"
-user = "postgres"
-password = "postgres"
-sslmode = "require"
+db_dialect=config('DB_DIALECT')
+db_host=config('DB_HOST')
+db_port=config('DB_PORT')
+postgres_user=config('POSTGRES_USER')
+postgres_password=config('POSTGRES_PASSWORD')
+postgres_db=config('POSTGRES_DB')
 
-#String de conexão
-conn_string = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, password, sslmode)
-conn = psycopg2.connect(conn_string)
-print("Conectado")
+try :
+    #String de conexão
+    conn = psycopg2.connect(
+        host=db_host,
+        database=postgres_db,
+        user=postgres_user,
+        port=db_port,
+        password=postgres_password)
+    print("Connection successfully")
+    # print(open("tabelas.sql", "r").read())
+    # with self.connection as cursor:
+    #     cursor.execute(open("tabelas.sql", "r").read())
+except: 
+    print("Something went wrong")
+
 
 cursor = conn.cursor()
 
