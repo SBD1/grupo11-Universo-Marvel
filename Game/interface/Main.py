@@ -132,8 +132,11 @@ while True:
 
   colocaPersonagem(6 , 9, 'V')
   colocaPersonagem(1 , 4, 'V')
-  mywindow.addstr(0,0, getMatrixString(matrix))
-  mywindow.addstr(size, 0, nomeLocal)
+  try:
+    mywindow.addstr(0,0, getMatrixString(matrix))
+    mywindow.addstr(size, 0, nomeLocal)
+  except curses.error:
+    pass 
   
   c = mywindow.getch()
   attEntry = entrada(c)
