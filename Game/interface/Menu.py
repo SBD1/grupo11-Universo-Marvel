@@ -1,23 +1,30 @@
 import time
 import curses
 
-opcoesmenu = ['Pagina Inicial', 'Jogar', 'Score', 'Fechar']
+opcoesMenu = ['Pagina Inicial', 'Jogar', 'Score', 'Fechar']
 
-def printmenu(stdscr):
+def printmenu(stdscr, indexLinhaSelecionada):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
 
-    for idx, row in enumerate(opcoesmenu):
+    for indexMenu, row in enumerate(opcoesMenu):
         a = w//2 - len(row)//2
-        b = h//2 - len(opcoesmenu)//2 + idx
-        stdscr.addstr(b, a, row)
+        b = h//2 - len(opcoesMenu)//2 + indexMenu
+        if indexMenu == indexLinhaSelecionada:
+            stdscr.attron(curses.color_pair(1))
+            stdscr.addstr(b, a, row)
+            stdscr.attroff(curses.color_pair(1))
+        else:
+            stdscr.addstr(b, a, row)
 
     stdscr.refresh()
 
 def menu(stdscr):
     curses.curs_set(0)
+    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
-    printmenu(stdscr)
+    linhaAtualIndex = 0
+    printmenu(stdscr, linhaAtualIndex)
     
     while 1:
         key = stdscr.getch()
