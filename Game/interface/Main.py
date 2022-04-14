@@ -1,6 +1,10 @@
+from concurrent.futures import thread
 import curses
 import threading
 import time
+
+class Vilao:
+  pass
 
 mywindow = curses.initscr()
 curses.noecho()
@@ -9,7 +13,10 @@ size = 15
 size += 2
 hX = 1
 hY = 1
-hVida = 100
+v = Vilao()
+v.x = 5
+v.y = 6
+hVida = 10
 hEnergia = 0
 hExp = 0
 nomeLocal = "Area da joia\n"
@@ -112,59 +119,75 @@ def hideInventario():
   mywindow.clear()
 
 def recharge():
-  x = ['-' for i in range(10)]
-  for index, item in enumerate(x):
-    a = ''
-    a += '['
-    for i in x:
-      a += i
-    x.insert(index, '#')
-    x.pop()
-    a += ']'
-    mywindow.addstr(size, 0, a)
-    print(a)
+  global hVida
+  hVida = hVida - (hVida % 10)
+  while hVida <= 100:
+    hVida += 10
+    if hVida > 100:
+      hVida = 100
+      break
+
+    qtd = round(hVida / 10)
+    a = '['
+    for i in range(qtd):
+      a += '#'
+    for i in range(10 - qtd):
+      a += '-'
+    a += ']'    
+    
     time.sleep(1)
+    # os.system('clear')
+    # mywindow.clear()
+    # print(a)
+    mywindow.addstr(0, 0, a)
 
 # t = threading.Thread(target=recharge)
 
-recharge()
+# recharge()
 setBorder()
 colocaPersonagem(hX, hY, 'H')
 
-while True:
-  curses.noecho()
-  # t.start()
+def main():
+  global hX, hY, inventarioAberto, hVida, hit
+  while True:
+    curses.noecho()
 
-  colocaPersonagem(6 , 9, 'V')
-  colocaPersonagem(1 , 4, 'V')
-  mywindow.addstr(0,0, getMatrixString(matrix))
-  mywindow.addstr(size, 0, nomeLocal)
+    colocaPersonagem(v.x , v.y, 'V')
+    mywindow.addstr(1,0, getMatrixString(matrix))
+    mywindow.addstr(size + 1, 0, nomeLocal)
 
-  # if hEnergia < 100:
+    c = mywindow.getch()
+    attEntry = entrada(c)
+    
+    if attEntry == 1:
+      hX = sobe(hX, hY) if hX > 1 else hX
+    if attEntry == 2:
+      hX = desce(hX, hY) if hX < size - 2 else hX
+    if attEntry == 3:
+      hY = esquerda(hX, hY) if hY > 1 else hY
+    if attEntry == 4:
+      hY = direita(hX, hY) if hY < size - 2 else hY
+    if attEntry == 5:
+      inventarioAberto = not inventarioAberto  
+    if attEntry == 0:
+      break
 
-  
-  c = mywindow.getch()
-  attEntry = entrada(c)
-  
-  if attEntry == 1:
-    hX = sobe(hX, hY) if hX > 1 else hX
-  if attEntry == 2:
-    hX = desce(hX, hY) if hX < size - 2 else hX
-  if attEntry == 3:
-    hY = esquerda(hX, hY) if hY > 1 else hY
-  if attEntry == 4:
-    hY = direita(hX, hY) if hY < size - 2 else hY
-  if attEntry == 5:
-    inventarioAberto = not inventarioAberto  
-  if attEntry == 0:
-    break
+    if inventarioAberto:
+      showInventario()
+    else:
+      hideInventario()
 
-  if inventarioAberto:
-    showInventario()
-  else:
-    hideInventario()
+    if hX == v.x and hY == v.y:
+      hVida -= 20
 
-  mywindow.refresh()
+    mywindow.refresh()
+
+t1 = threading.Thread(target=main)
+# t2 = threading.Thread(target=recharge)
+t1.start()
+# t2.start()
+# t1.join()
 
 curses.endwin()
 quit()
+
