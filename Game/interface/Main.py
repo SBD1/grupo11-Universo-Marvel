@@ -1,6 +1,7 @@
 import curses
 import threading
 import time
+import pyfiglet
 
 class Vilao:
   pass
@@ -13,6 +14,7 @@ mywindow = curses.initscr()
 curses.noecho()
 
 opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Opções', 'Sair']
+mensagemfimdejogo = ['Fim de jogo\n Pressione Q para sair.']
 
 def printmenu(mywindow, indexLinhaSelecionada):
   mywindow.clear()
@@ -30,6 +32,13 @@ def printmenu(mywindow, indexLinhaSelecionada):
 
     mywindow.refresh()
 
+def printfimdejogo(mensagemfimdejogo):
+  global mywindow
+  h, w = mywindow.getmaxyx()
+  a = w//2
+  b = h//2
+  banner = pyfiglet.figlet_format(mensagemfimdejogo)
+  print(banner)
 
 
 '''Atributos do herói'''
@@ -151,12 +160,14 @@ colocaPersonagem(heroi.x, heroi.y, 'H')
 
 def main():
   global heroi, inventarioAberto
+  curses.curs_set(0)
   while True:
 
     colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
     mywindow.addstr(matrixSize, 0, nomeLocal)
     mywindow.addstr(matrixSize + 1, 0, "Vida: " + str(heroi.vida))
+    mywindow.addstr(matrixSize + 2, 0, "Energia: " + str(heroi.energia))
 
     c = mywindow.getch()
     attEntry = entrada(c)
@@ -181,6 +192,10 @@ def main():
 
     if heroi.x == vilao.x and heroi.y == vilao.y:
       heroi.vida -= 20
+    
+    if heroi.vida == 0:
+      printfimdejogo("Fim de jogo")
+      break
 
     mywindow.refresh()
 
