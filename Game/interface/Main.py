@@ -1,4 +1,3 @@
-from concurrent.futures import thread
 import curses
 import threading
 import time
@@ -16,7 +15,7 @@ hY = 1
 v = Vilao()
 v.x = 5
 v.y = 6
-hVida = 10
+hVida = 100
 hEnergia = 0
 hExp = 0
 nomeLocal = "Area da joia\n"
@@ -59,10 +58,6 @@ def getMatrixString(m):
     x += ' '.join(str(item) for item in row)
     x += "\n"
   return x
-
-z = 10
-hy = 3
-hx = 0
 
 def sobe(x, y):
   matrix[x][y] = ' '
@@ -118,43 +113,17 @@ def showInventario():
 def hideInventario():
   mywindow.clear()
 
-def recharge():
-  global hVida
-  hVida = hVida - (hVida % 10)
-  while hVida <= 100:
-    hVida += 10
-    if hVida > 100:
-      hVida = 100
-      break
-
-    qtd = round(hVida / 10)
-    a = '['
-    for i in range(qtd):
-      a += '#'
-    for i in range(10 - qtd):
-      a += '-'
-    a += ']'    
-    
-    time.sleep(1)
-    # os.system('clear')
-    # mywindow.clear()
-    # print(a)
-    mywindow.addstr(0, 0, a)
-
-# t = threading.Thread(target=recharge)
-
-# recharge()
 setBorder()
 colocaPersonagem(hX, hY, 'H')
 
 def main():
   global hX, hY, inventarioAberto, hVida, hit
   while True:
-    curses.noecho()
 
     colocaPersonagem(v.x , v.y, 'V')
-    mywindow.addstr(1,0, getMatrixString(matrix))
-    mywindow.addstr(size + 1, 0, nomeLocal)
+    mywindow.addstr(0,0, getMatrixString(matrix))
+    mywindow.addstr(size, 0, nomeLocal)
+    mywindow.addstr(size + 1, 0, "Vida: " + str(hVida))
 
     c = mywindow.getch()
     attEntry = entrada(c)
@@ -182,11 +151,16 @@ def main():
 
     mywindow.refresh()
 
+def refresh():
+  while True:
+    mywindow.refresh()
+    time.sleep(.5)
+
 t1 = threading.Thread(target=main)
-# t2 = threading.Thread(target=recharge)
+# t3 = threading.Thread(target=refresh, daemon=True)
 t1.start()
-# t2.start()
-# t1.join()
+# t3.start()
+
 
 curses.endwin()
 quit()
