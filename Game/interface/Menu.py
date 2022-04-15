@@ -1,7 +1,7 @@
 import time
 import curses
 
-opcoesMenu = ['1. Pagina Inicial', '2. Jogar', '3. Score', '4. Fechar']
+opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Opções', 'Sair']
 
 def printmenu(stdscr, indexLinhaSelecionada):
     stdscr.clear()
@@ -33,12 +33,16 @@ def menu(stdscr):
 
         if key == curses.KEY_UP and linhaAtualIndex > 0:
             linhaAtualIndex -= 1
-        elif key == curses.KEY_DOWN and linhaAtualIndex < len(menu)-1:
+        elif key == curses.KEY_DOWN and linhaAtualIndex < len(opcoesMenu)-1:
             linhaAtualIndex += 1
         elif key == curses.KEY_ENTER or key in [10, 13]:
-            stdscr.addstr(0, 0, "You pressed {}".format(menu[linhaAtualIndex]))
+            if linhaAtualIndex == len(opcoesMenu)-1:
+                break
+            stdscr.addstr(0, 0, "You pressed {}".format(opcoesMenu[linhaAtualIndex]))
             stdscr.refresh()
             stdscr.getch()
+        # elif key == ord('Q') or key == ord('q'):
+            
 
         printmenu(stdscr, linhaAtualIndex)
 
