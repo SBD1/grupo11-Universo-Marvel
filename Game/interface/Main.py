@@ -4,22 +4,33 @@ import time
 
 class Vilao:
   pass
+class Heroi:
+  pass
 
 mywindow = curses.initscr()
 curses.noecho()
 
-size = 15
-size += 2
-hX = 1
-hY = 1
-v = Vilao()
-v.x = 5
-v.y = 6
-hVida = 100
-hEnergia = 0
-hExp = 0
+'''Atributos do herói'''
+heroi = Heroi()
+heroi.vida = 100
+heroi.energia = 100
+heroi.x = 1
+heroi.y = 1
+heroi.inventario = []
+heroi.experiencia = 0
+heroi.nivel = 0
+
+'''Atributos do vilão'''
+vilao = Vilao()
+vilao.vida = 100
+vilao.x = 5
+vilao.y = 6
+
+'''Atributos do jogo'''
+matrixSize = 15
+matrixSize += 2
 nomeLocal = "Area da joia\n"
-matrix = [[' ' for i in range(size)] for j in range(size)]
+matrix = [[' ' for i in range(matrixSize)] for j in range(matrixSize)]
 inventarioAberto = False
 inventario = [
   {
@@ -98,44 +109,44 @@ def entrada(c):
     return 5
 
 def setBorder():
-  for i in range(size):
+  for i in range(matrixSize):
     matrix[i][0] = '#'
     matrix[0][i] = '#'
-    matrix[i][size - 1] = '#'
-    matrix[size - 1][i] = '#'
+    matrix[i][matrixSize - 1] = '#'
+    matrix[matrixSize - 1][i] = '#'
 
 def showInventario():
   for index, item in enumerate(inventario):
     left = item["item"]
     right = item["quantidade"]
-    mywindow.addstr(size + index + 2, 0, f"{left : <30}{right : >20}")
+    mywindow.addstr(matrixSize + index + 2, 0, f"{left : <30}{right : >20}")
 
 def hideInventario():
   mywindow.clear()
 
 setBorder()
-colocaPersonagem(hX, hY, 'H')
+colocaPersonagem(heroi.x, heroi.y, 'H')
 
 def main():
-  global hX, hY, inventarioAberto, hVida, hit
+  global heroi, inventarioAberto
   while True:
 
-    colocaPersonagem(v.x , v.y, 'V')
+    colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
-    mywindow.addstr(size, 0, nomeLocal)
-    mywindow.addstr(size + 1, 0, "Vida: " + str(hVida))
+    mywindow.addstr(matrixSize, 0, nomeLocal)
+    mywindow.addstr(matrixSize + 1, 0, "Vida: " + str(heroi.vida))
 
     c = mywindow.getch()
     attEntry = entrada(c)
     
     if attEntry == 1:
-      hX = sobe(hX, hY) if hX > 1 else hX
+      heroi.x = sobe(heroi.x, heroi.y) if heroi.x > 1 else heroi.x
     if attEntry == 2:
-      hX = desce(hX, hY) if hX < size - 2 else hX
+      heroi.x = desce(heroi.x, heroi.y) if heroi.x < matrixSize - 2 else heroi.x
     if attEntry == 3:
-      hY = esquerda(hX, hY) if hY > 1 else hY
+      heroi.y = esquerda(heroi.x, heroi.y) if heroi.y > 1 else heroi.y
     if attEntry == 4:
-      hY = direita(hX, hY) if hY < size - 2 else hY
+      heroi.y = direita(heroi.x, heroi.y) if heroi.y < matrixSize - 2 else heroi.y
     if attEntry == 5:
       inventarioAberto = not inventarioAberto  
     if attEntry == 0:
@@ -146,8 +157,8 @@ def main():
     else:
       hideInventario()
 
-    if hX == v.x and hY == v.y:
-      hVida -= 20
+    if heroi.x == vilao.x and heroi.y == vilao.y:
+      heroi.vida -= 20
 
     mywindow.refresh()
 
@@ -157,9 +168,7 @@ def refresh():
     time.sleep(.5)
 
 t1 = threading.Thread(target=main)
-# t3 = threading.Thread(target=refresh, daemon=True)
 t1.start()
-# t3.start()
 
 
 curses.endwin()
