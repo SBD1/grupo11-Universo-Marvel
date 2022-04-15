@@ -7,8 +7,30 @@ class Vilao:
 class Heroi:
   pass
 
+isInMenu = True
+
 mywindow = curses.initscr()
 curses.noecho()
+
+opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Opções', 'Sair']
+
+def printmenu(mywindow, indexLinhaSelecionada):
+  mywindow.clear()
+  h, w = mywindow.getmaxyx()
+
+  for indexMenu, row in enumerate(opcoesMenu):
+    a = w//2 - len(row)//2
+    b = h//2 - len(opcoesMenu)//2 + indexMenu
+    if indexMenu == indexLinhaSelecionada:
+      mywindow.attron(curses.color_pair(1))
+      mywindow.addstr(b, a, row)
+      mywindow.attroff(curses.color_pair(1))
+    else:
+      mywindow.addstr(b, a, row)
+
+    mywindow.refresh()
+
+
 
 '''Atributos do herói'''
 heroi = Heroi()
@@ -162,14 +184,33 @@ def main():
 
     mywindow.refresh()
 
-def refresh():
-  while True:
+def menu(mywindow):
+  global isInMenu
+  curses.curs_set(0)
+  curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
+
+  linhaAtualIndex = 0
+  printmenu(mywindow, linhaAtualIndex)
+    
+  while isInMenu:
+    key = mywindow.getch()
+    mywindow.clear()
+
+    if key == curses.KEY_UP and linhaAtualIndex > 0:
+      linhaAtualIndex -= 1
+    elif key == curses.KEY_DOWN and linhaAtualIndex < len(opcoesMenu)-1:
+        linhaAtualIndex += 1
+    elif key == curses.KEY_ENTER or key in [10, 13]:
+      if linhaAtualIndex == len(opcoesMenu) - 1:
+        isInMenu = False
+      if opcoesMenu[linhaAtualIndex] == 'Novo jogo':
+        isInMenu = False   
+        main()
+
+    printmenu(mywindow, linhaAtualIndex)
     mywindow.refresh()
-    time.sleep(.5)
-
-t1 = threading.Thread(target=main)
-t1.start()
-
+    
+curses.wrapper(menu)
 
 curses.endwin()
 quit()
