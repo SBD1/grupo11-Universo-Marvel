@@ -315,3 +315,53 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_instancia_heroi(id_heroi INTEGER)
+    RETURNS table (
+    	nome TEXT,
+    	heroi TEXT,
+    	vida INTEGER,
+    	experiencia INTEGER,
+    	traje TEXT,
+    	arma TEXT,
+    	latitude INTEGER,
+    	longitude INTEGER,
+    	mapa INTEGER
+    ) AS $$
+begin
+	
+	return QUERY
+		SELECT * FROM instancia_heroi WHERE id = id_heroi;
+END
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION get_instancia_vilao(id_vilao INTEGER)
+    RETURNS table (
+    	vilao TEXT,
+    	vida INTEGER,
+    	latitude INTEGER,
+    	longitude INTEGER,
+    	mapa INTEGER
+    ) AS $$
+begin
+	
+	return QUERY
+		SELECT * FROM instancia_vilao WHERE id = id_vilao;
+END
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_instancia_item(id_item INTEGER)
+    RETURNS table (
+    	nome TEXT,
+    	latitude INTEGER,
+    	longitude INTEGER,
+    	mapa INTEGER
+    ) AS $$
+begin
+	
+	return QUERY
+		SELECT * FROM instancia_item WHERE id = id_item;
+END
+$$ LANGUAGE plpgsql;
