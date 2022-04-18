@@ -108,3 +108,49 @@ BEGIN
   RETURN OLD;
 END;
 $delete_personagem$;
+
+-- INSERT
+CREATE OR REPLACE FUNCTION insert_heroi()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $insert_heroi$
+DECLARE tipo CONSTANT TEXT := UPPER(SUBSTRING(TG_TABLE_NAME::regclass::text, 1, 1));
+BEGIN
+  INSERT INTO heroi (nome, agilidade, vida) VALUES (NEW.nome, agilidade, vida);
+  RETURN NEW;
+END;
+$insert_heroi$;
+
+-- DELETE
+CREATE OR REPLACE FUNCTION delete_heroi()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $delete_heroi$
+BEGIN
+  DELETE FROM heroi WHERE nome = OLD.nome;
+  RETURN OLD;
+END;
+$delete_heroi$;
+
+-- INSERT
+CREATE OR REPLACE FUNCTION insert_vilao()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $insert_vilao$
+DECLARE tipo CONSTANT TEXT := UPPER(SUBSTRING(TG_TABLE_NAME::regclass::text, 1, 1));
+BEGIN
+  INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa) VALUES (NEW.nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa);
+  RETURN NEW;
+END;
+$insert_vilao$;
+
+-- DELETE
+CREATE OR REPLACE FUNCTION delete_vilao()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $delete_vilao$
+BEGIN
+  DELETE FROM vilao WHERE nome = OLD.nome;
+  RETURN OLD;
+END;
+$delete_vilao$;
