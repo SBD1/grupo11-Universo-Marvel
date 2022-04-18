@@ -154,3 +154,121 @@ BEGIN
   RETURN OLD;
 END;
 $delete_vilao$;
+
+-- GET
+
+-- VILAO
+
+CREATE OR REPLACE FUNCTION get_vida_vilao(id_vilao INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT vida FROM instancia_vilao WHERE id=id_vilao);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_type_vilao(id_vilao INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT vilao FROM instancia_vilao WHERE id=id_vilao);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_latitude_vilao(id_vilao INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT latitude FROM instancia_vilao WHERE id=id_vilao);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_longitude_vilao(id_vilao INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT longetude FROM instancia_vilao WHERE id=id_vilao);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_mapa_vilao(id_vilao INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT mapa FROM instancia_vilao WHERE id=id_vilao);
+END
+$$ LANGUAGE plpgsql;
+
+-- HEROI
+
+CREATE OR REPLACE FUNCTION get_vida_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT vida FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_nome_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT nome FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_type_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT heroi FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_experiencia_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT experiencia FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_traje_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT traje FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_arma_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT arma FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_latitude_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT latitude FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_longitude_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT longitude FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_mapa_heroi(id_heroi INTEGER)
+    RETURNS INTEGER AS $$
+BEGIN
+  RETURN 
+  (SELECT mapa FROM instancia_heroi WHERE id=id_heroi);
+END
+$$ LANGUAGE plpgsql;
