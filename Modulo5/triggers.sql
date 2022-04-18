@@ -62,6 +62,18 @@ ON moeda
 FOR EACH ROW
 EXECUTE PROCEDURE delete_item();
 
+CREATE TRIGGER delete_coletavel_trigger
+AFTER DELETE OR UPDATE
+ON joia
+FOR EACH ROW
+EXECUTE PROCEDURE delete_coletavel();
+
+CREATE TRIGGER delete_equipamento_trigger
+AFTER DELETE OR UPDATE
+ON joia
+FOR EACH ROW
+EXECUTE PROCEDURE delete_equipamento();
+
 -- Herança de Personagem
 
 -- INSERT e UPDATE
