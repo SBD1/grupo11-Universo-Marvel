@@ -26,6 +26,19 @@ BEGIN
 END;
 $insert_equipamento$;
 
+-- DELETE
+CREATE OR REPLACE FUNCTION delete_equipamento()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $delete_equipamento$
+BEGIN
+  DELETE FROM item WHERE nome = OLD.nome;
+  DELETE FROM trocavel WHERE nome = OLD.nome;
+  DELETE FROM equipamento WHERE nome = OLD.nome;
+  RETURN OLD;
+END;
+$delete_equipamento$;
+
 CREATE OR REPLACE FUNCTION insert_coletavel()
 RETURNS TRIGGER
 LANGUAGE PLPGSQL
@@ -37,6 +50,18 @@ BEGIN
   RETURN NEW;
 END;
 $insert_coletavel$;
+
+-- DELETE
+CREATE OR REPLACE FUNCTION delete_coletavel()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $delete_coletavel$
+BEGIN
+  DELETE FROM item WHERE nome = OLD.nome;
+  DELETE FROM coletavel WHERE nome = OLD.nome;
+  RETURN OLD;
+END;
+$delete_coletavel$;
 
 -- DELETE
 CREATE OR REPLACE FUNCTION delete_item()
