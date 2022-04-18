@@ -199,6 +199,27 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE PROCEDURE updade_vida_vilao(id_vilao INTEGER, _vida INTEGER)
+AS $$
+BEGIN
+    UPDATE instancia_vilao SET vida = _vida WHERE id=id_vilao;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE updade_posicao_vilao(id_vilao INTEGER, lat INTEGER, longi INTEGER)
+AS $$
+BEGIN
+    UPDATE instancia_vilao SET latitude = lat, longitude = longi WHERE id=id_vilao;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE updade_mapa_vilao(id_vilao INTEGER, _mapa INTEGER)
+AS $$
+BEGIN
+    UPDATE instancia_vilao SET mapa = _mapa WHERE id=id_vilao;
+END;
+$$ LANGUAGE plpgsql;
+
 -- HEROI
 
 CREATE OR REPLACE FUNCTION get_vida_heroi(id_heroi INTEGER)
@@ -272,3 +293,25 @@ BEGIN
   (SELECT mapa FROM instancia_heroi WHERE id=id_heroi);
 END
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE updade_vida_heroi(id_heroi INTEGER, _vida INTEGER)
+AS $$
+BEGIN
+    UPDATE instancia_heroi SET vida = _vida WHERE id=id_heroi;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE updade_posicao_heroi(id_heroi INTEGER, lat INTEGER, longi INTEGER)
+AS $$
+BEGIN
+    UPDATE instancia_heroi SET latitude = lat, longitude = longi WHERE id=id_heroi;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE updade_mapa_heroi(id_heroi INTEGER, _mapa INTEGER)
+AS $$
+BEGIN
+    UPDATE instancia_heroi SET mapa = _mapa WHERE id=id_heroi;
+END;
+$$ LANGUAGE plpgsql;
+
