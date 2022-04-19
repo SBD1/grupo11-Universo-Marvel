@@ -45,8 +45,8 @@ heroi.isAlive = True
 '''Atributos do vilão'''
 vilao = Vilao()
 vilao.vida = 100
-vilao.x = 5
-vilao.y = 6
+vilao.x = 2
+vilao.y = 1
 
 '''Atributos do jogo'''
 matrixSize = 15
@@ -84,8 +84,8 @@ inventario = [
 def resetGame():
   global heroi, vilao
   vilao.vida = 100
-  vilao.x = 5
-  vilao.y = 6
+  vilao.x = 2
+  vilao.y = 1
   heroi.vida = 10
   heroi.energia = 100
   heroi.x = 1
@@ -199,8 +199,8 @@ def main():
       heroi.vida -= 20
     
     if heroi.vida <= 0:
-      menu(mywindow)
       heroi.isAlive = False
+      menu(mywindow)
 
     mywindow.refresh()
 
@@ -208,6 +208,14 @@ def menu(mywindow):
   global isInMenu
   curses.curs_set(0)
   curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
+  
+  if not heroi.isAlive:
+    mywindow.refresh()
+    h, w = mywindow.getmaxyx()
+    pad = curses.newpad(h, w)
+    pad.addstr((h // 2) - 3, 0, pyfiglet.figlet_format("Game Over"))
+    pad.refresh(0,0,0,0,h,w)
+    time.sleep(3)
 
   linhaAtualIndex = 0
   printmenu(mywindow, linhaAtualIndex)
@@ -215,6 +223,7 @@ def menu(mywindow):
   while isInMenu:
     key = mywindow.getch()
     mywindow.clear()
+
 
     if key == curses.KEY_UP and linhaAtualIndex > 0:
       linhaAtualIndex -= 1
