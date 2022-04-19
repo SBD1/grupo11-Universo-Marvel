@@ -19,6 +19,8 @@ def printmenu(mywindow, indexLinhaSelecionada):
   mywindow.clear()
   h, w = mywindow.getmaxyx()
 
+  mywindow.addstr((h // 2) - 10, 0, pyfiglet.figlet_format("Avengers", justify="right"))
+
   for indexMenu, row in enumerate(opcoesMenu):
     a = w//2 - len(row)//2
     b = h//2 - len(opcoesMenu)//2 + indexMenu
@@ -213,7 +215,7 @@ def menu(mywindow):
     mywindow.refresh()
     h, w = mywindow.getmaxyx()
     pad = curses.newpad(h, w)
-    pad.addstr((h // 2) - 3, 0, pyfiglet.figlet_format("Game Over"))
+    pad.addstr((h // 2) - 3, 0, pyfiglet.figlet_format("           Game Over", font="slant"))
     pad.refresh(0,0,0,0,h,w)
     time.sleep(3)
 
