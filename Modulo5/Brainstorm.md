@@ -1,5 +1,8 @@
 ### Ideia de Jogo de turnos
 
+    Mudanças no menu, ao andar e ao batalhar na logica de jogo e no visual 
+
+```
 	Terminal:
 		Andar: (Se chegar na quina do mapa o jogador nao poderá andar naquela direção. Sempre que andar dar a coordenada atual do player começando de 0, 0)
 			Andar para direta
@@ -16,3 +19,4 @@
 			
 		Consultar Inventário:
 			(Mostra as jóias e os itens)
+``` 
