@@ -1,5 +1,4 @@
 import curses
-import threading
 import time
 import pyfiglet
 
@@ -32,15 +31,6 @@ def printmenu(mywindow, indexLinhaSelecionada):
 
     mywindow.refresh()
 
-def printfimdejogo(mensagemfimdejogo):
-  global mywindow
-  h, w = mywindow.getmaxyx()
-  a = w//2
-  b = h//2
-  banner = pyfiglet.figlet_format(mensagemfimdejogo)
-  print(banner)
-
-
 '''Atributos do herói'''
 heroi = Heroi()
 heroi.vida = 100
@@ -50,6 +40,7 @@ heroi.y = 1
 heroi.inventario = []
 heroi.experiencia = 0
 heroi.nivel = 0
+heroi.isAlive = True
 
 '''Atributos do vilão'''
 vilao = Vilao()
@@ -161,8 +152,8 @@ colocaPersonagem(heroi.x, heroi.y, 'H')
 def main():
   global heroi, inventarioAberto
   curses.curs_set(0)
-  while True:
-
+  
+  while heroi.isAlive:
     colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
     mywindow.addstr(matrixSize, 0, nomeLocal)
@@ -183,7 +174,7 @@ def main():
     if attEntry == 5:
       inventarioAberto = not inventarioAberto  
     if attEntry == 0:
-      break
+      heroi.isAlive = False
 
     if inventarioAberto:
       showInventario()
@@ -194,10 +185,10 @@ def main():
       heroi.vida -= 20
     
     if heroi.vida == 0:
-      printfimdejogo("Fim de jogo")
-      break
+      heroi.isAlive = False
 
     mywindow.refresh()
+  menu(mywindow)
 
 def menu(mywindow):
   global isInMenu
