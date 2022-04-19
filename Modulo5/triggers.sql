@@ -31,12 +31,6 @@ ON moeda
 FOR EACH ROW
 EXECUTE PROCEDURE insert_coletavel();
 
-CREATE TRIGGER insert_coordenada_trigger
-BEFORE INSERT OR UPDATE
-ON coordenada
-FOR EACH ROW
-EXECUTE PROCEDURE insert_coordenada();
-
 -- DELETE e UPDATE
 CREATE TRIGGER delete_arma_trigger
 AFTER DELETE OR UPDATE
@@ -79,13 +73,6 @@ AFTER DELETE OR UPDATE
 ON joia
 FOR EACH ROW
 EXECUTE PROCEDURE delete_equipamento();
-
-CREATE TRIGGER delete_coordenada_trigger
-AFTER DELETE OR UPDATE
-ON coordenada
-FOR EACH ROW
-EXECUTE PROCEDURE delete_coordenada();
-
 
 -- Herança de Personagem
 
