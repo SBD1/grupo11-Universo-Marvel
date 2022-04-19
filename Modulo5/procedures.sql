@@ -77,6 +77,7 @@ BEGIN
 
   DELETE FROM joia WHERE nome = OLD.nome;
   DELETE FROM moeda WHERE nome = OLD.nome;
+  DELETE FROM coordenada WHERE nome = OLD.nome;
   DELETE FROM coletavel WHERE nome = OLD.nome;
 
   DELETE FROM item WHERE nome = OLD.nome;
