@@ -33,7 +33,7 @@ def printmenu(mywindow, indexLinhaSelecionada):
 
 '''Atributos do herói'''
 heroi = Heroi()
-heroi.vida = 100
+heroi.vida = 10
 heroi.energia = 100
 heroi.x = 1
 heroi.y = 1
@@ -81,6 +81,20 @@ inventario = [
   },
 ]
 
+def resetGame():
+  global heroi, vilao
+  vilao.vida = 100
+  vilao.x = 5
+  vilao.y = 6
+  heroi.vida = 10
+  heroi.energia = 100
+  heroi.x = 1
+  heroi.y = 1
+  heroi.inventario = []
+  heroi.experiencia = 0
+  heroi.nivel = 0
+  heroi.isAlive = True
+  colocaPersonagem(heroi.x, heroi.y, 'H')
 
 def colocaPersonagem(x, y, nome):
   matrix[x][y] = nome
@@ -147,12 +161,12 @@ def hideInventario():
   mywindow.clear()
 
 setBorder()
-colocaPersonagem(heroi.x, heroi.y, 'H')
+
 
 def main():
   global heroi, inventarioAberto
   curses.curs_set(0)
-  
+
   while heroi.isAlive:
     colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
@@ -184,11 +198,11 @@ def main():
     if heroi.x == vilao.x and heroi.y == vilao.y:
       heroi.vida -= 20
     
-    if heroi.vida == 0:
+    if heroi.vida <= 0:
+      menu(mywindow)
       heroi.isAlive = False
 
     mywindow.refresh()
-  menu(mywindow)
 
 def menu(mywindow):
   global isInMenu
@@ -210,7 +224,7 @@ def menu(mywindow):
       if linhaAtualIndex == len(opcoesMenu) - 1:
         isInMenu = False
       if opcoesMenu[linhaAtualIndex] == 'Novo jogo':
-        isInMenu = False   
+        resetGame()
         main()
 
     printmenu(mywindow, linhaAtualIndex)
