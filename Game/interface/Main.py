@@ -200,8 +200,11 @@ def batalha(heroi, vilao, mywindow):
           critico = random.random() < chanceCritico
           if not critico:
             chanceCritico += 0.1
+            vilao.vida -= heroi.dano
           else:
+            vilao.vida -= danoCritico
             chanceCritico = 0.1
+
 
         
     else:                 # vez do vilão
