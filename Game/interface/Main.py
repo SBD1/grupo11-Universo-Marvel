@@ -97,6 +97,7 @@ def resetGame():
   heroi.experiencia = 0
   heroi.nivel = 0
   heroi.isAlive = True
+  heroi.defendendo = False
   colocaPersonagem(heroi.x, heroi.y, 'H')
 
 def colocaPersonagem(x, y, nome):
@@ -134,24 +135,30 @@ def esquerda(x, y):
   return y
 
 def entrada(c):
-  if c == ord('q') or c == ord('Q'):
+  if c == ord('q') or c == ord('Q'):  # sair do jogo
     return 0
-  if c == ord('w') or c == ord('W'):
+  if c == ord('w') or c == ord('W'):  # andar pra cima
     return 1
-  if c == ord('s') or c == ord('S'):
+  if c == ord('s') or c == ord('S'):  # andar pra baixo
     return 2
-  if c == ord('a') or c == ord('A'):
+  if c == ord('a') or c == ord('A'):  # andar para a esquerda
     return 3
-  if c == ord('d') or c == ord('D'):
+  if c == ord('d') or c == ord('D'):  # andar para a direita
     return 4
-  if c == ord('i') or c == ord('I'):
+  if c == ord('i') or c == ord('I'):  # abrir inventário
     return 5
-  if c == ord('y') or c == ord('Y'):
+  if c == ord('y') or c == ord('Y'):  # aceitar batalha
     return 6
-  if c == ord('n') or c == ord('N'):
+  if c == ord('n') or c == ord('N'):  # negar batalha
     return 7
-  if c == ord('b') or c == ord('B'):
+  if c == ord('f') or c == ord('F'):  # atacar no seu turno
     return 8
+  if c == ord('d') or c == ord('D'):  # defender próximo ataque
+    return 9
+  if c == ord('v') or c == ord('V'):  # consumir cristal de vida
+    return 10
+  if c == ord('e') or c == ord('E'):  # consumir cristal de energia
+    return 11
 
 def setBorder():
   for i in range(matrixSize):
@@ -181,18 +188,23 @@ def batalha(heroi, vilao, mywindow):
   chanceAcerto = 0.4
   danoCritico = heroi.dano * 2
 
-  while vilao.vida > 0:
+  while vilao.vida > 0 or heroi.vida > 0:
     pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(heroi.nome, vilao.nome), font="slant", justify="right"))
     pad.addstr(titleLimit, 0, "❤️  {}: {}".format(heroi.nome, heroi.vida))
     pad.addstr(titleLimit + 1, 0, "⚡ {}: {}".format(heroi.nome, heroi.energia))
     pad.addstr(titleLimit + 3, 0, "❤️  {}: {}".format(vilao.nome, vilao.vida))
-    pad.addstr(titleLimit + 5, 0, "Agora é a vez de {} atacar!".format(heroi.nome if jogada %2 == 0 else vilao.nome))
+    pad.addstr(titleLimit + 6, 0, "F - Atacar")
+    pad.addstr(titleLimit + 7, 0, "D - Defender próximo ataque")
+    pad.addstr(titleLimit + 8, 0, "V - Usar cristal de vida (caso tenha)")
+    pad.addstr(titleLimit + 9, 0, "E - Usar cristal de energia (caso tenha)")
+    pad.addstr(titleLimit + 12, 0, "Agora é a vez de {} atacar!".format(heroi.nome if jogada %2 == 0 else vilao.nome))
     pad.addstr(titleLimit + 15, 0, "Registro de batalha:")
     pad.refresh(0,0,0,0,h,w)
 
-    movimento = entrada(mywindow.getch())
 
     if jogada % 2 == 0:   # vez do herói
+      movimento = entrada(mywindow.getch())
+
       if movimento == 8 and heroi.energia > 0:  # vai atacar
         ataque = random.random() < chanceAcerto
         if ataque:  # acertou o ataque
@@ -206,6 +218,8 @@ def batalha(heroi, vilao, mywindow):
           pad.clear()
         else: # errou o ataque
           pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
+
+      
       heroi.energia -= 10
 
     else:                 # vez do vilão
