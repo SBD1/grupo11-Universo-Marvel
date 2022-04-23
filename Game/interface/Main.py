@@ -90,7 +90,7 @@ def resetGame():
   vilao.x = 2
   vilao.y = 1
   heroi.nome = "Thor"
-  heroi.vida = 10
+  heroi.vida = 100
   heroi.energia = 100
   heroi.x = 1
   heroi.y = 1
@@ -151,6 +151,8 @@ def entrada(c):
     return 6
   if c == ord('n') or c == ord('N'):
     return 7
+  if c == ord('b') or c == ord('B'):
+    return 8
 
 def setBorder():
   for i in range(matrixSize):
@@ -170,12 +172,22 @@ def hideInventario():
 
 setBorder()
 
-def batalha(nomeHeroi, nomeVilao, mywindow):
+def batalha(heroi, vilao, mywindow):
   mywindow.refresh()
   h, w = mywindow.getmaxyx()
   pad = curses.newpad(h, w)
-  pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(nomeHeroi, nomeVilao), font="slant", justify="right"))
-  pad.refresh(0,0,0,0,h,w)
+  while vilao.vida > 0:
+    pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(heroi.nome, vilao.nome), font="slant", justify="right"))
+    pad.addstr(6, 0, "Life {}: {}".format(heroi.nome, heroi.vida))
+    pad.addstr(7, 0, "Life {}: {}".format(vilao.nome, vilao.vida))
+    pad.refresh(0,0,0,0,h,w)
+    movimento = entrada(mywindow.getch())
+    if movimento == 8:
+      vilao.vida -= 50
+    pad.clear()
+
+
+
   time.sleep(3)
   mywindow.clear()
 
@@ -215,9 +227,15 @@ def main():
       if inventarioAberto:
         hideInventario()
       mywindow.addstr(matrixSize + 3, 0, "Iniciar batalha contra {}?Y/N".format(vilao.nome))
+      choice = entrada(c)
+      if choice == 6:
+        batalha(heroi, vilao, mywindow)
+      if choice == 7:
+        mywindow.clear()
+        mywindow.addstr(matrixSize + 3, 0, "Thanos: eu nem sei quem você é!")
 
-      # batalha(heroi.nome, vilao.nome, mywindow)
-    
+
+
     if heroi.vida <= 0:
       heroi.isAlive = False
       menu(mywindow)
