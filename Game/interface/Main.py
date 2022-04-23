@@ -1,6 +1,4 @@
-import curses
-import time
-import pyfiglet
+import curses, pyfiglet, time, random
 
 class Vilao:
   pass
@@ -43,6 +41,7 @@ heroi.inventario = []
 heroi.experiencia = 0
 heroi.nivel = 0
 heroi.isAlive = True
+heroi.dano = 10
 
 '''Atributos do vilão'''
 vilao = Vilao()
@@ -176,14 +175,37 @@ def batalha(heroi, vilao, mywindow):
   mywindow.refresh()
   h, w = mywindow.getmaxyx()
   pad = curses.newpad(h, w)
+  jogada = 0
+  titleLimit = 6
+  chanceCritico = 0.1
+  chanceAcerto = 0.7
+  danoCritico = heroi.dano * 2
+
   while vilao.vida > 0:
     pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(heroi.nome, vilao.nome), font="slant", justify="right"))
-    pad.addstr(6, 0, "Life {}: {}".format(heroi.nome, heroi.vida))
-    pad.addstr(7, 0, "Life {}: {}".format(vilao.nome, vilao.vida))
+    pad.addstr(titleLimit, 0, "{}'s Life: {}".format(heroi.nome, heroi.vida))
+    pad.addstr(titleLimit + 1, 0, "{}'s Energy: {}".format(heroi.nome, heroi.energia))
+    pad.addstr(titleLimit + 2, 0, "")
+    pad.addstr(titleLimit + 3, 0, "{}'s Life: {}".format(vilao.nome, vilao.vida))
     pad.refresh(0,0,0,0,h,w)
+
     movimento = entrada(mywindow.getch())
     if movimento == 8:
       vilao.vida -= 50
+
+    if jogada % 2 == 0:   # vez do herói
+      if movimento == 8 and heroi.energia > 0:
+        ataque = random.random() < chanceAcerto
+        if ataque:  # acertou o ataque
+          critico = random.random() < chanceCritico
+          if not critico:
+            chanceCritico += 0.1
+          else:
+            chanceCritico = 0.1
+
+        
+    else:                 # vez do vilão
+      
     pad.clear()
 
 
