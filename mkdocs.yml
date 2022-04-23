@@ -47,3 +47,5 @@ nav:
   - Scripts SQL:
       - Tabelas: SQL/tabelas.md
       - Instruções para Execução: SQL/README.md
+  - Tutorial Jogo:
+      - Tutorial: Modulo5/Tutorial.md
