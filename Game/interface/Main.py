@@ -178,38 +178,42 @@ def batalha(heroi, vilao, mywindow):
   jogada = 0
   titleLimit = 6
   chanceCritico = 0.1
-  chanceAcerto = 0.7
+  chanceAcerto = 0.4
   danoCritico = heroi.dano * 2
+  erros = 0
+  acertos = 0
 
   while vilao.vida > 0:
     pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(heroi.nome, vilao.nome), font="slant", justify="right"))
     pad.addstr(titleLimit, 0, "{}'s Life: {}".format(heroi.nome, heroi.vida))
     pad.addstr(titleLimit + 1, 0, "{}'s Energy: {}".format(heroi.nome, heroi.energia))
-    pad.addstr(titleLimit + 2, 0, "")
     pad.addstr(titleLimit + 3, 0, "{}'s Life: {}".format(vilao.nome, vilao.vida))
+    pad.addstr(titleLimit + 5, 0, "Registro de batalha:")
     pad.refresh(0,0,0,0,h,w)
 
     movimento = entrada(mywindow.getch())
-    if movimento == 8:
-      vilao.vida -= 50
 
     if jogada % 2 == 0:   # vez do herói
-      if movimento == 8 and heroi.energia > 0:
+      if movimento == 8 and heroi.energia > 0:  # vai atacar
         ataque = random.random() < chanceAcerto
         if ataque:  # acertou o ataque
           critico = random.random() < chanceCritico
           if not critico:
-            chanceCritico += 0.1
+            chanceCritico += 0.1  # a chance do critico aumenta 10% a cada ataque sem critico
             vilao.vida -= heroi.dano
           else:
             vilao.vida -= danoCritico
-            chanceCritico = 0.1
+            chanceCritico = 0.1   # se acertou o critico a chance de outro ataque cai pra 10%
+          erros = 0
+          pad.clear()
+        else: # errou o ataque
+          pad.addstr(titleLimit + 6 + erros, 0, "{} errou o ataque!".format(heroi.nome))
+          erros += 1
 
 
         
-    else:                 # vez do vilão
-      
-    pad.clear()
+    # else:                 # vez do vilão
+    # pad.clear()
 
 
 
