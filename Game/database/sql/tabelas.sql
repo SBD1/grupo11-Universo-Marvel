@@ -1,11 +1,3 @@
--- Criando e Conectando ao Banco de Dados
-
-DROP DATABASE IF EXISTS sbd_marvel;
-
-CREATE DATABASE sbd_marvel;
-
-\connect sbd_marvel;
-
 -- Criando Domínios
 
 CREATE DOMAIN POSITIVE_INT INTEGER CHECK (VALUE > 0);
