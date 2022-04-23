@@ -157,7 +157,7 @@ def showInventario():
   for index, item in enumerate(inventario):
     left = item["item"]
     right = item["quantidade"]
-    mywindow.addstr(matrixSize + index + 2, 0, f"{left : <30}{right : >20}")
+    mywindow.addstr(matrixSize + index + 3, 0, f"{left : <30}{right : >20}")
 
 def hideInventario():
   mywindow.clear()
