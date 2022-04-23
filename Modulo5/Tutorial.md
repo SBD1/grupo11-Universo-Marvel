@@ -1,6 +1,6 @@
 # O jogo
 
-![Joias Image](docs/assets/img/joias.jpg)
+![Joias Image](/docs/assets/img/joias.jpg)
 
 - Esse é um jogo no estilo **MUD** totalmete baseado no **Universo Marvel**, nesse jogo é possivel controlar alguns heróis diferentes com a ideia de coletar todas as 6 jóias do infinito! Mas como já é esperado, para conseguir juntar todas as jóia será necessario muito esforço e dedicação infrentando vários inimigos e vilões.
 
