@@ -58,13 +58,13 @@ inventarioAberto = False
 inventario = [
   {
     "id": 1,
-    "item": "Cristal de vida pequeno",
+    "item": "Cristal de vida",
     "quantidade": 2,
     "descricao": "Este cristal cura sua vida em 10."
   },
   {
     "id": 2,
-    "item": "Cristal de energia médio",
+    "item": "Cristal de energia",
     "quantidade": 3,
     "descricao": "Este cristal aumenta sua energia em 20."
   },
@@ -88,6 +88,7 @@ def resetGame():
   vilao.vida = 100
   vilao.x = 2
   vilao.y = 1
+  vilao.dano = 20
   heroi.nome = "Thor"
   heroi.vida = 100
   heroi.energia = 100
@@ -185,7 +186,7 @@ def batalha(heroi, vilao, mywindow):
   jogada = 0
   titleLimit = 6
   chanceCritico = 0.1
-  chanceAcerto = 0.4
+  chanceAcerto = 0.8
   danoCritico = heroi.dano * 2
 
   while vilao.vida > 0 or heroi.vida > 0:
@@ -203,27 +204,63 @@ def batalha(heroi, vilao, mywindow):
 
 
     if jogada % 2 == 0:   # vez do herói
+      pad.clear()
       movimento = entrada(mywindow.getch())
+      heroi.defendendo = False
 
-      if movimento == 8 and heroi.energia > 0:  # vai atacar
-        ataque = random.random() < chanceAcerto
-        if ataque:  # acertou o ataque
-          critico = random.random() < chanceCritico
-          if not critico:
-            chanceCritico += 0.1  # a chance do critico aumenta 10% a cada ataque sem critico
-            vilao.vida -= heroi.dano
-          else:
-            vilao.vida -= danoCritico
-            chanceCritico = 0.1   # se acertou o critico a chance de outro ataque cai pra 10%
-          pad.clear()
-        else: # errou o ataque
-          pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
+      if heroi.energia > 0:
+        if movimento == 8:  # vai atacar
+          ataque = random.random() < chanceAcerto
+          if ataque:  # acertou o ataque
+            critico = random.random() < chanceCritico
+            if not critico:
+              chanceCritico += 0.1  # a chance do critico aumenta 10% a cada ataque sem critico
+              vilao.vida -= heroi.dano
+            else:
+              vilao.vida -= danoCritico
+              chanceCritico = 0.1   # se acertou o critico a chance de outro ataque critico cai pra 10%
+            pad.clear()
+          else: # errou o ataque
+            pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
 
+        elif movimento == 9:  # vai defender o próximo ataque
+          heroi.defendendo = True
+        
+        elif movimento == 10: # vai usar cristal de vida
+          achou = False
+          for index, item in enumerate(inventario):
+            if item["item"] == "Cristal de vida" and item["quantidade"] > 0:
+              heroi.vida = 100
+              item["quantidade"] -= 1
+              achou = True
+              pad.addstr(titleLimit + 16, 0, "{} cosumiu um cristal de ❤️ ! Agora possui {}".format(heroi.nome, item["quantidade"]))
+          if not achou:
+            pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ❤️  mas não encontrou nenhum.".format(heroi.nome))
+            jogada += 1
+            heroi.energia += 10
+        
+        elif movimento == 11: # vai usar cristal de vida
+          achou = False
+          for index, item in enumerate(inventario):
+            if item["item"] == "Cristal de energia" and item["quantidade"] > 0:
+              heroi.energia = 110
+              item["quantidade"] -= 1
+              achou = True
+              pad.addstr(titleLimit + 16, 0, "{} cosumiu um cristal de ⚡! Agora possui {}".format(heroi.nome, item["quantidade"]))
+          if not achou:
+            pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ⚡ mas não encontrou nenhum.".format(heroi.nome))
+            jogada += 1
+            heroi.energia += 10
       
       heroi.energia -= 10
 
     else:                 # vez do vilão
       pad.clear()
+
+      if not heroi.defendendo:
+        ataque = random.random() < 0.5
+
+
     time.sleep(1)
     jogada += 1
         
