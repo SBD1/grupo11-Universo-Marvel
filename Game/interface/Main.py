@@ -183,9 +183,9 @@ def batalha(heroi, vilao, mywindow):
 
   while vilao.vida > 0:
     pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(heroi.nome, vilao.nome), font="slant", justify="right"))
-    pad.addstr(titleLimit, 0, "{}'s Life: {}".format(heroi.nome, heroi.vida))
-    pad.addstr(titleLimit + 1, 0, "{}'s Energy: {}".format(heroi.nome, heroi.energia))
-    pad.addstr(titleLimit + 3, 0, "{}'s Life: {}".format(vilao.nome, vilao.vida))
+    pad.addstr(titleLimit, 0, "❤️  {}: {}".format(heroi.nome, heroi.vida))
+    pad.addstr(titleLimit + 1, 0, "⚡ {}: {}".format(heroi.nome, heroi.energia))
+    pad.addstr(titleLimit + 3, 0, "❤️  {}: {}".format(vilao.nome, vilao.vida))
     pad.addstr(titleLimit + 5, 0, "Agora é a vez de {} atacar!".format(heroi.nome if jogada %2 == 0 else vilao.nome))
     pad.addstr(titleLimit + 15, 0, "Registro de batalha:")
     pad.refresh(0,0,0,0,h,w)
@@ -227,8 +227,8 @@ def main():
     colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
     mywindow.addstr(matrixSize, 0, nomeLocal)
-    mywindow.addstr(matrixSize + 1, 0, "Vida: " + str(heroi.vida))
-    mywindow.addstr(matrixSize + 2, 0, "Energia: " + str(heroi.energia))
+    mywindow.addstr(matrixSize + 1, 0, "❤️  : " + str(heroi.vida))
+    mywindow.addstr(matrixSize + 2, 0, "⚡ : " + str(heroi.energia))
 
     c = mywindow.getch()
     attEntry = entrada(c)
