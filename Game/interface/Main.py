@@ -1,4 +1,4 @@
-import curses, pyfiglet, time, random
+import curses, pyfiglet, time, random, math
 
 class Vilao:
   pass
@@ -86,9 +86,11 @@ def resetGame():
   global heroi, vilao
   vilao.nome = "Thanos"
   vilao.vida = 100
+  vilao.vidaMax = 100
   vilao.x = 2
   vilao.y = 1
   vilao.dano = 20
+  vilao.defendendo = False
   heroi.nome = "Thor"
   heroi.vida = 100
   heroi.energia = 100
@@ -154,7 +156,7 @@ def entrada(c):
     return 7
   if c == ord('f') or c == ord('F'):  # atacar no seu turno
     return 8
-  if c == ord('d') or c == ord('D'):  # defender próximo ataque
+  if c == ord('b') or c == ord('B'):  # defender próximo ataque
     return 9
   if c == ord('v') or c == ord('V'):  # consumir cristal de vida
     return 10
@@ -189,13 +191,13 @@ def batalha(heroi, vilao, mywindow):
   chanceAcerto = 0.8
   danoCritico = heroi.dano * 2
 
-  while vilao.vida > 0 or heroi.vida > 0:
+  while vilao.vida > 0 and heroi.vida > 0 and heroi.energia > 0:
     pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(heroi.nome, vilao.nome), font="slant", justify="right"))
     pad.addstr(titleLimit, 0, "❤️  {}: {}".format(heroi.nome, heroi.vida))
     pad.addstr(titleLimit + 1, 0, "⚡ {}: {}".format(heroi.nome, heroi.energia))
     pad.addstr(titleLimit + 3, 0, "❤️  {}: {}".format(vilao.nome, vilao.vida))
     pad.addstr(titleLimit + 6, 0, "F - Atacar")
-    pad.addstr(titleLimit + 7, 0, "D - Defender próximo ataque")
+    pad.addstr(titleLimit + 7, 0, "B - Defender próximo ataque")
     pad.addstr(titleLimit + 8, 0, "V - Usar cristal de vida (caso tenha)")
     pad.addstr(titleLimit + 9, 0, "E - Usar cristal de energia (caso tenha)")
     pad.addstr(titleLimit + 12, 0, "Agora é a vez de {} atacar!".format(heroi.nome if jogada %2 == 0 else vilao.nome))
@@ -205,41 +207,42 @@ def batalha(heroi, vilao, mywindow):
 
     if jogada % 2 == 0:   # vez do herói
       pad.clear()
+
       movimento = entrada(mywindow.getch())
-      heroi.defendendo = False
+      if movimento == 8:  # vai atacar
+        ataque = random.random() < chanceAcerto
+        if ataque:  # acertou o ataque
+          critico = random.random() < chanceCritico
+          if not critico:
+            chanceCritico += 0.1  # a chance do critico aumenta 10% a cada ataque sem critico
+            vilao.vida -= heroi.dano
+            pad.addstr(titleLimit + 16, 0, "{} foi atingido e perdeu {} de vida!".format(vilao.nome, heroi.dano))
+          else:
+            vilao.vida -= danoCritico
+            chanceCritico = 0.1   # se acertou o critico a chance de outro ataque critico cai pra 10%
+            pad.addstr(titleLimit + 16, 0, "{} acertou um dano crítico em {} que perdeu {} de vida!".format(heroi.nome, vilao.nome, danoCritico))
+          pad.clear()
+        else: # errou o ataque
+          pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
 
-      if heroi.energia > 0:
-        if movimento == 8:  # vai atacar
-          ataque = random.random() < chanceAcerto
-          if ataque:  # acertou o ataque
-            critico = random.random() < chanceCritico
-            if not critico:
-              chanceCritico += 0.1  # a chance do critico aumenta 10% a cada ataque sem critico
-              vilao.vida -= heroi.dano
-            else:
-              vilao.vida -= danoCritico
-              chanceCritico = 0.1   # se acertou o critico a chance de outro ataque critico cai pra 10%
-            pad.clear()
-          else: # errou o ataque
-            pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
-
-        elif movimento == 9:  # vai defender o próximo ataque
-          heroi.defendendo = True
-        
-        elif movimento == 10: # vai usar cristal de vida
-          achou = False
-          for index, item in enumerate(inventario):
-            if item["item"] == "Cristal de vida" and item["quantidade"] > 0:
-              heroi.vida = 100
-              item["quantidade"] -= 1
-              achou = True
-              pad.addstr(titleLimit + 16, 0, "{} cosumiu um cristal de ❤️ ! Agora possui {}".format(heroi.nome, item["quantidade"]))
-          if not achou:
-            pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ❤️  mas não encontrou nenhum.".format(heroi.nome))
-            jogada += 1
-            heroi.energia += 10
-        
-        elif movimento == 11: # vai usar cristal de vida
+      if movimento == 9:  # vai defender o próximo ataque
+        heroi.defendendo = True
+        pad.addstr(titleLimit + 16, 0, "{} irá defender o próximo ataque".format(heroi.nome))
+      
+      elif movimento == 10: # vai usar cristal de vida
+        achou = False
+        for index, item in enumerate(inventario):
+          if item["item"] == "Cristal de vida" and item["quantidade"] > 0:
+            heroi.vida = 100
+            item["quantidade"] -= 1
+            achou = True
+            pad.addstr(titleLimit + 16, 0, "{} cosumiu um cristal de ❤️ ! Agora possui {}".format(heroi.nome, item["quantidade"]))
+        if not achou:
+          pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ❤️  mas não encontrou nenhum.".format(heroi.nome))
+          jogada += 1
+          heroi.energia += 10
+      
+      elif movimento == 11: # vai usar cristal de vida
           achou = False
           for index, item in enumerate(inventario):
             if item["item"] == "Cristal de energia" and item["quantidade"] > 0:
@@ -251,23 +254,45 @@ def batalha(heroi, vilao, mywindow):
             pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ⚡ mas não encontrou nenhum.".format(heroi.nome))
             jogada += 1
             heroi.energia += 10
-      
+
       heroi.energia -= 10
 
     else:                 # vez do vilão
       pad.clear()
 
-      if not heroi.defendendo:
-        ataque = random.random() < 0.5
+      # ação que o vilao ira realizar
+      ataque = random.random() < 0.70
+      defender = random.random() < 0.28
+      restaurarVida = random.random() < 0.02
 
+      if ataque:
+        if not heroi.defendendo:
+          heroi.vida -= vilao.dano
+          pad.addstr(titleLimit + 16, 0, "{} foi atingido e perdeu {} de vida!".format(heroi.nome, vilao.dano))
+        else:
+          heroi.defendendo = False
+          pad.addstr(titleLimit + 16, 0, "{}: como ousa defender um golpe meu, mortal!".format(vilao.nome))
+          if heroi.nome == "Thor":
+            pad.addstr(titleLimit + 17, 0, "{}: pelo que eu saiba, o Deus aqui sou eu!".format(heroi.nome))
+          time.sleep(1)
+      
+      elif defender:
+        vilao.defendendo = True
+        pad.addstr(titleLimit + 16, 0, "{} irá defender o próximo ataque".format(vilao.nome))
+      
+      elif restaurarVida:
+        if vilao.vida < vilao.vidaMax - vilao.vida * 0.3:
+          vilao.vida += math.floor(vilao.vida * 0.3)
+          pad.addstr(titleLimit + 16, 0, "{} conseguiu se curar!".format(vilao.nome))
 
-    time.sleep(1)
+    time.sleep(2)
     jogada += 1
         
 
 
-
+  pad.addstr(0, 0, pyfiglet.figlet_format("Game Over", font="slant", justify="right"))
   time.sleep(3)
+  pad.refresh(0,0,0,0,h,w)
   mywindow.clear()
 
 def main():
