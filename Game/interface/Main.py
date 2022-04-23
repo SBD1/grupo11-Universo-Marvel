@@ -85,9 +85,11 @@ inventario = [
 
 def resetGame():
   global heroi, vilao
+  vilao.nome = "Thanos"
   vilao.vida = 100
   vilao.x = 2
   vilao.y = 1
+  heroi.nome = "Thor"
   heroi.vida = 10
   heroi.energia = 100
   heroi.x = 1
@@ -145,6 +147,10 @@ def entrada(c):
     return 4
   if c == ord('i') or c == ord('I'):
     return 5
+  if c == ord('y') or c == ord('Y'):
+    return 6
+  if c == ord('n') or c == ord('N'):
+    return 7
 
 def setBorder():
   for i in range(matrixSize):
@@ -164,6 +170,14 @@ def hideInventario():
 
 setBorder()
 
+def batalha(nomeHeroi, nomeVilao, mywindow):
+  mywindow.refresh()
+  h, w = mywindow.getmaxyx()
+  pad = curses.newpad(h, w)
+  pad.addstr(0, 0, pyfiglet.figlet_format("{} vs {}".format(nomeHeroi, nomeVilao), font="slant", justify="right"))
+  pad.refresh(0,0,0,0,h,w)
+  time.sleep(3)
+  mywindow.clear()
 
 def main():
   global heroi, inventarioAberto
@@ -198,7 +212,11 @@ def main():
       hideInventario()
 
     if heroi.x == vilao.x and heroi.y == vilao.y:
-      heroi.vida -= 20
+      if inventarioAberto:
+        hideInventario()
+      mywindow.addstr(matrixSize + 3, 0, "Iniciar batalha contra {}?Y/N".format(vilao.nome))
+
+      # batalha(heroi.nome, vilao.nome, mywindow)
     
     if heroi.vida <= 0:
       heroi.isAlive = False
@@ -215,7 +233,7 @@ def menu(mywindow):
     mywindow.refresh()
     h, w = mywindow.getmaxyx()
     pad = curses.newpad(h, w)
-    pad.addstr((h // 2) - 3, 0, pyfiglet.figlet_format("           Game Over", font="slant"))
+    pad.addstr((h // 2) - 3, 0, pyfiglet.figlet_format("Game Over", font="slant", justify="right"))
     pad.refresh(0,0,0,0,h,w)
     time.sleep(3)
 
