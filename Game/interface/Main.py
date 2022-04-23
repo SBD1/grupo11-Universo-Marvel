@@ -41,7 +41,7 @@ heroi.inventario = []
 heroi.experiencia = 0
 heroi.nivel = 0
 heroi.isAlive = True
-heroi.dano = 10
+heroi.dano = 20
 
 '''Atributos do vilão'''
 vilao = Vilao()
@@ -221,7 +221,6 @@ def batalha(heroi, vilao, mywindow):
             vilao.vida -= danoCritico
             chanceCritico = 0.1   # se acertou o critico a chance de outro ataque critico cai pra 10%
             pad.addstr(titleLimit + 16, 0, "{} acertou um dano crítico em {} que perdeu {} de vida!".format(heroi.nome, vilao.nome, danoCritico))
-          pad.clear()
         else: # errou o ataque
           pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
 
@@ -261,9 +260,9 @@ def batalha(heroi, vilao, mywindow):
       pad.clear()
 
       # ação que o vilao ira realizar
-      ataque = random.random() < 0.70
-      defender = random.random() < 0.28
-      restaurarVida = random.random() < 0.02
+      ataque = random.random() <= 0.70
+      defender = random.random() <= 0.28
+      restaurarVida = random.random() <= 0.02
 
       if ataque:
         if not heroi.defendendo:
@@ -284,13 +283,18 @@ def batalha(heroi, vilao, mywindow):
         if vilao.vida < vilao.vidaMax - vilao.vida * 0.3:
           vilao.vida += math.floor(vilao.vida * 0.3)
           pad.addstr(titleLimit + 16, 0, "{} conseguiu se curar!".format(vilao.nome))
-
-    time.sleep(2)
+        else:
+          pad.addstr(titleLimit + 16, 0, "{} tentou se curar mas não conseguiu!".format(vilao.nome))
+      
+    time.sleep(3)
     jogada += 1
         
 
+  if heroi.vida <= 0 or heroi.energia <= 0:
+    pad.addstr(0, 0, pyfiglet.figlet_format("Game Over", font="slant", justify="right"))
+  elif vilao.vida:
+    pad.addstr(titleLimit + 16, 0, "{} foi atingido e perdeu {} de vida!".format(heroi.nome, vilao.dano))
 
-  pad.addstr(0, 0, pyfiglet.figlet_format("Game Over", font="slant", justify="right"))
   time.sleep(3)
   pad.refresh(0,0,0,0,h,w)
   mywindow.clear()
@@ -300,7 +304,7 @@ def main():
   curses.curs_set(0)
 
   while heroi.isAlive:
-    colocaPersonagem(vilao.x , vilao.y, 'V')
+    if vilao.vida > 0: colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
     mywindow.addstr(matrixSize, 0, nomeLocal)
     mywindow.addstr(matrixSize + 1, 0, "❤️  : " + str(heroi.vida))
