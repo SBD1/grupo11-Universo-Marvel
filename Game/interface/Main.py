@@ -33,7 +33,7 @@ def printmenu(mywindow, indexLinhaSelecionada):
 
 '''Atributos do herói'''
 heroi = Heroi()
-heroi.vida = 10
+heroi.vida = 100
 heroi.energia = 100
 heroi.x = 1
 heroi.y = 1
@@ -174,7 +174,7 @@ def showInventario():
   for index, item in enumerate(inventario):
     left = item["item"]
     right = item["quantidade"]
-    mywindow.addstr(matrixSize + index + 3, 0, f"{left : <30}{right : >20}")
+    mywindow.addstr(matrixSize + index + 4, 0, f"{left : <30}{right : >20}")
 
 def hideInventario():
   mywindow.clear()
@@ -196,13 +196,14 @@ def batalha(heroi, vilao, mywindow):
     pad.addstr(titleLimit, 0, "❤️  {}: {}".format(heroi.nome, heroi.vida))
     pad.addstr(titleLimit + 1, 0, "⚡ {}: {}".format(heroi.nome, heroi.energia))
     pad.addstr(titleLimit + 3, 0, "❤️  {}: {}".format(vilao.nome, vilao.vida))
-    pad.addstr(titleLimit + 6, 0, "F - Atacar")
-    pad.addstr(titleLimit + 7, 0, "B - Defender próximo ataque")
-    pad.addstr(titleLimit + 8, 0, "V - Usar cristal de vida (caso tenha)")
-    pad.addstr(titleLimit + 9, 0, "E - Usar cristal de energia (caso tenha)")
-    pad.addstr(titleLimit + 12, 0, "Agora é a vez de {} atacar!".format(heroi.nome if jogada %2 == 0 else vilao.nome))
-    pad.addstr(titleLimit + 15, 0, "Registro de batalha:")
-    pad.refresh(0,0,0,0,h,w)
+    pad.addstr(titleLimit + 5, 0, "Pressione uma tecla e aguarde a reação do adversário")
+    pad.addstr(titleLimit + 6, 0, "F - para Atacar")
+    pad.addstr(titleLimit + 7, 0, "B - para Defender próximo ataque")
+    pad.addstr(titleLimit + 8, 0, "V - para Usar cristal de vida (caso tenha)")
+    pad.addstr(titleLimit + 9, 0, "E - para Usar cristal de energia (caso tenha)")
+    pad.addstr(titleLimit + 13, 0, "Agora é a vez de {} atacar!".format(heroi.nome if jogada %2 == 0 else vilao.nome))
+    pad.addstr(titleLimit + 16, 0, "Registro de batalha:")
+    pad.refresh(0,0,0,0,h-2,w-2)
 
 
     if jogada % 2 == 0:   # vez do herói
@@ -216,17 +217,17 @@ def batalha(heroi, vilao, mywindow):
           if not critico:
             chanceCritico += 0.1  # a chance do critico aumenta 10% a cada ataque sem critico
             vilao.vida -= heroi.dano
-            pad.addstr(titleLimit + 16, 0, "{} foi atingido e perdeu {} de vida!".format(vilao.nome, heroi.dano))
+            pad.addstr(titleLimit + 17, 0, "{} foi atingido e perdeu {} de vida!".format(vilao.nome, heroi.dano))
           else:
             vilao.vida -= danoCritico
             chanceCritico = 0.1   # se acertou o critico a chance de outro ataque critico cai pra 10%
-            pad.addstr(titleLimit + 16, 0, "{} acertou um dano crítico em {} que perdeu {} de vida!".format(heroi.nome, vilao.nome, danoCritico))
+            pad.addstr(titleLimit + 17, 0, "{} acertou um dano crítico em {} que perdeu {} de vida!".format(heroi.nome, vilao.nome, danoCritico))
         else: # errou o ataque
-          pad.addstr(titleLimit + 16, 0, "{} errou o ataque!".format(heroi.nome))
+          pad.addstr(titleLimit + 17, 0, "{} errou o ataque!".format(heroi.nome))
 
       if movimento == 9:  # vai defender o próximo ataque
         heroi.defendendo = True
-        pad.addstr(titleLimit + 16, 0, "{} irá defender o próximo ataque".format(heroi.nome))
+        pad.addstr(titleLimit + 17, 0, "{} irá defender o próximo ataque".format(heroi.nome))
       
       elif movimento == 10: # vai usar cristal de vida
         achou = False
@@ -235,9 +236,9 @@ def batalha(heroi, vilao, mywindow):
             heroi.vida = 100
             item["quantidade"] -= 1
             achou = True
-            pad.addstr(titleLimit + 16, 0, "{} cosumiu um cristal de ❤️ ! Agora possui {}".format(heroi.nome, item["quantidade"]))
+            pad.addstr(titleLimit + 17, 0, "{} cosumiu um cristal de ❤️ ! Agora possui {}".format(heroi.nome, item["quantidade"]))
         if not achou:
-          pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ❤️  mas não encontrou nenhum.".format(heroi.nome))
+          pad.addstr(titleLimit + 17, 0, "{} tentou consumir um cristal de ❤️  mas não encontrou nenhum.".format(heroi.nome))
           jogada += 1
           heroi.energia += 10
       
@@ -248,9 +249,9 @@ def batalha(heroi, vilao, mywindow):
               heroi.energia = 110
               item["quantidade"] -= 1
               achou = True
-              pad.addstr(titleLimit + 16, 0, "{} cosumiu um cristal de ⚡! Agora possui {}".format(heroi.nome, item["quantidade"]))
+              pad.addstr(titleLimit + 17, 0, "{} cosumiu um cristal de ⚡! Agora possui {}".format(heroi.nome, item["quantidade"]))
           if not achou:
-            pad.addstr(titleLimit + 16, 0, "{} tentou consumir um cristal de ⚡ mas não encontrou nenhum.".format(heroi.nome))
+            pad.addstr(titleLimit + 17, 0, "{} tentou consumir um cristal de ⚡ mas não encontrou nenhum.".format(heroi.nome))
             jogada += 1
             heroi.energia += 10
 
@@ -267,24 +268,24 @@ def batalha(heroi, vilao, mywindow):
       if ataque:
         if not heroi.defendendo:
           heroi.vida -= vilao.dano
-          pad.addstr(titleLimit + 16, 0, "{} foi atingido e perdeu {} de vida!".format(heroi.nome, vilao.dano))
+          pad.addstr(titleLimit + 17, 0, "{} foi atingido e perdeu {} de vida!".format(heroi.nome, vilao.dano))
         else:
           heroi.defendendo = False
-          pad.addstr(titleLimit + 16, 0, "{}: como ousa defender um golpe meu, mortal!".format(vilao.nome))
+          pad.addstr(titleLimit + 17, 0, "{}: como ousa defender um golpe meu, mortal!".format(vilao.nome))
           if heroi.nome == "Thor":
-            pad.addstr(titleLimit + 17, 0, "{}: pelo que eu saiba, o Deus aqui sou eu!".format(heroi.nome))
+            pad.addstr(titleLimit + 18, 0, "{}: pelo que eu saiba, o Deus aqui sou eu!".format(heroi.nome))
           time.sleep(1)
       
       elif defender:
         vilao.defendendo = True
-        pad.addstr(titleLimit + 16, 0, "{} irá defender o próximo ataque".format(vilao.nome))
+        pad.addstr(titleLimit + 17, 0, "{} irá defender o próximo ataque".format(vilao.nome))
       
       elif restaurarVida:
         if vilao.vida < vilao.vidaMax - vilao.vida * 0.3:
           vilao.vida += math.floor(vilao.vida * 0.3)
-          pad.addstr(titleLimit + 16, 0, "{} conseguiu se curar!".format(vilao.nome))
+          pad.addstr(titleLimit + 17, 0, "{} conseguiu se curar!".format(vilao.nome))
         else:
-          pad.addstr(titleLimit + 16, 0, "{} tentou se curar mas não conseguiu!".format(vilao.nome))
+          pad.addstr(titleLimit + 17, 0, "{} tentou se curar mas não conseguiu!".format(vilao.nome))
       
     time.sleep(3)
     jogada += 1
@@ -293,10 +294,10 @@ def batalha(heroi, vilao, mywindow):
   if heroi.vida <= 0 or heroi.energia <= 0:
     pad.addstr(0, 0, pyfiglet.figlet_format("Game Over", font="slant", justify="right"))
   elif vilao.vida:
-    pad.addstr(titleLimit + 16, 0, "{} foi atingido e perdeu {} de vida!".format(heroi.nome, vilao.dano))
+    pad.addstr(titleLimit + 17, 0, "{} foi atingido e perdeu {} de vida!".format(heroi.nome, vilao.dano))
 
   time.sleep(3)
-  pad.refresh(0,0,0,0,h,w)
+  pad.refresh(0,0,0,0,h-2,w-2)
   mywindow.clear()
 
 def main():
@@ -306,9 +307,9 @@ def main():
   while heroi.isAlive:
     if vilao.vida > 0: colocaPersonagem(vilao.x , vilao.y, 'V')
     mywindow.addstr(0,0, getMatrixString(matrix))
-    mywindow.addstr(matrixSize, 0, nomeLocal)
-    mywindow.addstr(matrixSize + 1, 0, "❤️  : " + str(heroi.vida))
-    mywindow.addstr(matrixSize + 2, 0, "⚡ : " + str(heroi.energia))
+    mywindow.addstr(matrixSize + 1, 0, nomeLocal)
+    mywindow.addstr(matrixSize + 2, 0, "❤️  : " + str(heroi.vida))
+    mywindow.addstr(matrixSize + 3, 0, "⚡ : " + str(heroi.energia))
 
     c = mywindow.getch()
     attEntry = entrada(c)
@@ -334,13 +335,13 @@ def main():
     if heroi.x == vilao.x and heroi.y == vilao.y:
       if inventarioAberto:
         hideInventario()
-      mywindow.addstr(matrixSize + 3, 0, "Iniciar batalha contra {}?Y/N".format(vilao.nome))
+      mywindow.addstr(matrixSize + 4, 0, "Deseja iniciar batalha contra {}?Y/N".format(vilao.nome))
       choice = entrada(c)
       if choice == 6:
         batalha(heroi, vilao, mywindow)
       if choice == 7:
         mywindow.clear()
-        mywindow.addstr(matrixSize + 3, 0, "Thanos: eu nem sei quem você é!")
+        mywindow.addstr(matrixSize + 4, 0, "Thanos: eu nem sei quem você é!")
 
 
 
@@ -360,7 +361,7 @@ def menu(mywindow):
     h, w = mywindow.getmaxyx()
     pad = curses.newpad(h, w)
     pad.addstr((h // 2) - 3, 0, pyfiglet.figlet_format("Game Over", font="slant", justify="right"))
-    pad.refresh(0,0,0,0,h,w)
+    pad.refresh(0,0,0,0,h-2,w-2)
     time.sleep(3)
 
   linhaAtualIndex = 0
