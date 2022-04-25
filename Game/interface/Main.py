@@ -101,9 +101,17 @@ def resetGame():
   heroi.nivel = 0
   heroi.isAlive = True
   heroi.defendendo = False
-  colocaPersonagem(heroi.x, heroi.y, 'H')
+  colocaPersonagem(heroi.x, heroi.y, 'H', colorID)
 
-def colocaPersonagem(x, y, nome):
+curses.start_color()
+colorID = curses.color_pair(2)
+
+
+def setColor():
+  curses.curs_set(0)
+  curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_GREEN)
+
+def colocaPersonagem(x, y, nome, colorID):
   matrix[x][y] = nome
 
 def getMatrixString(m):
@@ -116,25 +124,25 @@ def getMatrixString(m):
 def sobe(x, y):
   matrix[x][y] = ' '
   x -= 1
-  colocaPersonagem(x, y, 'H')
+  colocaPersonagem(x, y, 'H', colorID)
   return x
 
 def desce(x, y):
   matrix[x][y] = ' '
   x += 1
-  colocaPersonagem(x, y, 'H')
+  colocaPersonagem(x, y, 'H', colorID)
   return x
 
 def direita(x, y):
   matrix[x][y] = ' '
   y += 1
-  colocaPersonagem(x, y, 'H')
+  colocaPersonagem(x, y, 'H', colorID)
   return y
 
 def esquerda(x, y):
   matrix[x][y] = ' '
   y -= 1
-  colocaPersonagem(x, y, 'H')
+  colocaPersonagem(x, y, 'H', colorID)
   return y
 
 def entrada(c):
@@ -305,7 +313,7 @@ def main():
   curses.curs_set(0)
 
   while heroi.isAlive:
-    if vilao.vida > 0: colocaPersonagem(vilao.x , vilao.y, 'V')
+    if vilao.vida > 0: colocaPersonagem(vilao.x , vilao.y, 'V', colorID)
     mywindow.addstr(0,0, getMatrixString(matrix))
     mywindow.addstr(matrixSize + 1, 0, nomeLocal)
     mywindow.addstr(matrixSize + 2, 0, "❤️  : " + str(heroi.vida))
