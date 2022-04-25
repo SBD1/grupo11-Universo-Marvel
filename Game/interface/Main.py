@@ -10,7 +10,7 @@ isInMenu = True
 mywindow = curses.initscr()
 curses.noecho()
 
-opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Opções', 'Sair']
+opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Como jogar', 'Sair']
 mensagemfimdejogo = ['Fim de jogo\n Pressione Q para sair.']
 
 def printmenu(mywindow, indexLinhaSelecionada):
@@ -351,6 +351,17 @@ def main():
 
     mywindow.refresh()
 
+def howtoplay():
+  pad = curses.newpad(100, 100)
+  mywindow.refresh()
+
+  char = 'Tutorial como jogar aqui'
+  pad.addstr(char)
+  
+  pad.refresh(0, 0, 0, 0, 25, 75)
+  mywindow.getch()
+
+
 def menu(mywindow):
   global isInMenu
   curses.curs_set(0)
@@ -382,6 +393,8 @@ def menu(mywindow):
       if opcoesMenu[linhaAtualIndex] == 'Novo jogo':
         resetGame()
         main()
+      if opcoesMenu[linhaAtualIndex] == 'Como jogar':
+        howtoplay()
 
     printmenu(mywindow, linhaAtualIndex)
     mywindow.refresh()
