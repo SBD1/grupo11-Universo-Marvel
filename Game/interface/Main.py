@@ -360,13 +360,19 @@ def main():
     mywindow.refresh()
 
 def howtoplay():
-  pad = curses.newpad(100, 100)
+  h, w = mywindow.getmaxyx()
+  pad = curses.newpad(h, w)
+  # pad = curses.newpad(100, 100)
   mywindow.refresh()
 
-  char = 'Tutorial como jogar aqui'
+  char = 'Esse é um jogo no estilo MUD totalmete baseado no Universo Marvel, nesse jogo é possivel controlar alguns heróis diferentes com a ideia de coletar todas as 6 jóias do infinito! Mas como já é esperado, para conseguir juntar todas as jóia será necessário muito esforço e dedicação enfrentando vários inimigos e vilões. O Combate é feito em turnos e o héroi pode atacar, defender e usar itens para regenerar atributos (vida e energia)'
   pad.addstr(char)
-  
-  pad.refresh(0, 0, 0, 0, 25, 75)
+
+  pad.addstr(6, 0, 'Comandos')
+  pad.addstr(8, 0, 'No menu')
+  pad.addstr(9, 0, 'Novo Jogo -> Se inicia uma novo jogo, perdendo a anterior se já tivesse alguma salva.')
+
+  pad.refresh(0,0,0,0,h-2,w-2)
   mywindow.getch()
 
 
