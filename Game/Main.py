@@ -1,4 +1,5 @@
 import curses, pyfiglet, time, random, math
+from subprocess import check_call
 from database import conection
 import random
 
@@ -37,9 +38,31 @@ def printmenu(mywindow, indexLinhaSelecionada):
 cursor = conection.cursor
 
 '''Atributos do herói'''
-cursor.execute("SELECT * FROM heroi")
+cursor.execute("SELECT nome,heroi FROM instancia_heroi")
 cursorheroi = cursor.fetchall()
 heroirandomico = cursorheroi[random.randrange(len(cursorheroi))]
+
+print(heroirandomico)
+
+nome_da_instancia, nome_do_heroi = heroirandomico
+
+cursor.execute(f"SELECT equipamento FROM acesso_equipamento WHERE (heroi) = ('{nome_do_heroi}') ")
+check = cursor.fetchone()
+print(type(check), check)
+
+nome_da_arma = check[0]
+
+cursor.execute(f"UPDATE instancia_heroi SET arma = '{nome_da_arma}' WHERE nome = '{nome_da_instancia}';")
+
+cursor.execute(f"SELECT * FROM instancia_heroi WHERE nome = '{nome_da_instancia}'")
+heroirandomico = cursor.fetchone()
+
+cursor.execute(f"SELECT dano_maximo FROM arma WHERE nome = '{nome_da_arma}';")
+danoarma = cursor.fetchone()[0]
+print(type(danoarma), danoarma)
+
+#cursor.execute(f"INSERT INTO instancia_heroi (arma) ")
+
 heroi = Heroi()
 heroi.vida = heroirandomico[2]
 heroi.energia = 100
@@ -49,7 +72,7 @@ heroi.inventario = []
 heroi.experiencia = 0
 heroi.nivel = 0
 heroi.isAlive = True
-heroi.dano = 20
+heroi.dano = random.randrange(danoarma)
 
 '''Atributos do vilão'''
 cursor.execute("SELECT * FROM vilao")
@@ -102,8 +125,8 @@ def resetGame():
   vilao.y = 1
   vilao.dano = random.randrange(vilaorandomico[5])
   vilao.defendendo = False
-  heroi.nome = heroirandomico[0]
-  heroi.vida = heroirandomico[2]
+  heroi.nome = heroirandomico[2]
+  heroi.vida = heroirandomico[3]
   heroi.energia = 100
   heroi.x = 1
   heroi.y = 1
@@ -112,6 +135,7 @@ def resetGame():
   heroi.nivel = 0
   heroi.isAlive = True
   heroi.defendendo = False
+  heroi.dano = random.randrange(danoarma)
   colocaPersonagem(heroi.x, heroi.y, 'H')
 
 def colocaPersonagem(x, y, nome):
