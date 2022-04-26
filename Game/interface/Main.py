@@ -10,7 +10,7 @@ isInMenu = True
 mywindow = curses.initscr()
 curses.noecho()
 
-opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Como jogar', 'Sair']
+opcoesMenu = ['Novo jogo', 'Continuar jogo', 'Manual de instruções', 'Sair']
 mensagemfimdejogo = ['Fim de jogo\n Pressione Q para sair.']
 
 def printmenu(mywindow, indexLinhaSelecionada):
@@ -106,13 +106,15 @@ def resetGame():
 curses.start_color()
 colorID = curses.color_pair(2)
 
-
 def setColor():
   curses.curs_set(0)
   curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_GREEN)
 
 def colocaPersonagem(x, y, nome, colorID):
+  mywindow.addch(y, x)
+  # mywindow.addch(x, y, colorID)
   matrix[x][y] = nome
+
 
 def getMatrixString(m):
   x = ''
@@ -365,12 +367,22 @@ def howtoplay():
   # pad = curses.newpad(100, 100)
   mywindow.refresh()
 
-  char = 'Esse é um jogo no estilo MUD totalmete baseado no Universo Marvel, nesse jogo é possivel controlar alguns heróis diferentes com a ideia de coletar todas as 6 jóias do infinito! Mas como já é esperado, para conseguir juntar todas as jóia será necessário muito esforço e dedicação enfrentando vários inimigos e vilões. O Combate é feito em turnos e o héroi pode atacar, defender e usar itens para regenerar atributos (vida e energia)'
+  char = 'Avengers - Manual de Uso'
   pad.addstr(char)
 
-  pad.addstr(6, 0, 'Comandos')
-  pad.addstr(8, 0, 'No menu')
-  pad.addstr(9, 0, 'Novo Jogo -> Se inicia uma novo jogo, perdendo a anterior se já tivesse alguma salva.')
+  pad.addstr(2, 0, '🔎 Entendendo o Menu do programa 🔎')
+  pad.addstr(3, 0, '- Novo Jogo: se inicia uma nova rodada de partida. Neste caso as partidas anteriores que já estavam em andamento serão perdidas.')
+  pad.addstr(4, 0, '- Continuar Jogo: retoma a partida mais recente realizada pelo jogador')
+  pad.addstr(5,0, '- Como jogar: apresentação das regras do jogo')
+  pad.addstr(6,0, '- Sair: encerra o programa no terminal do computador')
+  pad.addstr(9,0, '🔸 Comandos do jogo 🔸')
+  pad.addstr(10,0, 'As teclas W, S, D, e A são responsáveis pelo movimento do jogador dentro do mapa, onde:')
+  pad.addstr(11,0, 'W - anda pra cima')
+  pad.addstr(12,0, 'S - anda pra baixo')
+  pad.addstr(13,0, 'D - anda pra direita')
+  pad.addstr(14,0, 'A - anda pra esquerda')
+  pad.addstr(15,0, 'Além disso, a tecla Q é responsável por retornar o usuário ao Menu Principal, e pode ser usada tanto durante o jogo')
+  pad.addstr(16,0, 'quanto nas demais telas do programa. Durante o jogo, a tecla I é responsável por abrir o inventário do jogador.')
 
   pad.refresh(0,0,0,0,h-2,w-2)
   mywindow.getch()
@@ -407,7 +419,7 @@ def menu(mywindow):
       if opcoesMenu[linhaAtualIndex] == 'Novo jogo':
         resetGame()
         main()
-      if opcoesMenu[linhaAtualIndex] == 'Como jogar':
+      if opcoesMenu[linhaAtualIndex] == 'Manual de instruções':
         howtoplay()
 
     printmenu(mywindow, linhaAtualIndex)
