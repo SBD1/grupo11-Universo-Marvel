@@ -9,6 +9,5 @@ class _Exchangeable:
         self.type = type
 
 def Exchangeable(name, type):
-
     new_obj = _Exchangeable(name, type)
     return new_obj

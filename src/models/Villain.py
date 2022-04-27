@@ -1,11 +1,10 @@
 from collections import namedtuple
 from db import cursor, conn
 
-#Villain = namedtuple('Villain', 'id name agility hp xp max_damage crit_damage rolls defense')
+#Villain = namedtuple('Villain', 'name agility hp xp max_damage crit_damage rolls defense')
 
 class _Villain:
-    def __init__(self, id, name, agility, hp, xp, max_damage, crit_damage, rolls, defense):
-        self.id = id
+    def __init__(self, name, agility, hp, xp, max_damage, crit_damage, rolls, defense):
         self.name = name
         self.agility = agility
         self.hp = hp
@@ -17,10 +16,10 @@ class _Villain:
 
 pool = {}
 
-def Villain(id, name, agility, hp, xp, max_damage, crit_damage, rolls, defense):
-    if id in pool:
-        return pool[id]
+def Villain(name, agility, hp, xp, max_damage, crit_damage, rolls, defense):
+    if name in pool:
+        return pool[name]
 
-    new_obj = _Villain(id, name, agility, hp, xp, max_damage, crit_damage, rolls, defense)
-    pool[id] = new_obj
+    new_obj = _Villain(name, agility, hp, xp, max_damage, crit_damage, rolls, defense)
+    pool[name] = new_obj
     return new_obj

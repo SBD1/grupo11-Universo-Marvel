@@ -18,5 +18,5 @@ def Level(number, xp, hp, agility, damage):
         return pool[number]
 
     new_obj = _Level(number, xp, hp, agility, damage)
-    pool[id] = new_obj
+    pool[number] = new_obj
     return new_obj

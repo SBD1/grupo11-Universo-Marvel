@@ -12,6 +12,11 @@ def get_heroes():
 
     return [Hero(*hero) for hero in heroes]
 
+def get_villains():
+    cursor.execute(f"SELECT * FROM vilao;")
+    villains = cursor.fetchall()
+
+    return [Villain(*villain) for villain in villains]
 
 def get_hero_instances():
     query = 'SELECT * FROM instancia_heroi;'
@@ -59,7 +64,18 @@ def get_bases(map):
     bases = cursor.fetchall()
 
     return [Base(*base) for base in bases]
+    
+def get_levels(level):
+    cursor.execute(f"SELECT * FROM nivel WHERE number = {level};")
+    number = cursor.fetchall()
 
+    return [Level(*number) for number in levels]
+
+def get_weapons():
+    cursor.execute(f"SELECT * FROM arma;")
+    weapons = cursor.fetchall()
+
+    return [Weapon(*weapon) for weapon in bases]
 
 def get_villain_instances(map):
     cursor.execute(f"SELECT * FROM instancia_vilao WHERE mapa = {map};")
