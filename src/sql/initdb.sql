@@ -378,6 +378,57 @@ BEGIN
 END;
 $criar_instancia_heroi$;
 
+CREATE OR REPLACE FUNCTION get_instancias_heroi()
+RETURNS TABLE (
+  id INTEGER,
+  nome TEXT,
+  heroi TEXT,
+  vida NON_NEGATIVE_INT,
+  experiencia NON_NEGATIVE_INT,
+  traje TEXT, 
+  arma TEXT, 
+  latitude COORDINATE,
+  longitude COORDINATE,
+  mapa INTEGER,
+  agilidade POSITIVE_INT,
+  vida_maxima POSITIVE_INT
+)
+LANGUAGE PLPGSQL
+AS $get_instancias_heroi$
+BEGIN
+  RETURN QUERY
+  SELECT I.*, H.agilidade, H.vida
+  FROM instancia_heroi I, heroi H
+  WHERE I.heroi = H.nome;
+END;
+$get_instancias_heroi$;
+
+CREATE OR REPLACE FUNCTION get_instancias_vilao()
+RETURNS TABLE(
+  id INTEGER,
+  vilao TEXT,
+  vida NON_NEGATIVE_INT,
+  latitude COORDINATE,
+  longitude COORDINATE,
+  mapa INTEGER,
+  agilidade POSITIVE_INT,
+  vida_maxima NON_NEGATIVE_INT,
+  experiencia POSITIVE_INT,
+  dano_maximo POSITIVE_INT,
+  dano_critico POSITIVE_INT,
+  rolagens POSITIVE_INT,
+  defesa POSITIVE_INT
+)
+LANGUAGE PLPGSQL
+AS $get_instancias_vilao$
+BEGIN
+  RETURN QUERY
+  SELECT I.*, V.agilidade, V.vida, V.experiencia, V.dano_maximo, V.dano_critico, V.rolagens, V.defesa
+  FROM instancia_vilao I, vilao V
+  WHERE I.vilao = V.nome;
+END;
+$get_instancias_vilao$;
+
 CREATE OR REPLACE FUNCTION insert_coletavel()
 RETURNS TRIGGER
 LANGUAGE PLPGSQL

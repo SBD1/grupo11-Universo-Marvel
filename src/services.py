@@ -1,9 +1,5 @@
 from db import cursor
-from models.Hero import Hero
-from models.HeroInstance import HeroInstance
-from models.VillainInstance import VillainInstance
-from models.ItemInstance import ItemInstance
-from models.Base import Base
+from models import *
 
 
 def get_heroes():
@@ -13,16 +9,15 @@ def get_heroes():
     return [Hero(*hero) for hero in heroes]
 
 
-def get_hero_instances():
-    query = 'SELECT * FROM instancia_heroi;'
-    cursor.execute(query)
-    hero_instances = cursor.fetchall()
+def get_hero_instance_names():
+    cursor.execute('SELECT nome FROM instancia_heroi;')
+    name_tuples = cursor.fetchall()
     
-    return [HeroInstance(*hi) for hi in hero_instances]
+    return [tuple[0] for tuple in name_tuples]
 
 
 def get_save_by_name(name):
-    cursor.execute(f"SELECT * FROM instancia_heroi WHERE nome = '{name}';")
+    cursor.execute(f"SELECT * FROM get_instancias_heroi() WHERE nome = '{name}';")
     save = HeroInstance(*cursor.fetchone())
 
     return save
@@ -31,7 +26,7 @@ def get_items(hero):
     cursor.execute(f"SELECT item, quantidade FROM posse WHERE heroi = '{hero}';")
     items = cursor.fetchall()
 
-    return items
+    return [Item(*item) for item in items]
 
 def get_map_matrix(hero):
     matrix = [[[] for i in range(20)] for i in range(20)]
@@ -62,7 +57,7 @@ def get_bases(map):
 
 
 def get_villain_instances(map):
-    cursor.execute(f"SELECT * FROM instancia_vilao WHERE mapa = {map};")
+    cursor.execute(f"SELECT * FROM get_instancias_vilao() WHERE mapa = {map};")
     villain_instances = cursor.fetchall()
 
     return [VillainInstance(*vi) for vi in villain_instances]
@@ -83,5 +78,28 @@ def get_map_from_hero(hero):
 
 
 def create_save(name, hero):
-    query = f"CALL criar_instancia_heroi('{name}', '{hero}');"
-    cursor.execute(query)
+    cursor.execute(f"CALL criar_instancia_heroi('{name}', '{hero}');")
+
+def get_villain(hero):
+    cursor.execute(f"""
+        SELECT * FROM get_instancias_vilao()
+        WHERE latitude = {hero.lat}
+        AND longitude = {hero.lon}
+        AND mapa = {hero.map}
+        LIMIT 1;
+    """)
+    villain = cursor.fetchone()
+
+    return VillainInstance(*villain)
+
+def get_consumables(hero):
+    cursor.execute(f"""
+        SELECT C.nome, P.quantidade
+        FROM posse P, consumivel C
+        WHERE P.item = C.nome
+        AND heroi = '{hero.name}';
+    """)
+    consumables = cursor.fetchall()
+
+    return [Consumable(*consumable) for consumable in consumables]
+
