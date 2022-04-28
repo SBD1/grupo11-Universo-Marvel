@@ -1,8 +1,8 @@
 INSERT INTO personagem (nome, tipo) VALUES
 ('Thanos', 'V'),
-('Fauce de Ébano', 'V'),
+('Fauce de Ebano', 'V'),
 ('Corvus Glaive', 'V'),
-('Próxima Meia-Noite', 'V'),
+('Proxima Meia-Noite', 'V'),
 ('Estrela Negra', 'V'),
 ('Supergigante', 'V'),
 ('Chitauris', 'V'),
@@ -11,9 +11,9 @@ INSERT INTO personagem (nome, tipo) VALUES
 
 INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa) VALUES
 ('Thanos', 65, 100, 50, 70, 90, 15, 65),
-('Fauce de Ébano', 11, 62, 58, 79, 43, 12, 84),
+('Fauce de Ebano', 11, 62, 58, 79, 43, 12, 84),
 ('Corvus Glaive', 83, 72, 96, 57, 41, 9, 46),
-('Próxima Meia-Noite', 15, 98, 77, 69, 92, 2, 33),
+('Proxima Meia-Noite', 15, 98, 77, 69, 92, 2, 33),
 ('Estrela Negra', 100, 22, 75, 31, 23, 11, 76),
 ('Supergigante', 44, 56, 81, 29, 39, 14, 67),
 ('Chitauris', 80, 42, 7, 98, 49, 6, 24),
