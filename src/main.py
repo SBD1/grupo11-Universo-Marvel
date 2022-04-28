@@ -184,6 +184,8 @@ def consume_item(hero):
 
 
 def fight_villain(hero, villain):
+    global current_turn
+
     heros_turn = show_fight(hero, villain)
 
     while True:
@@ -211,11 +213,13 @@ def start_fight(hero):
     villain = get_villain(hero)
 
     turns = hero.agility * ['H'] + villain.agility * ['V']
-    random.shuffle(turns)
+    for i in range(3):
+        random.shuffle(turns)
 
     current_turn = 0
     
     fight_villain(hero, villain)
+
 
 def start_game(save_name):
     global window

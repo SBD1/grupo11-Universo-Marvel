@@ -61,17 +61,25 @@ class HeroInstance:
 
     def move(self, direction):
         try:
-            queries = [
-                f"CALL mover_heroi('{self.name}', '{direction}');",
-                f"SELECT latitude, longitude FROM instancia_heroi WHERE id = {self.id};"
-            ]
-            for query in queries:
-                cursor.execute(query)
+            cursor.execute(f"SELECT * FROM mover_heroi('{self.name}', '{direction}');")
             self.lat, self.lon = cursor.fetchone()
             return True
         except Exception as e:
-            print(e)
             return False
+
+    def attack(self, villain):
+        cursor.execute(f"SELECT * FROM atacar_vilao({self.id}, {villain.id});")
+        dmg_dealt = cursor.fetchone()
+
+        print('Dealt ', dmg_dealt)
+
+        villain.health = max(villain.health - dmg_dealt, 0)
+
+        return dmg_dealt
+
+    def consume(self, item):
+        cursor.execute(f"SELECT consumir_item('{self.name}', '{item}');")
+        self.health = cursor.fetchone()
 
 
 @multiton
@@ -105,3 +113,11 @@ class VillainInstance:
     crit_dmg: int
     rolls: int
     defense: int
+
+    def attack(self, hero):
+        cursor.execute(f"SELECT * FROM atacar_heroi({self.id}, {hero.id});")
+        dmg_dealt = cursor.fetchone()[0]
+
+        hero.health = max(hero.health - dmg_dealt, 0)
+
+        return dmg_dealt

@@ -28,7 +28,7 @@ def get_save_by_name(name):
     return save
 
 def get_items(hero):
-    cursor.execute(f"SELECT item, quantidade FROM posse WHERE heroi = '{hero}';")
+    cursor.execute(f"SELECT item, quantidade FROM posse WHERE heroi = '{hero.name}';")
     items = cursor.fetchall()
 
     return [Item(*item) for item in items]

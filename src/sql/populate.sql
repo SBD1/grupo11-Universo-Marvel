@@ -93,3 +93,38 @@ INSERT INTO instancia_vilao(vilao, latitude, longitude, mapa) VALUES
 ('Chitauris', 9, 19, 4),
 ('Próxima Meia-Noite', 18, 8, 2),
 ('Chitauris', 14, 16, 6);
+
+INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_maximo, dano_critico, rolagens) VALUES
+('Stormbreaker', 'Forjado pelos poderes de um deus e a energia uma estrela combinados, na forja de um anão gigante em Nidavellir.', 1, 30, 1, 57, 81, 12),
+('Mjölnir', '"Quem quer que possua este martelo, se ele for digno, possuirá o poder de Thor." - Encanto de Mjölnir', 1, 48, 1, 54, 88, 12),
+('Arco e Flecha', 'Arco e Flecha do Gavião arqueiro', 1, 11, 1, 55, 92, 5),
+('Escudo de Vibranium', 'Um presente do pai do Tony Stark, este escudo consegue resistir a poderes de qualquer natureza e qualquer magnitude.', 1, 81, 1, 62, 98, 14),
+('Manopla MK75', 'A última versão da manopla do Homem de Ferro.', 1, 28, 1, 53, 96, 10),
+('Olho de Agamotto', 'Amuleto usado pelo Doutor Estranho', 1, 125, 1, 82, 96, 8),
+('Lança Teias Comum', 'Lançador de teias básico do Homem-Aranha.', 1, 12, 1, 42, 67, 5);
+
+INSERT INTO traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) VALUES
+('Armadura Hulkbuster', 'Armadura de grande porte.', 74, 42, 57, 46, 59),
+('Capa da Levitação', 'Este traje concede a habilidade de voar.', 67, 83, 77, 76, 79),
+('Traje de Pantera', 'Este traje concede agilidade extrema ao usuário.', 41, 46, 17, 25, 41),
+('Armadura MK75', 'Esta armadura posui raios laser e uma IA que auxilia no controle e no voo.', 98, 37, 84, 45, 9),
+('Traje Quântico', 'Este traje permite que o usuário mude seu tamanho, podendo chegar do tamanho de um átomo até prédio de 20 andares.', 43, 56, 52, 12, 9),
+('Traje Aranha', 'Esta armadura permite lançar teias e concede agilidade extrema ao usuário.', 21, 90, 80, 49, 68);
+
+INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
+('Mjölnir', 'Thor'),
+('Mjölnir', 'Capitão América'),
+('Stormbreaker', 'Thor'),
+('Arco e Flecha', 'Gavião Arqueiro'),
+('Escudo de Vibranium', 'Capitão América'),
+('Manopla MK75', 'Homem de Ferro'),
+('Manopla MK75', 'Máquina de Combate'),
+('Olho de Agamotto', 'Doutor Estranho'),
+('Lança Teias Comum', 'Homem-Aranha'),
+
+('Armadura Hulkbuster', 'Homem de Ferro'),
+('Armadura Hulkbuster', 'Máquina de Combate'),
+('Capa da Levitação', 'Doutor Estranho'),
+('Armadura MK75', 'Homem de Ferro'),
+('Armadura MK75', 'Máquina de Combate'),
+('Traje Aranha', 'Homem-Aranha');
