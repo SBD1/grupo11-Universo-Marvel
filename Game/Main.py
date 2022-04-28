@@ -1,6 +1,6 @@
 import curses, pyfiglet, time, random, math
 from subprocess import check_call
-from database import conection
+from database import connection
 import random
 
 class Vilao:
@@ -35,7 +35,7 @@ def printmenu(mywindow, indexLinhaSelecionada):
     mywindow.refresh()
 
 # Conexão
-cursor = conection.cursor
+cursor = connection.cursor
 
 '''Atributos do herói'''
 cursor.execute("SELECT nome,heroi FROM instancia_heroi")
