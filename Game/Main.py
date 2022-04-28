@@ -1,6 +1,7 @@
 import curses, pyfiglet, time, random, math
 from subprocess import check_call
 from database import connection
+from methods import select
 import random
 
 class Vilao:
@@ -38,8 +39,7 @@ def printmenu(mywindow, indexLinhaSelecionada):
 cursor = connection.cursor
 
 '''Atributos do herói'''
-cursor.execute("SELECT nome,heroi FROM instancia_heroi")
-cursorheroi = cursor.fetchall()
+cursorheroi = select.select_all('instancia_heroi', 'nome,heroi')
 heroirandomico = cursorheroi[random.randrange(len(cursorheroi))]
 
 print(heroirandomico)
