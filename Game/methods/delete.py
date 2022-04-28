@@ -1,6 +1,6 @@
 from database import cursor
 
-def delete(table -> string, condition -> string):
+def delete(table, condition):
     """
     This function deletes one row of a table.
     """

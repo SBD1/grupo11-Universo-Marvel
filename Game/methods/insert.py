@@ -1,6 +1,6 @@
 from database import cursor
 
-def insert(table -> string, column -> string, value):
+def insert(table, column, value):
     """
     This function inserts one row into a table.
     """

@@ -1,6 +1,6 @@
 from database import cursor
 
-def update(table -> string, column -> string, value, condition -> string):
+def update(table, column, value, condition):
     """
     This function updates one row of a table.
     """
