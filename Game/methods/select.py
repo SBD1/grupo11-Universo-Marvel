@@ -17,6 +17,5 @@ def select_all(table, column, condition = ''):
     query = "SELECT {} FROM {}".format(column, table)
     if condition != '':
         query += "WHERE {}".format(condition)
-    print(query)
     cursor.execute(query)
     return cursor.fetchall()
