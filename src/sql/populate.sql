@@ -121,7 +121,7 @@ INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_
 ('Olho de Agamotto', 'Amuleto usado pelo Doutor Estranho', 1, 125, 1, 82, 96, 8),
 ('Lança Teias Comum', 'Lançador de teias básico do Homem-Aranha.', 1, 12, 1, 42, 67, 5),
 ('Garras de Vibranium', 'Garras feitas em Vibranium.', 1, 42, 1, 42, 77, 5),
-('Default', 'Usado por personagens que normalmente não manuseiam armas.', 1, 1, 1, 1, 1, 1);
+('Default', 'Usado por personagens que normalmente não manuseiam armas.', 1, 1, 1, 20, 60, 10);
 
 INSERT INTO traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) VALUES
 ('Armadura Hulkbuster', 'Armadura de grande porte.', 74, 42, 1, 46, 59),
@@ -147,6 +147,7 @@ INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
 ('Default', 'Hulk'),
 ('Default', 'Viúva Negra'),
 ('Default', 'Homem-Formiga'),
+('Default', 'Falcão'),
 
 ('Traje América', 'Capitão América'),
 ('Capa Nórdica', 'Thor'),
@@ -195,12 +196,11 @@ INSERT INTO recompensa (item, vilao, quantidade) VALUES
 ('Moeda', 'Chitauris', 186),
 ('Moeda', 'Outriders', 273),
 ('Moeda', 'Sakaarans', 148),
-('Nebulosa', 'Sakaarans', 43),
-('Hela', 'Sakaarans', 234),
-('Erik Killmonger', 'Sakaarans', 75),
-('Ego', 'Sakaarans', 342),
-('Homen Molecular', 'Sakaarans', 34),
-('Gorr', 'Sakaarans', 453);
+('Moeda', 'Hela', 234),
+('Moeda', 'Erik Killmonger', 75),
+('Moeda', 'Ego', 342),
+('Moeda', 'Homen Molecular', 34),
+('Moeda', 'Gorr', 453);
 
 INSERT INTO efeito (nome) VALUES ('Vida');
 
