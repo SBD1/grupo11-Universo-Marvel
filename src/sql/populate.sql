@@ -141,6 +141,7 @@ INSERT INTO recompensa (item, vilao, quantidade) VALUES
 ('Moeda', 'Erik Killmonger', 75),
 ('Moeda', 'Ego', 342),
 ('Moeda', 'Homen Molecular', 34),
+('Moeda', 'Nebulosa', 324),
 ('Moeda', 'Gorr', 453);
 
 INSERT INTO efeito (nome) VALUES ('Vida');
