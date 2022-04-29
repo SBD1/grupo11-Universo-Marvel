@@ -29,7 +29,12 @@ INSERT INTO heroi (nome, agilidade, vida) VALUES
 ('Capitão América', 86, 154),
 ('Thor', 74, 250),
 ('Homem-Aranha', 100, 150),
-('Doutor Estranho', 58, 285);
+('Doutor Estranho', 58, 285),
+('Hulk', 40, 795),
+('Viúva Negra', 79, 75),
+('Pantera Negra', 83, 65),
+('Falcão', 76, 143),
+('Homem-Formiga', 89, 75);
 
 INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico, rolagens, defesa) VALUES
 ('Thanos', 65, 100, 50, 70, 90, 15, 65),
@@ -107,7 +112,9 @@ INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_
 ('Escudo de Vibranium', 'Um presente do pai do Tony Stark, este escudo consegue resistir a poderes de qualquer natureza e qualquer magnitude.', 1, 81, 1, 62, 98, 14),
 ('Manopla MK75', 'A última versão da manopla do Homem de Ferro.', 1, 28, 1, 53, 96, 10),
 ('Olho de Agamotto', 'Amuleto usado pelo Doutor Estranho', 1, 125, 1, 82, 96, 8),
-('Lança Teias Comum', 'Lançador de teias básico do Homem-Aranha.', 1, 12, 1, 42, 67, 5);
+('Lança Teias Comum', 'Lançador de teias básico do Homem-Aranha.', 1, 12, 1, 42, 67, 5),
+('Garras de Vibranium', 'Garras feitas em Vibranium.', 1, 42, 1, 42, 77, 5),
+('Default', 'Usado por personagens que normalmente não manuseiam armas.', 1, 1, 1, 1, 1, 1);
 
 INSERT INTO traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) VALUES
 ('Armadura Hulkbuster', 'Armadura de grande porte.', 74, 42, 1, 46, 59),
@@ -115,7 +122,11 @@ INSERT INTO traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defe
 ('Traje América', 'Traje do Capitão América', 41, 46, 1, 25, 41),
 ('Armadura MK75', 'Esta armadura posui raios laser e uma IA que auxilia no controle e no voo.', 98, 37, 1, 45, 9),
 ('Capa Nórdica', 'Capa do Thor', 43, 56, 1, 12, 9),
-('Traje Aranha', 'Esta armadura permite lançar teias e concede agilidade extrema ao usuário.', 21, 90, 1, 49, 68);
+('Traje Aranha', 'Esta armadura permite lançar teias e concede agilidade extrema ao usuário.', 21, 90, 1, 49, 68),
+('Traje AntMan', 'Esta armadura permite maximizar o uso das partículas Pym, enquanto também proteger o utente dos efeitos colaterais negativos do uso de particulas.', 14, 50, 1, 67, 78),
+('Armadura Falcão', 'Esta armadura desenvolvida em Wakanda, com habilidades de voar e enorme defesa com Vibranium.', 14, 55, 1, 87, 58),
+('Traje Simples', 'Simples traje sem nenhuma peculiaridade.', 99, 1, 1, 5, 5),
+('Traje Wakanda', 'Este traje feito de uma malha de microweave de vibranium. Isso significa que seu traje possui todas as propriedades do vibranium, incluindo quase invulnerabilidade devido à sua capacidade de absorver energia cinética e redistribuí-la conforme a vontade do usuário.', 99, 76, 1, 67, 86);
 
 INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
 ('Mjölnir', 'Thor'),
@@ -125,13 +136,22 @@ INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
 ('Manopla MK75', 'Homem de Ferro'),
 ('Olho de Agamotto', 'Doutor Estranho'),
 ('Lança Teias Comum', 'Homem-Aranha'),
+('Garras de Vibranium', 'Pantera Negra'),
+('Default', 'Hulk'),
+('Default', 'Viúva Negra'),
+('Default', 'Homem-Formiga'),
 
 ('Traje América', 'Capitão América'),
 ('Capa Nórdica', 'Thor'),
 ('Armadura Hulkbuster', 'Homem de Ferro'),
 ('Capa da Levitação', 'Doutor Estranho'),
 ('Armadura MK75', 'Homem de Ferro'),
-('Traje Aranha', 'Homem-Aranha');
+('Traje Aranha', 'Homem-Aranha'),
+('Traje AntMan', 'Homem-Formiga'),
+('Armadura Falcão', 'Falcão'),
+('Traje Wakanda', 'Pantera Negra'),
+('Traje Simples', 'Hulk'),
+('Traje Simples', 'Viúva Negra');
 
 INSERT INTO nivel (numero, experiencia_necessaria, escalonamento) VALUES 
 (1, 0, 1),
