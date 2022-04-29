@@ -63,6 +63,7 @@ INSERT INTO instancia_vilao(vilao, latitude, longitude, mapa) VALUES
 ('Fauce de Ébano', 11, 4, 7),
 ('Supergigante', 13, 3, 5),
 ('Corvus Glaive', 18, 16, 7),
+('Erik Killmonger', 19, 5, 7),
 ('Supergigante', 12, 14, 5),
 ('Estrela Negra', 16, 18, 6),
 ('Outriders', 18, 17, 5),
@@ -79,7 +80,9 @@ INSERT INTO instancia_vilao(vilao, latitude, longitude, mapa) VALUES
 ('Estrela Negra', 12, 14, 2),
 ('Supergigante', 10, 19, 6),
 ('Corvus Glaive', 11, 1, 4),
-('Corvus Glaive', 8, 9, 1),
+('Erik Killmonger', 8, 9, 1),
+('Ego', 6, 7, 3),
+('Nebulosa', 5, 12, 4),
 ('Outriders', 7, 3, 7),
 ('Chitauris', 2, 4, 1),
 ('Corvus Glaive', 16, 4, 2),
@@ -95,14 +98,18 @@ INSERT INTO instancia_vilao(vilao, latitude, longitude, mapa) VALUES
 ('Supergigante', 18, 5, 3),
 ('Sakaarans', 3, 11, 1),
 ('Corvus Glaive', 19, 2, 5),
+('Ego', 15, 6, 5),
 ('Estrela Negra', 16, 8, 3),
 ('Sakaarans', 13, 5, 2),
 ('Supergigante', 2, 0, 5),
 ('Supergigante', 18, 11, 1),
 ('Próxima Meia-Noite', 17, 19, 6),
 ('Corvus Glaive', 5, 5, 1),
+('Hela', 7, 3, 1),
 ('Chitauris', 9, 19, 4),
+('Gorr', 7, 5, 2),
 ('Próxima Meia-Noite', 18, 8, 2),
+('Nebulosa', 17, 16, 6),
 ('Chitauris', 14, 16, 6);
 
 INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_maximo, dano_critico, rolagens) VALUES
@@ -187,7 +194,13 @@ INSERT INTO recompensa (item, vilao, quantidade) VALUES
 ('Moeda', 'Supergigante', 254),
 ('Moeda', 'Chitauris', 186),
 ('Moeda', 'Outriders', 273),
-('Moeda', 'Sakaarans', 148);
+('Moeda', 'Sakaarans', 148),
+('Nebulosa', 'Sakaarans', 43),
+('Hela', 'Sakaarans', 234),
+('Erik Killmonger', 'Sakaarans', 75),
+('Ego', 'Sakaarans', 342),
+('Homen Molecular', 'Sakaarans', 34),
+('Gorr', 'Sakaarans', 453);
 
 INSERT INTO efeito (nome) VALUES ('Vida');
 
