@@ -4,7 +4,7 @@
 
 Repositório destinado a disciplina de Sistemas de bancos de dados (SBD1)
 
-# Alunos
+## Alunos
 
 | Matrícula  | Aluno(a)                           |
 | ---------- | ---------------------------------- |
@@ -15,11 +15,11 @@ Repositório destinado a disciplina de Sistemas de bancos de dados (SBD1)
 | 18/0129147 | Pedro de Miranda Haick             |
 | 18/0113259 | Felipe Correia Andrade             |
 
-# Professor
+## Professor
 
 - Maurício Serrano
 
-# Como rodar o projeto
+## Como rodar o projeto
 
 1. Entre na pasta src
 
