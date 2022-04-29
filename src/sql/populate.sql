@@ -53,65 +53,6 @@ INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico
 ('Gorr', 63, 84, 43, 27, 45, 3, 53),
 ('Sakaarans', 81, 37, 89, 25, 82, 8, 40);
 
-INSERT INTO instancia_vilao(vilao, latitude, longitude, mapa) VALUES
-('Sakaarans', 18, 1, 1),
-('Outriders', 4, 7, 1),
-('Thanos', 1, 7, 2),
-('Estrela Negra', 1, 4, 7),
-('Sakaarans', 3, 3, 2),
-('Chitauris', 8, 19, 6),
-('Fauce de Ébano', 11, 4, 7),
-('Supergigante', 13, 3, 5),
-('Corvus Glaive', 18, 16, 7),
-('Erik Killmonger', 19, 5, 7),
-('Supergigante', 12, 14, 5),
-('Estrela Negra', 16, 18, 6),
-('Outriders', 18, 17, 5),
-('Sakaarans', 17, 3, 4),
-('Chitauris', 16, 16, 6),
-('Outriders', 7, 14, 1),
-('Estrela Negra', 6, 3, 4),
-('Outriders', 10, 8, 4),
-('Sakaarans', 11, 3, 1),
-('Próxima Meia-Noite', 9, 14, 4),
-('Outriders', 2, 11, 3),
-('Próxima Meia-Noite', 6, 9, 4),
-('Outriders', 2, 17, 6),
-('Estrela Negra', 12, 14, 2),
-('Supergigante', 10, 19, 6),
-('Corvus Glaive', 11, 1, 4),
-('Erik Killmonger', 8, 9, 1),
-('Ego', 6, 7, 3),
-('Nebulosa', 5, 12, 4),
-('Outriders', 7, 3, 7),
-('Chitauris', 2, 4, 1),
-('Corvus Glaive', 16, 4, 2),
-('Próxima Meia-Noite', 12, 15, 7),
-('Corvus Glaive', 9, 2, 6),
-('Supergigante', 3, 2, 7),
-('Chitauris', 1, 8, 6),
-('Estrela Negra', 8, 10, 4),
-('Próxima Meia-Noite', 12, 15, 7),
-('Outriders', 6, 4, 7),
-('Chitauris', 7, 10, 4),
-('Corvus Glaive', 13, 3, 2),
-('Supergigante', 18, 5, 3),
-('Sakaarans', 3, 11, 1),
-('Corvus Glaive', 19, 2, 5),
-('Ego', 15, 6, 5),
-('Estrela Negra', 16, 8, 3),
-('Sakaarans', 13, 5, 2),
-('Supergigante', 2, 0, 5),
-('Supergigante', 18, 11, 1),
-('Próxima Meia-Noite', 17, 19, 6),
-('Corvus Glaive', 5, 5, 1),
-('Hela', 7, 3, 1),
-('Chitauris', 9, 19, 4),
-('Gorr', 7, 5, 2),
-('Próxima Meia-Noite', 18, 8, 2),
-('Nebulosa', 17, 16, 6),
-('Chitauris', 14, 16, 6);
-
 INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_maximo, dano_critico, rolagens) VALUES
 ('Stormbreaker', 'Forjado pelos poderes de um deus e a energia uma estrela combinados, na forja de um anão gigante em Nidavellir.', 1, 30, 1, 57, 81, 12),
 ('Mjölnir', '"Quem quer que possua este martelo, se ele for digno, possuirá o poder de Thor." - Encanto de Mjölnir', 1, 48, 1, 54, 88, 12),
@@ -205,7 +146,11 @@ INSERT INTO recompensa (item, vilao, quantidade) VALUES
 INSERT INTO efeito (nome) VALUES ('Vida');
 
 INSERT INTO consumivel (nome, descricao, quantidade_maxima, valor, efeito, grau, duracao, cooldown) VALUES
-('Poção pequena de cura', 'Cura vida de quem a usa.', 13, 40, 'Vida', 20, 0, 3),
-('Poção média de cura', 'Cura vida de quem a usa.', 13, 100, 'Vida', 40, 0, 3),
-('Poção grande de cura', 'Cura vida de quem a usa.', 13, 150, 'Vida', 60, 0, 3),
-('Poção gigante de cura', 'Cura vida de quem a usa.', 3, 300, 'Vida', 100, 0, 2);
+('Cristal pequeno de cura', 'Cura vida de quem a usa.', 13, 40, 'Vida', 20, 0, 3),
+('Cristal médio de cura', 'Cura vida de quem a usa.', 13, 100, 'Vida', 40, 0, 3),
+('Cristal grande de cura', 'Cura vida de quem a usa.', 13, 150, 'Vida', 60, 0, 3),
+('Cristal gigante de cura', 'Cura vida de quem a usa.', 3, 300, 'Vida', 100, 0, 2);
+
+CALL popular_estoque();
+
+CALL popular_mapas();

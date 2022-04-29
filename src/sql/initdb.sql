@@ -1239,6 +1239,35 @@ BEGIN
 END;
 $soltar_item$;
 
+CREATE OR REPLACE PROCEDURE popular_estoque()
+LANGUAGE PLPGSQL
+AS $popular_estoque$
+DECLARE b RECORD;
+BEGIN
+  FOR b IN (SELECT * FROM base) LOOP
+    INSERT INTO estoque (base, item, quantidade)
+    SELECT b.id, nome, 50 FROM trocavel;
+  END LOOP;
+END;
+$popular_estoque$;
+
+CREATE OR REPLACE PROCEDURE popular_mapas()
+LANGUAGE PLPGSQL
+AS $popular_mapas$
+DECLARE m RECORD;
+DECLARE nome_vilao TEXT;
+BEGIN
+  FOR m IN (SELECT * FROM mapa) LOOP
+    FOR v in 1..30 LOOP
+      SELECT nome INTO nome_vilao FROM vilao ORDER BY RANDOM() LIMIT 1;
+      INSERT INTO instancia_vilao (vilao, latitude, longitude, mapa) VALUES
+      (nome_vilao, FLOOR(RANDOM() * 19), FLOOR(RANDOM() * 19), m.id);
+    END LOOP;
+  END LOOP;
+END;
+$popular_mapas$;
+
+
 -- Criando Triggers
 
 CREATE TRIGGER criar_instancia_vilao_trigger
