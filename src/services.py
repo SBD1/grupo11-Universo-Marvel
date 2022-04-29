@@ -147,3 +147,16 @@ def get_consumable_names():
     consumables = cursor.fetchall()
 
     return set([consumable[0] for consumable in consumables])
+
+
+def should_game_end(hero):
+    cursor.execute("SELECT COUNT(*) FROM joia;")
+    num_stones = cursor.fetchone()[0]
+
+    cursor.execute(
+        f"SELECT COUNT(*) FROM posse WHERE heroi = '{hero.name}' AND item IN (SELECT nome FROM joia);")
+    possessed_stones = cursor.fetchone()[0]
+
+    if num_stones == possessed_stones:
+        return True
+    return False

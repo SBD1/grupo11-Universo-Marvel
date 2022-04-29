@@ -1,9 +1,9 @@
 import curses
 from curses import wrapper
 import random
-from time import sleep
 from db import conn, cursor
 from services import *
+from time import sleep
 
 window = None
 turns = None
@@ -284,7 +284,10 @@ def fight_villain(hero, villain):
                 dmg_dealt = hero.attack(villain)
                 last_hit = (hero.hero, dmg_dealt)
                 if villain.health == 0:
-                    play_game(hero)
+                    if should_game_end(hero):
+                        end_game()
+                    else:
+                        play_game(hero)
             elif key == 'C':
                 consume_item(hero)
             elif key == 'F':
@@ -448,20 +451,33 @@ def main(stdscr):
         raise Exception(
             'Aumente seu terminal para acomodar 35 linhas e 80 colunas')
 
-    # try:
-    chosen_option = show_menu()
+    try:
+        chosen_option = show_menu()
 
-    if chosen_option == 'Novo Jogo':
-        create_character()
-    elif chosen_option == 'Continuar':
-        choose_save()
-    elif chosen_option == 'Sair':
-        cursor.close()
-        conn.commit()
-        conn.close()
-        exit(0)
-    # except KeyboardInterrupt:
-    #     main(window)
+        if chosen_option == 'Novo Jogo':
+            create_character()
+        elif chosen_option == 'Continuar':
+            choose_save()
+        elif chosen_option == 'Sair':
+            cursor.close()
+            conn.commit()
+            conn.close()
+            exit(0)
+    except KeyboardInterrupt:
+        main(window)
+
+
+def end_game():
+    window.clear()
+    window.addstr('FIM DE JOGO\n')
+    window.addstr('Aperte qualquer tecla para fechar\n')
+
+    window.getch()
+
+    cursor.close()
+    conn.commit()
+    conn.close()
+    exit(0)
 
 
 wrapper(main)
