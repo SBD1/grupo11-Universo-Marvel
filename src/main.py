@@ -330,6 +330,11 @@ def main(stdscr):
     curses.curs_set(0)
     window.clear()
 
+    h, w = window.getmaxyx()
+    if h < 35 or w < 80:
+        raise Exception(
+            'Aumente seu terminal para acomodar 35 linhas e 80 colunas')
+
     # try:
     chosen_option = show_menu()
 
