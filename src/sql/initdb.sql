@@ -166,13 +166,6 @@ CREATE TABLE joia (
   quantidade_maxima POSITIVE_INT NOT NULL DEFAULT 1
 );
 
-CREATE TABLE luta (
-  id SERIAL PRIMARY KEY,
-  heroi TEXT NOT NULL,
-  vilao TEXT NOT NULL,
-  resultado CHAR
-);
-
 CREATE TABLE mapa (
   id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
@@ -301,9 +294,6 @@ ALTER TABLE instancia_item ADD FOREIGN KEY (nome) REFERENCES item (nome);
 
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 ALTER TABLE instancia_vilao ADD FOREIGN KEY (mapa) REFERENCES mapa (id);
-
-ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
-ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 
 ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES joia (nome);
 ALTER TABLE mapa ADD FOREIGN KEY (recompensa) REFERENCES joia (nome);
@@ -523,6 +513,7 @@ DECLARE grau_item INTEGER;
 DECLARE vida_atual INTEGER;
 DECLARE heroi_instancia TEXT;
 DECLARE vida_maxima INTEGER;
+DECLARE vida_final INTEGER;
 BEGIN
   SELECT quantidade
   INTO qtd_item
@@ -546,6 +537,8 @@ BEGIN
   FROM consumivel
   WHERE nome = nome_item;
 
+  SELECT vida INTO vida_final FROM instancia_heroi WHERE nome = nome_heroi;
+
   IF efeito_item = 'Vida' THEN
     SELECT vida, heroi
     INTO vida_atual, heroi_instancia
@@ -557,20 +550,14 @@ BEGIN
     FROM heroi
     WHERE nome = heroi_instancia;
 
-    IF vida_atual + grau_item > vida_maxima THEN
-      UPDATE instancia_heroi
-      SET vida = vida_maxima
-      WHERE nome = nome_heroi;
+    SELECT * INTO vida_final FROM LEAST(vida_atual + grau_item, vida_maxima);
 
-      RETURN vida_maxima;
-    ELSE
-      UPDATE instancia_heroi
-      SET vida = vida + grau_item
-      WHERE nome = nome_heroi;
-
-      RETURN vida + grau_item;
-    END IF;
+    UPDATE instancia_heroi
+    SET vida = vida_final
+    WHERE nome = nome_heroi;
   END IF;
+
+  RETURN vida_final;
 END;
 $consumir_item$;
 
@@ -810,7 +797,7 @@ BEGIN
     SELECT *
     FROM instancia_item
     WHERE latitude = lat_heroi
-    AND longitude = longitude
+    AND longitude = lon_heroi
     AND mapa = mapa_heroi
   ) LOOP
     SELECT * INTO qtd_maxima_item FROM get_quantidade_maxima(item_chao.nome);
@@ -843,6 +830,156 @@ BEGIN
   END LOOP;
 END;
 $pegar_itens$;
+
+CREATE OR REPLACE FUNCTION get_mapas(nome_heroi TEXT)
+RETURNS SETOF mapa
+LANGUAGE PLPGSQL
+AS $get_mapas$
+BEGIN
+  RETURN QUERY
+  SELECT *
+  FROM mapa
+  WHERE (
+      requisito IN (
+      SELECT nome
+      FROM joia
+      WHERE nome IN (
+        SELECT item FROM posse WHERE heroi = nome_heroi
+      )
+    )
+    OR requisito IS NULL
+  )
+  AND id NOT IN (
+    SELECT mapa
+    FROM instancia_heroi
+    WHERE nome = nome_heroi
+  );
+END;
+$get_mapas$;
+
+CREATE TYPE coordenada AS(
+  latitude INTEGER,
+  longitude INTEGER,
+  mapa INTEGER
+);
+
+CREATE OR REPLACE FUNCTION ir_para_mapa(nome_heroi TEXT, nome_mapa TEXT, ano_mapa INTEGER)
+RETURNS coordenada
+LANGUAGE PLPGSQL
+AS $ir_para_mapa$
+DECLARE id_mapa INTEGER;
+DECLARE lat_base INTEGER;
+DECLARE lon_base INTEGER;
+DECLARE resultado coordenada;
+BEGIN
+  SELECT id INTO id_mapa FROM mapa where nome = nome_mapa AND ano = ano_mapa;
+  SELECT latitude, longitude INTO lat_base, lon_base FROM base WHERE mapa = id_mapa;
+  UPDATE instancia_heroi
+  SET latitude = lat_base, longitude = lon_base, mapa = id_mapa
+  WHERE nome = nome_heroi;
+
+  resultado.latitude = lat_base;
+  resultado.longitude = lon_base;
+  resultado.mapa = id_mapa;
+
+  RETURN resultado;
+END;
+$ir_para_mapa$;
+
+CREATE OR REPLACE FUNCTION get_trocaveis(nome_heroi TEXT)
+RETURNS TABLE (
+  nome_item TEXT,
+  qtd_item POSITIVE_INT
+)
+LANGUAGE PLPGSQL
+AS $get_trocaveis$
+BEGIN
+  RETURN QUERY
+  SELECT item, quantidade
+  FROM posse
+  WHERE heroi = nome_heroi
+  AND item IN (
+    SELECT nome
+    FROM trocavel
+  );
+END;
+$get_trocaveis$;
+
+CREATE OR REPLACE FUNCTION get_preco(nome_item TEXT)
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS $get_preco$
+DECLARE tipo_item CHAR;
+DECLARE preco_item INTEGER;
+BEGIN
+  SELECT tipo INTO tipo_item FROM item WHERE nome = nome_item;
+
+  IF tipo_item = 'T' THEN
+    SELECT valor INTO preco_item FROM traje WHERE nome = nome_item;
+  ELSIF tipo_item = 'A' THEN
+    SELECT valor INTO preco_item FROM arma WHERE nome = nome_item;
+  ELSIF tipo_item = 'C' THEN
+    SELECT valor INTO preco_item FROM consumivel WHERE nome = nome_item;
+  END IF;
+
+  RETURN preco_item;
+END;
+$get_preco$;
+
+CREATE OR REPLACE PROCEDURE vender_item(nome_heroi TEXT, nome_item TEXT, qtd INTEGER)
+LANGUAGE PLPGSQL
+AS $vender_item$
+DECLARE qtd_inventario INTEGER;
+DECLARE qtd_vendida INTEGER;
+DECLARE id_base INTEGER;
+DECLARE em_estoque INTEGER;
+DECLARE custo_item INTEGER;
+BEGIN
+  SELECT quantidade
+  INTO qtd_inventario
+  FROM posse
+  WHERE heroi = nome_heroi
+  AND item = nome_item;
+
+  SELECT id INTO id_base
+  FROM base
+  WHERE (latitude, longitude, mapa) IN (
+    SELECT latitude, longitude, mapa
+    FROM instancia_heroi
+    WHERE nome = nome_heroi
+  );
+
+  SELECT * INTO custo_item FROM get_preco(nome_item);
+
+  SELECT * INTO qtd_vendida FROM LEAST(qtd_inventario, qtd);
+
+  UPDATE posse
+  SET quantidade = quantidade + (custo_item * qtd_vendida)
+  WHERE heroi = nome_heroi
+  AND item = 'Moeda';
+
+  SELECT COUNT(*) INTO em_estoque FROM estoque WHERE item = nome_item AND base = id_base;
+
+  IF em_estoque = 0 THEN
+    INSERT INTO estoque (base, item, quantidade) VALUES
+    (id_base, nome_item, qtd_vendida);
+  ELSE
+    UPDATE estoque
+    SET quantidade = quantidade + qtd_vendida
+    WHERE item = nome_item
+    AND base = id_base;
+  END IF;
+
+  IF qtd_vendida = qtd_inventario THEN
+    DELETE FROM posse WHERE item = nome_item AND heroi = nome_heroi;
+  ELSE
+    UPDATE posse
+    SET quantidade = quantidade - qtd_vendida
+    WHERE item = nome_item
+    AND heroi = nome_heroi;
+  END IF;
+END;
+$vender_item$;
 
 -- Criando Triggers
 

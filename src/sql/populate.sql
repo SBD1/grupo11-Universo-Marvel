@@ -162,3 +162,11 @@ INSERT INTO recompensa (item, vilao, quantidade) VALUES
 ('Moeda', 'Chitauris', 186),
 ('Moeda', 'Outriders', 273),
 ('Moeda', 'Sakaarans', 148);
+
+INSERT INTO efeito (nome) VALUES ('Vida');
+
+INSERT INTO consumivel (nome, descricao, quantidade_maxima, valor, efeito, grau, duracao, cooldown) VALUES
+('Poção pequena de cura', 'Cura vida de quem a usa.', 13, 40, 'Vida', 20, 0, 3),
+('Poção média de cura', 'Cura vida de quem a usa.', 13, 100, 'Vida', 40, 0, 3),
+('Poção grande de cura', 'Cura vida de quem a usa.', 13, 150, 'Vida', 60, 0, 3),
+('Poção gigante de cura', 'Cura vida de quem a usa.', 3, 300, 'Vida', 100, 0, 2);

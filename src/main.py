@@ -128,7 +128,8 @@ def render_map(hero):
         window.addstr('Aperte [P] para pegar os items\n')
 
     if 'B' in current_hero_spot:
-        window.addstr('Aperte [T] para fazer uma troca ou [V] para viajar\n')
+        window.addstr('Aperte [T] para fazer uma troca\n')
+        window.addstr('Aperte [V] para viajar\n')
 
     return current_hero_spot
 
@@ -156,7 +157,7 @@ def show_fight(hero, villain):
 
     window.addstr(f'Próximos turnos: {", ".join(next_turns)}\n')
     window.addstr(
-        f'Turno atual: {("Vilão", "Herói")[heros_turn]} {current_turn}\n')
+        f'Turno atual: {("Vilão", "Herói")[heros_turn]}\n')
     window.addstr("\n")
 
     window.addstr(f"{hero.hero}\n")
@@ -272,6 +273,52 @@ def start_fight(hero):
     fight_villain(hero, villain)
 
 
+def show_travel(hero):
+    maps = get_maps(hero)
+    options = [f"{map.name}, {map.year}" for map in maps]
+    options.append('Voltar')
+
+    chosen_option = show_options(options)
+
+    if chosen_option != 'Voltar':
+        hero.travel(chosen_option)
+
+    play_game(hero)
+
+
+def show_store_sell(hero):
+    items = get_tradeables(hero)
+    options = [item_to_string(item) for item in items]
+    options.append('Voltar')
+
+    chosen_option = show_options(options)
+
+    if chosen_option == 'Voltar':
+        show_store(hero)
+    else:
+        try:
+            qty = int(get_string('Quantos deseja vender? '))
+            hero.sell(chosen_option, qty)
+        except:
+            show_store(hero)
+
+
+def show_store_buy(hero):
+    items = get_tradeables_store(hero)
+
+
+def show_store(hero):
+    options = ['Comprar', 'Vender', 'Voltar']
+    chosen_option = show_options(options)
+
+    if chosen_option == 'Comprar':
+        show_store_buy(hero)
+    elif chosen_option == 'Vender':
+        show_store_sell(hero)
+    else:
+        play_game(hero)
+
+
 def play_game(hero):
     render_map(hero)
 
@@ -289,14 +336,12 @@ def play_game(hero):
             hero.pick_up_items()
             render_map(hero)
         elif key == 'T':
-            pass
+            show_store(hero)
         elif key == 'V':
             revive_villains(hero)
-            render_map(hero)
-
+            show_travel(hero)
         elif key == 'Q':
             main(window)
-
         elif key == 'I':
             open_inventory(hero)
 

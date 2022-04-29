@@ -73,11 +73,17 @@ class HeroInstance:
         cursor.execute(f"SELECT * FROM atacar_vilao({self.id}, {villain.id});")
         dmg_dealt, villain.health = cursor.fetchone()
 
+        if villain.health == 0:
+            cursor.execute(
+                f"SELECT experiencia FROM instancia_heroi WHERE id = {self.id};")
+            self.xp = cursor.fetchone()[0]
+
         return dmg_dealt
 
-    def consume(self, item):
+    def consume(self, item_string):
+        item = item_string.split(' (')[0]
         cursor.execute(f"SELECT consumir_item('{self.name}', '{item}');")
-        self.health = cursor.fetchone()
+        self.health = cursor.fetchone()[0]
 
     def get_level(self):
         cursor.execute(
@@ -100,6 +106,17 @@ class HeroInstance:
 
     def pick_up_items(self):
         cursor.execute(f"CALL pegar_itens('{self.name}');")
+
+    def travel(self, map_string):
+        name, year = map_string.split(', ')
+        cursor.execute(
+            f"SELECT * FROM ir_para_mapa('{self.name}', '{name}', {year});")
+
+        self.lat, self.lon, self.map = cursor.fetchone()
+
+    def sell(self, item_string, qty):
+        item = item_string.split(' (')[0]
+        cursor.execute(f"SELECT vender_item('{self.name}', '{item}', {qty});")
 
 
 @multiton
@@ -142,3 +159,13 @@ class VillainInstance:
         dmg_dealt, hero.health = cursor.fetchone()
 
         return dmg_dealt
+
+
+@multiton
+@dataclass
+class Map:
+    id: int
+    name: str
+    year: int
+    requirement: str
+    reward: str

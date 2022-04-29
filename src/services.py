@@ -107,8 +107,22 @@ def get_consumables(hero):
     """)
     consumables = cursor.fetchall()
 
-    return [Consumable(*consumable) for consumable in consumables]
+    return [Item(*consumable) for consumable in consumables]
 
 
 def revive_villains(hero):
     cursor.execute(f"CALL reviver_viloes({hero.map});")
+
+
+def get_maps(hero):
+    cursor.execute(f"SELECT * FROM get_mapas('{hero.name}');")
+    maps = cursor.fetchall()
+
+    return [Map(*map) for map in maps]
+
+
+def get_tradeables(hero):
+    cursor.execute(f"SELECT * FROM get_trocaveis('{hero.name}');")
+    tradeables = cursor.fetchall()
+
+    return [Item(*tradeable) for tradeable in tradeables]
