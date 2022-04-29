@@ -40,6 +40,12 @@ INSERT INTO vilao (nome, agilidade, vida, experiencia, dano_maximo, dano_critico
 ('Supergigante', 44, 56, 81, 29, 39, 14, 67),
 ('Chitauris', 80, 42, 7, 98, 49, 6, 24),
 ('Outriders', 47, 77, 51, 74, 24, 18, 40),
+('Nebulosa', 90, 44, 65, 25, 77, 4, 30),
+('Hela', 88, 70, 55, 54, 77, 6, 54),
+('Erik Killmonger', 67, 50, 25, 23, 5, 3, 34),
+('Ego', 78, 73, 67, 47, 86, 6, 77),
+('Homen Molecular', 33, 53, 32, 41, 23, 2, 21),
+('Gorr', 63, 84, 43, 27, 45, 3, 53),
 ('Sakaarans', 81, 37, 89, 25, 82, 8, 40);
 
 INSERT INTO instancia_vilao(vilao, latitude, longitude, mapa) VALUES
