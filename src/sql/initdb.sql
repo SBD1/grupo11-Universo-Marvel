@@ -137,6 +137,7 @@ CREATE TABLE instancia_heroi (
 CREATE TABLE instancia_item (
   id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
+  quantidade POSITIVE_INT NOT NULL DEFAULT 1,
   latitude COORDINATE NOT NULL,
   longitude COORDINATE NOT NULL,
   mapa INTEGER NOT NULL
@@ -177,6 +178,7 @@ CREATE TABLE mapa (
   nome TEXT NOT NULL,
   ano NON_NEGATIVE_INT NOT NULL,
   requisito TEXT,
+  recompensa TEXT,
 
   UNIQUE (nome, ano)
 );
@@ -190,10 +192,8 @@ CREATE TABLE moeda (
 
 CREATE TABLE nivel (
   numero SERIAL PRIMARY KEY,
-  experiencia_necessaria POSITIVE_INT NOT NULL,
-  escala_vida POSITIVE_REAL NOT NULL,
-  escala_agilidade POSITIVE_REAL NOT NULL,
-  escala_dano POSITIVE_REAL NOT NULL
+  experiencia_necessaria NON_NEGATIVE_INT NOT NULL,
+  escalonamento POSITIVE_REAL NOT NULL
 );
 
 CREATE TABLE personagem (
@@ -306,6 +306,7 @@ ALTER TABLE luta ADD FOREIGN KEY (heroi) REFERENCES instancia_heroi (nome);
 ALTER TABLE luta ADD FOREIGN KEY (vilao) REFERENCES vilao (nome);
 
 ALTER TABLE mapa ADD FOREIGN KEY (requisito) REFERENCES joia (nome);
+ALTER TABLE mapa ADD FOREIGN KEY (recompensa) REFERENCES joia (nome);
 
 ALTER TABLE moeda ADD FOREIGN KEY (nome) REFERENCES coletavel (nome);
 
@@ -325,6 +326,19 @@ ALTER TABLE trocavel ADD FOREIGN KEY (nome) REFERENCES item (nome);
 
 -- Criando Funções
 
+CREATE OR REPLACE PROCEDURE reviver_viloes(mapa_vilao INTEGER)
+LANGUAGE PLPGSQL
+AS $reviver_viloes$
+DECLARE vilao_morto RECORD;
+DECLARE vida_maxima INTEGER;
+BEGIN
+  FOR vilao_morto IN (SELECT * FROM instancia_vilao WHERE mapa = mapa_vilao) LOOP
+    SELECT vida INTO vida_maxima FROM vilao WHERE nome = vilao_morto.vilao;
+    UPDATE instancia_vilao SET vida = vida_maxima WHERE mapa = mapa_vilao;
+  END LOOP;
+END;
+$reviver_viloes$;
+
 CREATE OR REPLACE PROCEDURE derrotar_vilao(id_heroi INTEGER, id_vilao INTEGER)
 LANGUAGE PLPGSQL
 AS $derrotar_vilao$
@@ -334,15 +348,18 @@ DECLARE lat_vilao INTEGER;
 DECLARE lon_vilao INTEGER;
 DECLARE mapa_vilao INTEGER;
 DECLARE exp_vilao INTEGER;
+DECLARE viloes_vivos INTEGER;
+DECLARE recompensa_mapa TEXT;
+DECLARE nome_heroi TEXT;
 BEGIN
   SELECT vilao, latitude, longitude, mapa
   INTO nome_vilao, lat_vilao, lon_vilao, mapa_vilao
   FROM instancia_vilao
   WHERE id = id_vilao;
 
-  FOR item_recompensa IN (SELECT item FROM recompensa WHERE vilao = nome_vilao) LOOP
-    INSERT INTO instancia_item (item, latitude, longitude, mapa) VALUES
-    (item_recompensa, lat_vilao, lon_vilao, mapa_vilao);
+  FOR item_recompensa IN (SELECT item, quantidade FROM recompensa WHERE vilao = nome_vilao) LOOP
+    INSERT INTO instancia_item (nome, quantidade,  latitude, longitude, mapa) VALUES
+    (item_recompensa.item, item_recompensa.quantidade, lat_vilao, lon_vilao, mapa_vilao);
   END LOOP;
 
   SELECT experiencia INTO exp_vilao FROM vilao WHERE nome = nome_vilao;
@@ -350,11 +367,28 @@ BEGIN
   UPDATE instancia_heroi
   SET experiencia = experiencia + exp_vilao
   WHERE id = id_heroi;
+
+  SELECT COUNT(*) INTO viloes_vivos FROM instancia_vilao WHERE mapa = mapa_vilao AND vida > 0;
+
+  IF viloes_vivos = 0 THEN
+    SELECT recompensa INTO recompensa_mapa FROM mapa where id = mapa_vilao;
+    IF recompensa_mapa IS NOT NULL THEN
+      SELECT nome INTO nome_heroi FROM instancia_heroi WHERE id = id_heroi;
+      IF recompensa_mapa NOT IN (SELECT item FROM posse WHERE heroi = nome_heroi) THEN
+        INSERT INTO posse (item, heroi) VALUES (recompensa_mapa, nome_heroi);
+      END IF;
+    END IF;
+  END IF;
 END;
 $derrotar_vilao$;
 
+CREATE TYPE ataque_resultado AS (
+  dano_causado INTEGER,
+  vida_restante INTEGER
+);
+
 CREATE OR REPLACE FUNCTION atacar_vilao(id_heroi INTEGER, id_vilao INTEGER)
-RETURNS INTEGER
+RETURNS ataque_resultado
 LANGUAGE PLPGSQL
 AS $atacar_vilao$
 DECLARE vida_vilao INTEGER;
@@ -364,6 +398,7 @@ DECLARE rolagens_arma INTEGER;
 DECLARE rolagem INTEGER;
 DECLARE dano_causado INTEGER;
 DECLARE vida_restante INTEGER;
+DECLARE resultado ataque_resultado;
 BEGIN
   SELECT dano_maximo, dano_critico, rolagens
   INTO dano_maximo_arma, dano_critico_arma, rolagens_arma
@@ -377,20 +412,16 @@ BEGIN
   SELECT * INTO rolagem FROM CEIL(RANDOM() * (rolagens_arma - 1));
   rolagem := rolagem + 1;
 
-  raise notice 'Rolagem: %', rolagem;
-
   IF rolagem = rolagens_arma THEN
     dano_causado := dano_critico_arma;
   ELSE
-    SELECT * INTO dano_causado FROM CEIL((rolagem / rolagens_arma) * dano_maximo_arma);
+    SELECT * INTO dano_causado FROM CEIL((CAST(rolagem AS DECIMAL) / rolagens_arma) * dano_maximo_arma);
   END IF;
-
-  raise notice 'Dano: %', dano_causado;
 
   SELECT vida INTO vida_vilao FROM instancia_vilao WHERE id = id_vilao;
 
   SELECT * INTO vida_restante FROM GREATEST(0, vida_vilao - dano_causado);
-
+  
   UPDATE instancia_vilao
   SET vida = vida_restante
   WHERE id = id_vilao;
@@ -399,7 +430,10 @@ BEGIN
     CALL derrotar_vilao(id_heroi, id_vilao);
   END IF;
 
-  RETURN dano_causado;
+  resultado.dano_causado = dano_causado;
+  resultado.vida_restante = vida_restante;
+
+  RETURN resultado;
 END;
 $atacar_vilao$;
 
@@ -407,32 +441,19 @@ CREATE OR REPLACE PROCEDURE derrotar_heroi(id_vilao INTEGER, id_heroi INTEGER)
 LANGUAGE PLPGSQL
 AS $derrotar_heroi$
 DECLARE nome_heroi TEXT;
-DECLARE heroi_heroi TEXT;
-DECLARE lat_heroi INTEGER;
-DECLARE lon_heroi INTEGER;
 DECLARE mapa_heroi INTEGER;
-DECLARE qtd_moedas INTEGER;
 DECLARE lat_base INTEGER;
 DECLARE lon_base INTEGER;
 DECLARE vida_maxima INTEGER;
 BEGIN
-  SELECT nome, heroi, latitude, longitude, mapa
-  INTO nome_heroi, heroi_heroi, lat_heroi, lon_heroi, mapa_heroi
+  SELECT heroi, mapa
+  INTO nome_heroi, mapa_heroi
   FROM instancia_heroi
   WHERE id = id_heroi;
 
-  SELECT quantidade INTO qtd_moedas FROM posse WHERE heroi = nome_heroi AND item = 'Moeda';
-
-  FOR i IN 1..qtd_moedas LOOP
-    INSERT INTO instancia_item (nome, latitude, longitude, mapa) VALUES
-    ('Moeda', lat_heroi, lon_heroi, mapa_heroi);
-  END LOOP;
-
-  DELETE FROM posse WHERE heroi = nome_heroi AND item = 'Moeda';
-
   SELECT latitude, longitude INTO lat_base, lon_base FROM base WHERE mapa = mapa_heroi;
 
-  SELECT vida INTO vida_maxima FROM heroi WHERE nome = heroi_heroi;
+  SELECT vida INTO vida_maxima FROM heroi WHERE nome = nome_heroi;
 
   UPDATE instancia_heroi
   SET latitude = lat_base, longitude = lon_base, vida = vida_maxima
@@ -441,7 +462,7 @@ END;
 $derrotar_heroi$;
 
 CREATE OR REPLACE FUNCTION atacar_heroi(id_vilao INTEGER, id_heroi INTEGER)
-RETURNS INTEGER
+RETURNS ataque_resultado
 LANGUAGE PLPGSQL
 AS $atacar_heroi$
 DECLARE vida_heroi INTEGER;
@@ -452,6 +473,7 @@ DECLARE rolagens_vilao INTEGER;
 DECLARE rolagem INTEGER;
 DECLARE dano_causado INTEGER;
 DECLARE vida_restante INTEGER;
+DECLARE resultado ataque_resultado;
 BEGIN
   SELECT vilao
   INTO nome_vilao
@@ -469,7 +491,7 @@ BEGIN
   IF rolagem = rolagens_vilao THEN
     dano_causado := dano_critico_vilao;
   ELSE
-    SELECT * INTO dano_causado FROM CEIL((rolagem / rolagens_vilao) * dano_maximo_vilao);
+    SELECT * INTO dano_causado FROM CEIL((CAST(rolagem AS DECIMAL) / rolagens_vilao) * dano_maximo_vilao);
   END IF;
 
   SELECT vida INTO vida_heroi FROM instancia_heroi WHERE id = id_heroi;
@@ -484,7 +506,10 @@ BEGIN
     CALL derrotar_heroi(id_vilao, id_heroi);
   END IF;
 
-  RETURN dano_causado;
+  resultado.dano_causado = dano_causado;
+  resultado.vida_restante = vida_restante;
+
+  RETURN resultado;
 END;
 $atacar_heroi$;
 
@@ -711,6 +736,114 @@ BEGIN
 END;
 $set_vida_vilao$;
 
+CREATE OR REPLACE FUNCTION insert_trocavel()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $insert_trocavel$
+DECLARE tipo CONSTANT TEXT := UPPER(SUBSTRING(TG_TABLE_NAME::regclass::text, 1, 1));
+BEGIN
+  INSERT INTO item (nome, tipo) VALUES (NEW.nome, tipo);
+  INSERT INTO trocavel (nome, tipo) VALUES (NEW.nome, tipo);
+  RETURN NEW;
+END;
+$insert_trocavel$;
+
+CREATE OR REPLACE FUNCTION insert_equipamento()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS $insert_equipamento$
+DECLARE tipo CONSTANT TEXT := UPPER(SUBSTRING(TG_TABLE_NAME::regclass::text, 1, 1));
+BEGIN
+  INSERT INTO item (nome, tipo) VALUES (NEW.nome, tipo);
+  INSERT INTO trocavel (nome, tipo) VALUES (NEW.nome, tipo);
+  INSERT INTO equipamento VALUES (NEW.nome, tipo);
+  RETURN NEW;
+END;
+$insert_equipamento$;
+
+CREATE OR REPLACE FUNCTION get_quantidade_maxima(nome_item TEXT)
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS $get_quantidade_maxima$
+DECLARE tipo_item CHAR;
+DECLARE qtd_max_item INTEGER;
+BEGIN
+  SELECT tipo INTO tipo_item FROM item WHERE nome = nome_item;
+
+  
+  IF tipo_item = 'T' THEN
+    SELECT quantidade_maxima INTO qtd_max_item FROM traje WHERE nome = nome_item;
+  ELSIF tipo_item = 'A' THEN
+    SELECT quantidade_maxima INTO qtd_max_item FROM arma WHERE nome = nome_item;
+  ELSIF tipo_item = 'C' THEN
+    SELECT quantidade_maxima INTO qtd_max_item FROM consumivel WHERE nome = nome_item;
+  ELSIF tipo_item = 'J' THEN
+    qtd_max_item := 1;
+  ELSIF tipo_item = 'M' THEN
+    qtd_max_item := 2147483647;
+  END IF;
+
+  RETURN qtd_max_item;
+END;
+$get_quantidade_maxima$;
+
+CREATE OR REPLACE PROCEDURE pegar_itens(nome_heroi TEXT)
+LANGUAGE PLPGSQL
+AS $pegar_itens$
+DECLARE item_chao RECORD;
+DECLARE lat_heroi INTEGER;
+DECLARE lon_heroi INTEGER;
+DECLARE mapa_heroi INTEGER;
+DECLARE qtd_maxima_item INTEGER;
+DECLARE qtd_inventario INTEGER;
+DECLARE qtd_total INTEGER;
+DECLARE qtd_pega INTEGER;
+DECLARE qtd_restante INTEGER;
+DECLARE item_no_inventario INTEGER;
+BEGIN
+  SELECT latitude, longitude, mapa
+  INTO lat_heroi, lon_heroi, mapa_heroi
+  FROM instancia_heroi
+  WHERE nome = nome_heroi;
+
+  FOR item_chao IN (
+    SELECT *
+    FROM instancia_item
+    WHERE latitude = lat_heroi
+    AND longitude = longitude
+    AND mapa = mapa_heroi
+  ) LOOP
+    SELECT * INTO qtd_maxima_item FROM get_quantidade_maxima(item_chao.nome);
+
+    SELECT COUNT(*) INTO item_no_inventario FROM posse WHERE heroi=nome_heroi AND ITEM = item_chao.nome;
+
+    SELECT quantidade INTO qtd_inventario FROM posse WHERE heroi = nome_heroi AND ITEM = item_chao.nome;
+
+    IF item_no_inventario = 0 THEN
+      qtd_total := item_chao.quantidade;
+    ELSE
+      qtd_total := item_chao.quantidade + qtd_inventario;
+    END IF;
+
+    SELECT * INTO qtd_pega FROM LEAST(qtd_total, qtd_maxima_item);
+
+    qtd_restante := qtd_total - qtd_pega;
+
+    IF item_no_inventario = 0 THEN
+      INSERT INTO posse (heroi, item, quantidade) VALUES (nome_heroi, item_chao.nome, qtd_pega);
+    ELSE
+      UPDATE posse SET quantidade = qtd_pega WHERE heroi = nome_heroi AND ITEM = item_chao.nome;
+    END IF;
+    
+    IF qtd_restante = 0 THEN
+      DELETE FROM instancia_item WHERE id = item_chao.id;
+    ELSE
+      UPDATE instancia_item SET quantidade = qtd_restante WHERE id = item_chao.id;
+    END IF;
+  END LOOP;
+END;
+$pegar_itens$;
+
 -- Criando Triggers
 
 CREATE TRIGGER criar_instancia_vilao_trigger
@@ -736,3 +869,27 @@ BEFORE INSERT
 ON vilao
 FOR EACH ROW
 EXECUTE PROCEDURE insert_personagem();
+
+CREATE TRIGGER insert_arma_trigger
+BEFORE INSERT OR UPDATE
+ON arma
+FOR EACH ROW
+EXECUTE PROCEDURE insert_equipamento();
+
+CREATE TRIGGER insert_traje_trigger
+BEFORE INSERT OR UPDATE
+ON traje
+FOR EACH ROW
+EXECUTE PROCEDURE insert_equipamento();
+
+CREATE TRIGGER insert_consumivel_trigger
+BEFORE INSERT OR UPDATE
+ON consumivel
+FOR EACH ROW
+EXECUTE PROCEDURE insert_trocavel();
+
+CREATE TRIGGER insert_moeda_trigger
+BEFORE INSERT
+ON moeda
+FOR EACH ROW
+EXECUTE PROCEDURE insert_coletavel();

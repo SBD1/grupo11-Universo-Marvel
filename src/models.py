@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from random import randint
 from db import cursor
 
 
@@ -61,7 +62,8 @@ class HeroInstance:
 
     def move(self, direction):
         try:
-            cursor.execute(f"SELECT * FROM mover_heroi('{self.name}', '{direction}');")
+            cursor.execute(
+                f"SELECT * FROM mover_heroi('{self.name}', '{direction}');")
             self.lat, self.lon = cursor.fetchone()
             return True
         except Exception as e:
@@ -69,17 +71,35 @@ class HeroInstance:
 
     def attack(self, villain):
         cursor.execute(f"SELECT * FROM atacar_vilao({self.id}, {villain.id});")
-        dmg_dealt = cursor.fetchone()
-
-        print('Dealt ', dmg_dealt)
-
-        villain.health = max(villain.health - dmg_dealt, 0)
+        dmg_dealt, villain.health = cursor.fetchone()
 
         return dmg_dealt
 
     def consume(self, item):
         cursor.execute(f"SELECT consumir_item('{self.name}', '{item}');")
         self.health = cursor.fetchone()
+
+    def get_level(self):
+        cursor.execute(
+            f"SELECT numero FROM nivel WHERE experiencia_necessaria <= {self.xp} ORDER BY numero DESC LIMIT 1;")
+
+        return cursor.fetchone()[0]
+
+    def flee(self):
+        chance = randint(0, 100)
+
+        return chance <= self.agility
+
+    def get_money(self):
+        cursor.execute(
+            f"SELECT quantidade FROM posse WHERE heroi = '{self.name}' AND item='Moeda';")
+
+        money = cursor.fetchone() or [0]
+
+        return money[0]
+
+    def pick_up_items(self):
+        cursor.execute(f"CALL pegar_itens('{self.name}');")
 
 
 @multiton
@@ -94,7 +114,10 @@ class Item:
 class ItemInstance:
     id: int
     name: str
-    type: str
+    qty: int
+    lat: int
+    lon: int
+    map: int
 
 
 @multiton
@@ -116,8 +139,6 @@ class VillainInstance:
 
     def attack(self, hero):
         cursor.execute(f"SELECT * FROM atacar_heroi({self.id}, {hero.id});")
-        dmg_dealt = cursor.fetchone()[0]
-
-        hero.health = max(hero.health - dmg_dealt, 0)
+        dmg_dealt, hero.health = cursor.fetchone()
 
         return dmg_dealt

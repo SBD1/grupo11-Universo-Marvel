@@ -1,6 +1,7 @@
 import curses
 from curses import wrapper
 import random
+from time import sleep
 from db import conn, cursor
 from services import *
 
@@ -9,9 +10,10 @@ turns = None
 current_turn = 0
 hero = None
 villain = None
+last_hit = None
 
 
-def item_to_string(item): return f"{item[0]} ({item[1]})"
+def item_to_string(item): return f"{item.name} ({item.qty})"
 
 
 def show_options(options):
@@ -93,6 +95,8 @@ def show_info(hero):
     window.addstr('\n')
     window.addstr(f'Herói: {hero.name} ({hero.hero})\n')
     window.addstr(f'Vida: {hero.health}\n')
+    window.addstr(f'Nível: {hero.get_level()} ({hero.xp}xp)\n')
+    window.addstr(f'Moedas: {hero.get_money()}\n')
     window.addstr('\n')
 
 
@@ -117,7 +121,7 @@ def render_map(hero):
 
     current_hero_spot = map_matrix[hero.lat][hero.lon]
 
-    if 'V' in current_hero_spot:
+    if 'V' in current_hero_spot and hero.weapon:
         window.addstr('Aperte [L] para iniciar uma luta\n')
 
     if 'I' in current_hero_spot:
@@ -138,19 +142,21 @@ def open_inventory(hero):
     chosen_option = show_options(options)
 
     if chosen_option == 'Voltar':
-        start_game(hero.name)
+        play_game(hero)
 
     window.clear()
 
 
 def show_fight(hero, villain):
+    global last_hit
     window.clear()
 
-    next_turns = turns[current_turn + 1:(current_turn + 11) % len(turns)]
+    next_turns = [turns[(current_turn + x) % len(turns)] for x in range(1, 11)]
     heros_turn = turns[current_turn] == 'H'
 
     window.addstr(f'Próximos turnos: {", ".join(next_turns)}\n')
-    window.addstr(f'Turno atual: {("Vilão", "Herói")[heros_turn]}\n')
+    window.addstr(
+        f'Turno atual: {("Vilão", "Herói")[heros_turn]} {current_turn}\n')
     window.addstr("\n")
 
     window.addstr(f"{hero.hero}\n")
@@ -167,10 +173,17 @@ def show_fight(hero, villain):
         window.addstr("[F]ugir\n")
         window.addstr("\n")
 
+    if last_hit:
+        window.addstr("Último ataque: ")
+        window.addstr(f"{last_hit[0]} causou {last_hit[1]} de dano\n")
+        last_hit = None
+
     return heros_turn
 
 
 def consume_item(hero):
+    global last_hit
+
     consumables = get_consumables(hero)
     options = [item_to_string(consumable) for consumable in consumables]
     options.append('Voltar')
@@ -183,24 +196,56 @@ def consume_item(hero):
         hero.consume(chosen_option)
 
 
+def respawn_hero(hero):
+    hero.health = hero.max_health
+    window.clear()
+    h, w = window.getmaxyx()
+
+    strings = ['Você Morreu\n', 'Aperte ENTER para continuar\n']
+
+    for index, string in enumerate(strings):
+        a = w//2 - len(string)//2
+        b = h//2 - len(strings)//2 + index
+        window.addstr(b, a, string)
+
+    while True:
+        key = window.getch()
+
+        if key == curses.KEY_ENTER or key in [10, 13]:
+            window.clear()
+            play_game(hero)
+
+
+def show_damage(character, dmg):
+    window.clear()
+    window.addstr(f"{character} causou {dmg} de dano")
+    sleep(2)
+
+
 def fight_villain(hero, villain):
-    global current_turn
+    global current_turn, last_hit
 
     heros_turn = show_fight(hero, villain)
 
     while True:
         if heros_turn:
             key = window.getkey().upper()
-
             if key == 'A':
-                hero.attack(villain)
+                dmg_dealt = hero.attack(villain)
+                last_hit = (hero.hero, dmg_dealt)
+                if villain.health == 0:
+                    play_game(hero)
             elif key == 'C':
                 consume_item(hero)
             elif key == 'F':
                 if hero.flee():
-                    start_game(hero.name)
+                    play_game(hero)
         else:
-            villain.attack(hero)
+            dmg_dealt = villain.attack(hero)
+            last_hit = (villain.villain, dmg_dealt)
+
+            if hero.health == 0:
+                respawn_hero(hero)
 
         heros_turn = show_fight(hero, villain)
 
@@ -208,24 +253,26 @@ def fight_villain(hero, villain):
 
 
 def start_fight(hero):
-    global turns, current_turn, villain
+    global turns, current_turn, villain, last_hit
+    last_hit = None
 
     villain = get_villain(hero)
 
-    turns = hero.agility * ['H'] + villain.agility * ['V']
-    for i in range(3):
-        random.shuffle(turns)
+    if hero.agility > villain.agility:
+        ratio = hero.agility // villain.agility
+        turns = (ratio - 1) * ['H'] + ['V']
+    else:
+        ratio = villain.agility // hero.agility
+        turns = ratio * ['V']
+    random.shuffle(turns)
+    turns = ['H', *turns]
 
     current_turn = 0
-    
+
     fight_villain(hero, villain)
 
 
-def start_game(save_name):
-    global window
-
-    hero = get_save_by_name(save_name)
-
+def play_game(hero):
     render_map(hero)
 
     while True:
@@ -236,20 +283,30 @@ def start_game(save_name):
             if moved_successfully:
                 render_map(hero)
 
-        elif key == 'L':
+        elif key == 'L' and hero.weapon:
             start_fight(hero)
         elif key == 'P':
-            pass
+            hero.pick_up_items()
+            render_map(hero)
         elif key == 'T':
             pass
         elif key == 'V':
-            pass
+            revive_villains(hero)
+            render_map(hero)
 
         elif key == 'Q':
             main(window)
 
         elif key == 'I':
             open_inventory(hero)
+
+
+def start_game(save_name):
+    global window
+
+    hero = get_save_by_name(save_name)
+
+    play_game(hero)
 
 
 def choose_save():
@@ -287,6 +344,6 @@ def main(stdscr):
         exit(0)
     # except KeyboardInterrupt:
     #     main(window)
-        
+
 
 wrapper(main)

@@ -6,14 +6,14 @@ INSERT INTO joia (nome, descricao) VALUES
 ('Jóia do Tempo', 'Imagine uma Joia capaz de transportar você para qualquer período histórico, seja no passado ou no futuro. A Joia do Tempo dá ao seu portador total domínio sobre a dimensão temporal, sendo capaz até de manipular os acontecimentos e alterar o rumo da história.'),
 ('Jóia da Realidade', 'As leis do universo físico podem ser quebradas ou eliminadas por meio da Joia da Realidade, pois ela torna qualquer desejo real. É a Joia do Infinito mais difícil de controlar e utilizar devido a seu poder vastíssimo, que pode sobrecarregar seu portador. A habilidade incrível de alterar a realidade de acordo com seus desejos faz dessa joia a mais perigosa de todas.');
 
-INSERT INTO mapa (nome, ano, requisito) VALUES
-('Asgard', 2013, 'Jóia da Mente'),
-('Nova York', 2013, NULL),
-('Nova York', 2012, 'Jóia do Tempo'),
-('Base da S.H.I.E.L.D.', 1970, 'Jóia do Espaço'),
-('Vormir', 2014, 'Jóia da Realidade'),
-('Morag', 2014, 'Jóia da Alma'),
-('Terra', 2019, 'Jóia do Poder');
+INSERT INTO mapa (nome, ano, requisito, recompensa) VALUES
+('Nova York', 2013, NULL, 'Jóia do Tempo'),
+('Nova York', 2012, 'Jóia do Tempo', 'Jóia da Mente'),
+('Asgard', 2013, 'Jóia da Mente', 'Jóia do Espaço'),
+('Base da S.H.I.E.L.D.', 1970, 'Jóia do Espaço', 'Jóia da Realidade'),
+('Vormir', 2014, 'Jóia da Realidade', 'Jóia da Alma'),
+('Morag', 2014, 'Jóia da Alma', 'Jóia do Poder'),
+('Terra', 2019, 'Jóia do Poder', NULL);
 
 INSERT INTO base (latitude, longitude, mapa) VALUES
 (15, 15, 1),
@@ -104,27 +104,61 @@ INSERT INTO arma (nome, descricao, quantidade_maxima, valor, nivel_minimo, dano_
 ('Lança Teias Comum', 'Lançador de teias básico do Homem-Aranha.', 1, 12, 1, 42, 67, 5);
 
 INSERT INTO traje (nome, descricao, quantidade_maxima, valor, nivel_minimo, defesa, agilidade) VALUES
-('Armadura Hulkbuster', 'Armadura de grande porte.', 74, 42, 57, 46, 59),
-('Capa da Levitação', 'Este traje concede a habilidade de voar.', 67, 83, 77, 76, 79),
-('Traje de Pantera', 'Este traje concede agilidade extrema ao usuário.', 41, 46, 17, 25, 41),
-('Armadura MK75', 'Esta armadura posui raios laser e uma IA que auxilia no controle e no voo.', 98, 37, 84, 45, 9),
-('Traje Quântico', 'Este traje permite que o usuário mude seu tamanho, podendo chegar do tamanho de um átomo até prédio de 20 andares.', 43, 56, 52, 12, 9),
-('Traje Aranha', 'Esta armadura permite lançar teias e concede agilidade extrema ao usuário.', 21, 90, 80, 49, 68);
+('Armadura Hulkbuster', 'Armadura de grande porte.', 74, 42, 1, 46, 59),
+('Capa da Levitação', 'Este traje concede a habilidade de voar.', 67, 83, 1, 76, 79),
+('Traje América', 'Traje do Capitão América', 41, 46, 1, 25, 41),
+('Armadura MK75', 'Esta armadura posui raios laser e uma IA que auxilia no controle e no voo.', 98, 37, 1, 45, 9),
+('Capa Nórdica', 'Capa do Thor', 43, 56, 1, 12, 9),
+('Traje Aranha', 'Esta armadura permite lançar teias e concede agilidade extrema ao usuário.', 21, 90, 1, 49, 68);
 
 INSERT INTO acesso_equipamento (equipamento, heroi) VALUES
 ('Mjölnir', 'Thor'),
 ('Mjölnir', 'Capitão América'),
 ('Stormbreaker', 'Thor'),
-('Arco e Flecha', 'Gavião Arqueiro'),
 ('Escudo de Vibranium', 'Capitão América'),
 ('Manopla MK75', 'Homem de Ferro'),
-('Manopla MK75', 'Máquina de Combate'),
 ('Olho de Agamotto', 'Doutor Estranho'),
 ('Lança Teias Comum', 'Homem-Aranha'),
 
+('Traje América', 'Capitão América'),
+('Capa Nórdica', 'Thor'),
 ('Armadura Hulkbuster', 'Homem de Ferro'),
-('Armadura Hulkbuster', 'Máquina de Combate'),
 ('Capa da Levitação', 'Doutor Estranho'),
 ('Armadura MK75', 'Homem de Ferro'),
-('Armadura MK75', 'Máquina de Combate'),
 ('Traje Aranha', 'Homem-Aranha');
+
+INSERT INTO nivel (numero, experiencia_necessaria, escalonamento) VALUES 
+(1, 0, 1),
+(2, 100, 1.25),
+(3, 200, 1.5),
+(4, 400, 1.75),
+(5, 800, 2),
+(6, 1500, 2.25),
+(7, 2600, 2.5),
+(8, 4200, 2.75),
+(9, 6400, 3),
+(10, 9300, 3.25),
+(11, 13000, 3.5),
+(12, 17600, 3.75),
+(13, 23200, 4),
+(14, 29900, 4.25),
+(15, 37800, 4.5),
+(16, 47000, 4.75),
+(17, 57600, 5),
+(18, 69700, 5.25),
+(19, 83400, 5.5),
+(20, 98800, 5.75);
+
+INSERT INTO moeda (nome, descricao) VALUES
+('Moeda', 'Pode ser trocado por itens em uma base.');
+
+INSERT INTO recompensa (item, vilao, quantidade) VALUES
+('Moeda', 'Thanos', 298),
+('Moeda', 'Fauce de Ébano', 138),
+('Moeda', 'Corvus Glaive', 135),
+('Moeda', 'Próxima Meia-Noite', 233),
+('Moeda', 'Estrela Negra', 266),
+('Moeda', 'Supergigante', 254),
+('Moeda', 'Chitauris', 186),
+('Moeda', 'Outriders', 273),
+('Moeda', 'Sakaarans', 148);

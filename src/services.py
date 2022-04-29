@@ -8,30 +8,29 @@ def get_heroes():
 
     return [Hero(*hero) for hero in heroes]
 
-# def get_villains():
-#     cursor.execute(f"SELECT * FROM vilao;")
-#     villains = cursor.fetchall()
-
-#     return [Villain(*villain) for villain in villains]
 
 def get_hero_instance_names():
     cursor.execute('SELECT nome FROM instancia_heroi;')
     name_tuples = cursor.fetchall()
-    
+
     return [tuple[0] for tuple in name_tuples]
 
 
 def get_save_by_name(name):
-    cursor.execute(f"SELECT * FROM get_instancias_heroi() WHERE nome = '{name}';")
+    cursor.execute(
+        f"SELECT * FROM get_instancias_heroi() WHERE nome = '{name}';")
     save = HeroInstance(*cursor.fetchone())
 
     return save
 
+
 def get_items(hero):
-    cursor.execute(f"SELECT item, quantidade FROM posse WHERE heroi = '{hero.name}';")
+    cursor.execute(
+        f"SELECT item, quantidade FROM posse WHERE heroi = '{hero.name}' AND item != 'Moeda';")
     items = cursor.fetchall()
 
     return [Item(*item) for item in items]
+
 
 def get_map_matrix(hero):
     matrix = [[[] for i in range(20)] for i in range(20)]
@@ -59,18 +58,7 @@ def get_bases(map):
     bases = cursor.fetchall()
 
     return [Base(*base) for base in bases]
-    
-# def get_levels(level):
-#     cursor.execute(f"SELECT * FROM nivel WHERE number = {level};")
-#     number = cursor.fetchall()
 
-#     return [Level(*number) for number in levels]
-
-# def get_weapons():
-#     cursor.execute(f"SELECT * FROM arma;")
-#     weapons = cursor.fetchall()
-
-#     return [Weapon(*weapon) for weapon in bases]
 
 def get_villain_instances(map):
     cursor.execute(f"SELECT * FROM get_instancias_vilao() WHERE mapa = {map};")
@@ -96,6 +84,7 @@ def get_map_from_hero(hero):
 def create_save(name, hero):
     cursor.execute(f"CALL criar_instancia_heroi('{name}', '{hero}');")
 
+
 def get_villain(hero):
     cursor.execute(f"""
         SELECT * FROM get_instancias_vilao()
@@ -108,6 +97,7 @@ def get_villain(hero):
 
     return VillainInstance(*villain)
 
+
 def get_consumables(hero):
     cursor.execute(f"""
         SELECT C.nome, P.quantidade
@@ -119,3 +109,6 @@ def get_consumables(hero):
 
     return [Consumable(*consumable) for consumable in consumables]
 
+
+def revive_villains(hero):
+    cursor.execute(f"CALL reviver_viloes({hero.map});")
