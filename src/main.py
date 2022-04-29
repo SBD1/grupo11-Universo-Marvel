@@ -335,6 +335,8 @@ def show_travel(hero):
     if chosen_option != 'Voltar':
         hero.travel(chosen_option)
 
+    revive_villains(hero)
+
     play_game(hero)
 
 
