@@ -126,3 +126,24 @@ def get_tradeables(hero):
     tradeables = cursor.fetchall()
 
     return [Item(*tradeable) for tradeable in tradeables]
+
+
+def get_stock(hero):
+    cursor.execute(f"SELECT item, quantidade FROM get_estoque('{hero.name}');")
+    items = cursor.fetchall()
+
+    return [Item(*item) for item in items]
+
+
+def get_equipment_names():
+    cursor.execute('SELECT nome FROM equipamento;')
+    equips = cursor.fetchall()
+
+    return set([equip[0] for equip in equips])
+
+
+def get_consumable_names():
+    cursor.execute('SELECT nome FROM consumivel;')
+    consumables = cursor.fetchall()
+
+    return set([consumable[0] for consumable in consumables])

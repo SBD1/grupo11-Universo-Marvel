@@ -116,7 +116,26 @@ class HeroInstance:
 
     def sell(self, item_string, qty):
         item = item_string.split(' (')[0]
-        cursor.execute(f"SELECT vender_item('{self.name}', '{item}', {qty});")
+        cursor.execute(f"CALL vender_item('{self.name}', '{item}', {qty});")
+
+    def buy(self, item_string, qty):
+        item = item_string.split(' (')[0]
+        cursor.execute(f"CALL comprar_item('{self.name}', '{item}', {qty});")
+
+    def equip(self, equipment):
+        cursor.execute(
+            f"SELECT * FROM equipar_item('{self.name}', '{equipment}');")
+        item, type = cursor.fetchone()
+
+        if type == None:
+            return
+        elif type == 'A':
+            self.weapon = item
+        else:
+            self.suit = item
+
+    def drop(self, item, qty):
+        cursor.execute(f"CALL soltar_item('{self.name}', '{item}', {qty});")
 
 
 @multiton

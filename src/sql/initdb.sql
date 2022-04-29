@@ -981,6 +981,264 @@ BEGIN
 END;
 $vender_item$;
 
+CREATE OR REPLACE PROCEDURE comprar_item(nome_heroi TEXT, nome_item TEXT, qtd INTEGER)
+LANGUAGE PLPGSQL
+AS $comprar_item$
+DECLARE id_base INTEGER;
+DECLARE moedas_heroi INTEGER;
+DECLARE custo_item INTEGER;
+DECLARE qtd_compravel INTEGER;
+DECLARE qtd_estoque INTEGER;
+DECLARE qtd_comprada INTEGER;
+DECLARE no_inventario INTEGER;
+BEGIN
+  SELECT id
+  INTO id_base
+  FROM base
+  WHERE (latitude, longitude, mapa) IN (
+    SELECT latitude, longitude, mapa
+    FROM instancia_heroi
+    WHERE nome = nome_heroi
+  );
+
+  SELECT quantidade
+  INTO moedas_heroi
+  FROM posse
+  WHERE heroi = nome_heroi
+  AND item = 'Moeda';
+
+  SELECT * INTO custo_item FROM get_preco(nome_item);
+
+  qtd_compravel := moedas_heroi / custo_item;
+
+  SELECT quantidade
+  INTO qtd_estoque
+  FROM estoque
+  WHERE base = id_base
+  AND item = nome_item;
+
+  SELECT * INTO qtd_comprada FROM LEAST(qtd_compravel, qtd_estoque, qtd);
+
+  IF qtd_comprada = 0 THEN
+    RETURN;
+  END IF;
+
+  IF qtd_comprada = qtd_estoque THEN
+    DELETE FROM estoque WHERE base = id_base AND item = nome_item;
+  ELSE
+    UPDATE estoque
+    SET quantidade = quantidade - qtd_comprada
+    WHERE base = id_base
+    AND item = nome_item;
+  END IF;
+
+  UPDATE posse
+  SET quantidade = quantidade - (qtd_comprada * custo_item)
+  WHERE heroi = nome_heroi
+  AND item = 'Moeda';
+
+  SELECT COUNT(*)
+  INTO no_inventario
+  FROM posse
+  WHERE heroi = nome_heroi
+  AND item = nome_item;
+
+  IF no_inventario = 0 THEN
+    INSERT INTO posse (heroi, item, quantidade) VALUES
+    (nome_heroi, nome_item, qtd_comprada);
+  ELSE
+    UPDATE posse
+    SET quantidade = quantidade + qtd_comprada
+    WHERE heroi = nome_heroi
+    AND item = nome_item;
+  END IF;
+END;
+$comprar_item$;
+
+CREATE OR REPLACE FUNCTION get_estoque(nome_heroi TEXT)
+RETURNS SETOF estoque
+LANGUAGE PLPGSQL
+AS $get_estoque$
+DECLARE id_base INTEGER;
+BEGIN
+  SELECT id
+  INTO id_base
+  FROM base
+  WHERE (latitude, longitude, mapa) IN (
+    SELECT latitude, longitude, mapa
+    FROM instancia_heroi
+    WHERE nome = nome_heroi
+  );
+
+  RETURN QUERY
+  SELECT *
+  FROM estoque
+  WHERE base = id_base;
+END;
+$get_estoque$;
+
+CREATE OR REPLACE PROCEDURE desequipar_item(nome_heroi TEXT, tipo_item CHAR)
+LANGUAGE PLPGSQL
+AS $desequipar_item$
+DECLARE nome_item TEXT;
+DECLARE no_inventario INTEGER;
+BEGIN
+  IF tipo_item = 'A' THEN
+    SELECT arma INTO nome_item FROM instancia_heroi WHERE nome = nome_heroi;
+    UPDATE instancia_heroi SET arma = NULL WHERE nome = nome_heroi;
+  ELSIF tipo_item = 'T' THEN
+    SELECT traje INTO nome_item FROM instancia_heroi WHERE nome = nome_heroi;
+    UPDATE instancia_heroi SET traje = NULL WHERE nome = nome_heroi;
+  ELSE
+    RETURN;
+  END IF;
+
+  IF nome_item IS NULL THEN
+    RETURN;
+  END IF;
+
+  SELECT COUNT(*)
+  INTO no_inventario
+  FROM posse
+  WHERE item = nome_item
+  AND heroi = nome_heroi;
+
+  IF no_inventario = 0 THEN
+    INSERT INTO posse (heroi, item, quantidade) VALUES
+    (nome_heroi, nome_item, 1);
+  ELSE
+    UPDATE posse
+    SET quantidade = quantidade + 1
+    WHERE heroi = nome_heroi
+    AND item = nome_item;
+  END IF;
+END;
+$desequipar_item$;
+
+CREATE OR REPLACE FUNCTION get_nivel_minimo(nome_item TEXT)
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS $get_nivel_minimo$
+DECLARE tipo_item CHAR;
+DECLARE nivel_min_item INTEGER;
+BEGIN
+  SELECT tipo INTO tipo_item FROM item WHERE nome = nome_item;
+
+  IF tipo_item = 'T' THEN
+    SELECT nivel_minimo INTO nivel_min_item FROM traje WHERE nome = nome_item;
+  ELSIF tipo_item = 'A' THEN
+    SELECT nivel_minimo INTO nivel_min_item FROM arma WHERE nome = nome_item;
+  END IF;
+
+  RETURN nivel_min_item;
+END;
+$get_nivel_minimo$;
+
+CREATE TYPE novo_equipamento AS (
+  nome_equipamento TEXT,
+  tipo_equipamento CHAR
+);
+
+CREATE OR REPLACE FUNCTION equipar_item(nome_heroi TEXT, nome_item TEXT)
+RETURNS novo_equipamento
+LANGUAGE PLPGSQL
+AS $equipar_item$
+DECLARE tipo_item CHAR;
+DECLARE qtd_item INTEGER;
+DECLARE exp_heroi INTEGER;
+DECLARE nivel_heroi INTEGER;
+DECLARE nivel_minimo_item INTEGER;
+DECLARE resultado novo_equipamento;
+BEGIN
+  SELECT experiencia INTO exp_heroi FROM instancia_heroi WHERE nome = nome_heroi;
+
+  SELECT numero
+  INTO nivel_heroi
+  FROM nivel
+  WHERE experiencia_necessaria <= exp_heroi
+  ORDER BY numero DESC
+  LIMIT 1;
+
+  SELECT * INTO nivel_minimo_item FROM get_nivel_minimo(nome_item);
+
+  SELECT tipo INTO tipo_item FROM item WHERE nome = nome_item;
+
+  IF nivel_minimo_item > nivel_heroi THEN
+    resultado.nome_equipamento = NULL;
+    resultado.tipo_equipamento = NULL;
+    RETURN resultado;
+  END IF;
+
+  CALL desequipar_item(nome_heroi, tipo_item);
+
+  SELECT quantidade
+  INTO qtd_item
+  FROM posse
+  WHERE heroi = nome_heroi
+  AND item = nome_item;
+
+  IF qtd_item = 1 THEN
+    DELETE FROM posse WHERE item = nome_item AND heroi = nome_heroi;
+  ELSE
+    UPDATE posse
+    SET quantidade = quantidade - 1
+    WHERE item = nome_item
+    AND heroi = nome_heroi;
+  END IF;
+
+  IF tipo_item = 'A' THEN
+    UPDATE instancia_heroi
+    SET arma = nome_item
+    WHERE nome = nome_heroi;
+  ELSE
+    UPDATE instancia_heroi
+    SET traje = nome_item
+    WHERE nome = nome_heroi;
+  END IF;
+
+  resultado.nome_equipamento = nome_item;
+  resultado.tipo_equipamento = tipo_item;
+
+  RETURN resultado;
+END;
+$equipar_item$;
+
+CREATE OR REPLACE PROCEDURE soltar_item(nome_heroi TEXT, nome_item TEXT, qtd INTEGER)
+LANGUAGE PLPGSQL
+AS $soltar_item$
+DECLARE qtd_inventario INTEGER;
+DECLARE qtd_solta INTEGER;
+DECLARE lat_heroi INTEGER;
+DECLARE lon_heroi INTEGER;
+DECLARE mapa_heroi INTEGER;
+BEGIN
+  SELECT quantidade
+  INTO qtd_inventario
+  FROM posse
+  WHERE heroi = nome_heroi
+  AND item = nome_item;
+
+  SELECT * INTO qtd_solta FROM LEAST(qtd_inventario, qtd);
+
+  IF qtd_solta = qtd_inventario THEN
+    DELETE FROM posse WHERE heroi = nome_heroi AND item = nome_item;
+  ELSE
+    UPDATE posse
+    SET quantidade = quantidade - qtd_solta
+    WHERE heroi = nome_heroi
+    AND item = nome_item;
+  END IF;
+
+  SELECT latitude, longitude, mapa
+  INTO lat_heroi, lon_heroi, mapa_heroi
+  FROM instancia_heroi
+  WHERE nome = nome_heroi;
+
+  INSERT INTO instancia_item (nome, quantidade, latitude, longitude, mapa) VALUES
+  (nome_item, qtd_solta, lat_heroi, lon_heroi, mapa_heroi);
+END;
+$soltar_item$;
+
 -- Criando Triggers
 
 CREATE TRIGGER criar_instancia_vilao_trigger
@@ -1008,19 +1266,19 @@ FOR EACH ROW
 EXECUTE PROCEDURE insert_personagem();
 
 CREATE TRIGGER insert_arma_trigger
-BEFORE INSERT OR UPDATE
+BEFORE INSERT
 ON arma
 FOR EACH ROW
 EXECUTE PROCEDURE insert_equipamento();
 
 CREATE TRIGGER insert_traje_trigger
-BEFORE INSERT OR UPDATE
+BEFORE INSERT
 ON traje
 FOR EACH ROW
 EXECUTE PROCEDURE insert_equipamento();
 
 CREATE TRIGGER insert_consumivel_trigger
-BEFORE INSERT OR UPDATE
+BEFORE INSERT
 ON consumivel
 FOR EACH ROW
 EXECUTE PROCEDURE insert_trocavel();

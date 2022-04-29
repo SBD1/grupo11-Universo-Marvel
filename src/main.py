@@ -16,7 +16,7 @@ last_hit = None
 def item_to_string(item): return f"{item.name} ({item.qty})"
 
 
-def show_options(options):
+def show_options(options, page_size=10):
     global window
 
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
@@ -26,11 +26,18 @@ def show_options(options):
     h, w = window.getmaxyx()
     selected_line = 0
 
+    current_page = 0
+
+    upper_index, lower_index = current_page * \
+        page_size, (current_page + 1) * page_size
+
+    displayed_options = options[upper_index:lower_index]
+
     while True:
-        for index, option in enumerate(options):
+        for index, option in enumerate(displayed_options):
             a = w//2 - len(option)//2
-            b = h//2 - len(options)//2 + index
-            if index == selected_line:
+            b = h//2 - len(displayed_options)//2 + index
+            if index == selected_line - current_page * page_size:
                 window.attron(SELECTED)
                 window.addstr(b, a, option)
                 window.attroff(SELECTED)
@@ -40,9 +47,21 @@ def show_options(options):
         key = window.getch()
 
         if key == curses.KEY_UP:
-            selected_line = (selected_line - 1) % len(options)
+            selected_line = max(selected_line - 1, 0)
+            while selected_line < upper_index:
+                window.clear()
+                current_page -= 1
+                upper_index, lower_index = current_page * \
+                    page_size, (current_page + 1) * page_size
+                displayed_options = options[upper_index:lower_index]
         if key == curses.KEY_DOWN:
-            selected_line = (selected_line + 1) % len(options)
+            selected_line = min(selected_line + 1, len(options) - 1)
+            while selected_line >= lower_index:
+                window.clear()
+                current_page += 1
+                upper_index, lower_index = current_page * \
+                    page_size, (current_page + 1) * page_size
+                displayed_options = options[upper_index:lower_index]
         if key == curses.KEY_ENTER or key in [10, 13]:
             window.clear()
             return options[selected_line]
@@ -134,16 +153,52 @@ def render_map(hero):
     return current_hero_spot
 
 
+def show_actions(hero, item):
+    item_name = item.split(' (')[0]
+    equipments = get_equipment_names()
+    consumable = get_consumable_names()
+
+    options = ['Soltar']
+
+    if item_name in equipments:
+        options.append('Equipar')
+    if item_name in consumable:
+        options.append('Consumir')
+    options.append('Voltar')
+
+    chosen_option = show_options(options)
+
+    if chosen_option == 'Consumir':
+        hero.consume(item)
+        play_game(hero)
+    elif chosen_option == 'Equipar':
+        hero.equip(item_name)
+        play_game(hero)
+    elif chosen_option == 'Soltar':
+        try:
+            qty = int(get_string('Quantos deseja soltar? '))
+            hero.drop(item_name, qty)
+            play_game(hero)
+        except ValueError:
+            open_inventory(hero)
+    else:
+        open_inventory(hero)
+
+
 def open_inventory(hero):
     items = get_items(hero)
 
     options = [item_to_string(item) for item in items]
+    if len(options) > 9:
+        options = ['Voltar', *options]
     options.append('Voltar')
 
     chosen_option = show_options(options)
 
     if chosen_option == 'Voltar':
         play_game(hero)
+    else:
+        show_actions(hero, chosen_option)
 
     window.clear()
 
@@ -217,12 +272,6 @@ def respawn_hero(hero):
             play_game(hero)
 
 
-def show_damage(character, dmg):
-    window.clear()
-    window.addstr(f"{character} causou {dmg} de dano")
-    sleep(2)
-
-
 def fight_villain(hero, villain):
     global current_turn, last_hit
 
@@ -289,6 +338,8 @@ def show_travel(hero):
 def show_store_sell(hero):
     items = get_tradeables(hero)
     options = [item_to_string(item) for item in items]
+    if len(options) > 9:
+        options = ['Voltar', *options]
     options.append('Voltar')
 
     chosen_option = show_options(options)
@@ -299,12 +350,29 @@ def show_store_sell(hero):
         try:
             qty = int(get_string('Quantos deseja vender? '))
             hero.sell(chosen_option, qty)
-        except:
+            show_store(hero)
+        except ValueError:
             show_store(hero)
 
 
 def show_store_buy(hero):
-    items = get_tradeables_store(hero)
+    items = get_stock(hero)
+    options = [item_to_string(item) for item in items]
+    if len(options) > 9:
+        options = ['Voltar', *options]
+    options.append('Voltar')
+
+    chosen_option = show_options(options)
+
+    if chosen_option == 'Voltar':
+        show_store(hero)
+    else:
+        try:
+            qty = int(get_string('Quantos deseja comprar? '))
+            hero.buy(chosen_option, qty)
+            show_store(hero)
+        except ValueError:
+            show_store(hero)
 
 
 def show_store(hero):
