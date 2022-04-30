@@ -54,3 +54,7 @@ $ pip install -r requirements.txt
 ```
 $ python main.py
 ```
+
+## Apresentação final
+
+Para assistir o vídeo com a apresentação do projeto final da disciplina, basta clicar [aqui](https://drive.google.com/drive/folders/19rWKBuawbh4axp8h0WZ_2uUE_Qs4NVn1?usp=sharing).
