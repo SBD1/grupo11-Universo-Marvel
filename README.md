@@ -54,3 +54,7 @@ $ pip install -r requirements.txt
 ```
 $ python main.py
 ```
+
+## Visualização do projeto
+
+Para visualizar como o MER foi transformado em SQL, como o banco de dados de comunica com a interface e como funciona a usabilidade do jogo, basta clicar [aqui](https://drive.google.com/drive/folders/19rWKBuawbh4axp8h0WZ_2uUE_Qs4NVn1?usp=sharing).
