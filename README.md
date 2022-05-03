@@ -55,6 +55,17 @@ $ pip install -r requirements.txt
 $ python main.py
 ```
 
-## Visualização do projeto
+## Visualização do projeto final
 
 Para visualizar como o MER foi transformado em SQL, como o banco de dados de comunica com a interface e como funciona a usabilidade do jogo, basta clicar [aqui](https://drive.google.com/drive/folders/19rWKBuawbh4axp8h0WZ_2uUE_Qs4NVn1?usp=sharing).
+
+## Entregas
+
+| Módulo  | Entrega                           |
+| ---------- | ---------------------------------- |
+| 1 | [Versão mais recente](https://github.com/SBD1/grupo11-Universo-Marvel/tree/triggers/Modulo1-MER) |
+| 2 | [Versão mais recente](https://github.com/SBD1/grupo11-Universo-Marvel/tree/triggers/Modulo2-MRel)             |
+| 3 | [Versão mais recente](https://github.com/SBD1/grupo11-Universo-Marvel/tree/triggers/Modulo3-Normalizacao)           |
+| 4 | [Versão mais recente](https://github.com/SBD1/grupo11-Universo-Marvel/tree/triggers/Modulo4-SQL)            |
+| 5 | [Entrega](https://github.com/SBD1/grupo11-Universo-Marvel/tree/triggers/Modulo5)            |
+| Final | [Entrega](https://github.com/SBD1/grupo11-Universo-Marvel/tree/main)             |
